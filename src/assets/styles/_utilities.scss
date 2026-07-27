@@ -1,0 +1,43 @@
+@use 'sass:map';
+@use 'variables' as vars;
+
+:root {
+  @each $category, $shades in vars.$colors {
+    @each $shade, $value in $shades {
+      --color-#{$category}-#{$shade}: #{$value};
+    }
+  }
+}
+
+@each $category, $shades in vars.$colors {
+  @each $shade, $value in $shades {
+    .text-#{$category}-#{$shade} { color: var(--color-#{$category}-#{$shade}); }
+    .bg-#{$category}-#{$shade} { background-color: var(--color-#{$category}-#{$shade}); }
+  }
+}
+
+@each $name, $props in vars.$text-sizes {
+  .text-#{$name} {
+    font-size: map.get($props, size);
+    line-height: map.get($props, line-height);
+    font-family: vars.$font-family-base;
+  }
+}
+
+@each $name, $weight in vars.$font-weights {
+  .font-#{$name} {
+    font-weight: #{$weight};
+  }
+}
+
+@each $category, $shades in vars.$colors {
+  @each $shade, $value in $shades {
+    .text-#{$category}-#{$shade} { color: var(--color-#{$category}-#{$shade}); }
+    
+    .bg-#{$category}-#{$shade} { background-color: var(--color-#{$category}-#{$shade}); }
+    
+    .bg-#{$category}-#{$shade}-light { 
+      background-color: color-mix(in srgb, var(--color-#{$category}-#{$shade}) 15%, transparent); 
+    }
+  }
+}
