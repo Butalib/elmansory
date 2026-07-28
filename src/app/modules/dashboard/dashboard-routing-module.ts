@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashbourdPage } from './page/dashbourd-page/dashbourd-page';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dashbourd',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: () => import('./dashboard/dashboard-module').then(m => m.DashboardModule)
+  { 
+    path: 'dashbourd',
+    component: DashbourdPage
   }
 ];
 
@@ -17,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ModuleRoutingModule {}
+export class DashboardRoutingModule {}

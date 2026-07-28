@@ -12,7 +12,9 @@ const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponant,
-
+    children: [
+      { path: '', loadChildren: () => import('../modules/module-routing-module').then(m => m.ModuleRoutingModule) }
+    ]
   }
 ];
 
