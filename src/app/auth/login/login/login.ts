@@ -60,7 +60,7 @@ export class Login {
               'Login successful',
               'Success'
             );
-            this.router.navigate(['/tasks']);
+            this.router.navigate(['/dashboard']);
             return;
           }
           this.toastr.error(

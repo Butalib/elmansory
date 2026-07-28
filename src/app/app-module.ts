@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { LayoutModuleModule } from './layout-module/layout-module-module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { App } from './app';
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
-    })
+    }),
+    LayoutModuleModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

@@ -1,0 +1,47 @@
+<nav class="sidebar" lang="ar" dir="rtl" [class.collapsed]="isCollapsed()">
+    <ul class="sidebar-menu">
+        @for (item of menuItems; track item.id) {
+        <li class="sidebar-item">
+            @if (item.children?.length) {
+
+            <button type="button" class="sidebar-link" (click)="toggleMenu(item.id)"
+                [routerLink]="item.route || item.children![0]?.route" routerLinkActive="active">
+
+                <span class="sidebar-content">
+                    <img class="sidebar-icon" [src]="item.icon" [alt]="item.label">
+                    @if (!isCollapsed()) {
+                    <span class="sidebar-title">{{ item.label }}</span>
+                    }
+                </span>
+
+                @if (!isCollapsed()) {
+                <img class="sidebar-arrow" src="assets/icon/sidebar/Vector.svg"
+                    [class.expanded]="expandedMenuId() === item.id" alt="">
+                }
+            </button>
+
+            @if (expandedMenuId() === item.id && !isCollapsed()) {
+            <ul class="submenu">
+                @for (child of item.children; track child.id) {
+                <li>
+                    <a [routerLink]="child.route" routerLinkActive="active" class="submenu-link">
+                        <span>{{ child.label }}</span>
+                    </a>
+                </li>
+                }
+            </ul>
+            }
+            } @else {
+            <a [routerLink]="item.route" routerLinkActive="active" class="sidebar-link">
+                <span class="sidebar-content">
+                    <img class="sidebar-icon" [src]="item.icon" [alt]="item.label">
+                    @if (!isCollapsed()) {
+                    <span class="sidebar-title">{{ item.label }}</span>
+                    }
+                </span>
+            </a>
+            }
+        </li>
+        }
+    </ul>
+</nav>

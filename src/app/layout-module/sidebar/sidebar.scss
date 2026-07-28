@@ -1,0 +1,217 @@
+@use 'sass:map';
+@use '../../../assets/styles/variables' as vars;
+
+/* ==========================================================================
+   1. المتغيرات (Variables Mapping)
+   ========================================================================== */
+$primary-500: map.get(vars.$colors, 'primary', 500); // اللون الأزرق الأساسي
+$primary-50:  map.get(vars.$colors, 'primary', 50);  // خلفية العنصر النشط الفاتحة
+$border-color: map.get(vars.$colors, 'black', 100);  // لون الخط الفاصل
+$text-muted:   map.get(vars.$colors, 'black', 500);  // الرمادي العادي
+$text-dark:    map.get(vars.$colors, 'black', 800);  // لون النص النشط
+
+/* ==========================================================================
+   2. الهيكل الخارجي (Layout & Container)
+   ========================================================================== */
+:host {
+  display: block;
+  height: 100vh;
+  /* السينيورز بيستخدموا sticky بدل fixed عشان ميبوظش مساحة الـ Grid للـ Layout الأب */
+  position: sticky; 
+  top: 0;
+  z-index: 100;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background: #ffffff;
+  /* خط فاصل على الشمال (في الـ RTL) */
+  border-inline-end: 1px solid $border-color; 
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* مكان اللوجو (يفضل مستقبلاً تفصله في HTML، لكن هنظبطه هنا دلوقتي) */
+.sidebar::before {
+  content: '';
+  display: block;
+  flex: 0 0 100px;
+  /* تأكد من مسار الصورة */
+  background: url('../../../assets/img/login/logo.png') center center / 130px no-repeat;
+  margin-bottom: 16px;
+}
+
+.sidebar-menu {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 12px 0; /* قللنا البادينج السفلي */
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* قللنا المسافة بين العناصر من 4 لـ 2 عشان نلم الدنيا */
+  
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* ==========================================================================
+   إجبار الزرار يأخذ نفس تنسيق الرابط (Reset Button Styles)
+   ========================================================================== */
+button.sidebar-link {
+  font-family: inherit; /* إجبار الزرار على استخدام خط المشروع (عربي) */
+  text-align: right;    /* ضبط المحاذاة لليمين */
+  appearance: none;     /* إزالة أي تنسيق افتراضي للمتصفح */
+}
+
+/* ==========================================================================
+   تعديل حجم الروابط (لتوفير مساحة لزر تسجيل الخروج)
+   ========================================================================== */
+.sidebar-link, .submenu-link {
+  width: 88%;
+  min-height: 38px; /* صغرنا الارتفاع من 48 لـ 40 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px 8px 2px; /* صغرنا البادينج الداخلي */
+  background: transparent;
+  border: none;
+  color: var(--sidebar-text);
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 12px 0 0 12px; /* تصغير الكيرف شوية عشان يتناسب مع الحجم الجديد */
+  border-inline-start: 4px solid transparent; 
+  transition: all 0.2s ease;
+}
+
+/* باقي كود الأكتيف والـ Hover زي ما هو... */
+
+/* ==========================================================================
+   تجهيز مكان زرار تسجيل الخروج المستقبلي (Senior Trick)
+   ========================================================================== */
+/* لما تيجي تعمل زرار Logout، اديله الكلاس ده، وهتلاقيه نزل لآخر الشاشة أوتوماتيك */
+.logout-wrapper {
+  margin-top: auto; /* السر هنا: بيزق نفسه لأسفل حاوية الـ Flex */
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.sidebar-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.sidebar-title {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap; /* يمنع النص من النزول لسطر جديد */
+  opacity: 0.6;
+}
+
+/* سهم القوائم الفرعية */
+.sidebar-arrow {
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  transition: transform 0.3s ease;
+  
+  &.expanded {
+    transform: rotate(180deg);
+  }
+}
+
+/* ==========================================================================
+   4. حالة النشاط (Active State) - المطابقة لفيجما
+   ========================================================================== */
+.sidebar-link.active, .submenu-link.active {
+  background-color: $primary-50; /* الأزرق الفاتح */
+  color: $primary-500;
+  font-weight: 600;
+  
+  /* البوردر الأزرق على اليمين (inline-start في الـ RTL) */
+  border-inline-start: 4px solid $primary-500; 
+
+  .sidebar-icon {
+    opacity: 1;
+    /* فلتر السينيورز: بيحول الأيقونة السودة للون الـ Primary */
+    /* لو لونك الأساسي اتغير، هنحتاج نحدث الفلتر ده، أو نستخدم CSS Mask مستقبلاً */
+    filter: invert(45%) sepia(85%) saturate(1450%) hue-rotate(170deg) brightness(95%) contrast(95%);
+  }
+}
+
+.sidebar-link:hover:not(.active) {
+  background-color: map.get(vars.$colors, 'black', 50); // هوفر رمادي خفيف جداً
+}
+
+/* ==========================================================================
+   5. القوائم الفرعية (Submenus)
+   ========================================================================== */
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin:  0;
+  /* مسافة من اليمين عشان تبان إنها متفرعة */
+  padding-inline-start: 48px; 
+  font-family: inherit; /* إجبار القوائم الفرعية على استخدام خط المشروع */
+  font-weight: 500;
+  opacity: 0.6;
+  .submenu-link {
+    min-height: 35px;
+    padding: 8px ;
+    font-size: 15px;
+    border-radius: 20px 0 0 20px;
+    
+    &.active {
+      border-inline-start: 3px solid $primary-500;
+    }
+  }
+}
+
+/* ==========================================================================
+   6. حالة التصغير (Collapsed State)
+   ========================================================================== */
+.sidebar.collapsed {
+  width: 80px;
+  
+  .sidebar-title, .sidebar-arrow {
+    display: none;
+  }
+  
+  .sidebar-content {
+    justify-content: center; /* توسيط الأيقونة */
+    width: 100%;
+  }
+  
+  .sidebar-link {
+    /* بنشيل البادينج عشان الأيقونة تتوسطط بالملي */
+    padding-inline: 0; 
+    justify-content: center;
+    border-radius: 0; /* في حالة التصغير بنشيل الدوران لجمال الشكل */
+  }
+} 
+.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+
+    /* Firefox */
+    scrollbar-width: none;
+
+    /* IE & Edge القديم */
+    -ms-overflow-style: none;
+}
+
+/* Chrome, Edge, Safari */
+.sidebar-menu::-webkit-scrollbar {
+    display: none;
+}
