@@ -4,13 +4,13 @@
   height: 100vh;
   width: 100%;
 
-  grid-template-columns: 250px 1fr;
-  transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  grid-template-columns: 15.625rem 1fr;
+  transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* في حالة إن السايدبار اتعمله تصغير (Collapsed) */
 :host(.sidebar-collapsed) {
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 5rem 1fr;
 }
 
 /* المنطقة اللي هتشيل الهيدر والـ Router Outlet */
@@ -20,11 +20,13 @@
   overflow: hidden;
   background-color: #f8f9fa;
   /* لون خلفية رمادي فاتح مريح للعين عشان يفصل عن السايدبار الأبيض */
+    transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 /* تنسيق الهيدر اللي فوق */
 .header-area {
-  flex: 0 0 70px;
+  flex: 0 0 4.375rem;
   /* ارتفاع الهيدر ثابت */
   background: #ffffff;
   border-bottom: 1px solid var(--color-black-100, #e0e0e0);
@@ -35,7 +37,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 4.375rem);
   overflow: hidden;
   padding: 1rem;
   /* مسافة داخلية محترمة حوالين المحتوى */
