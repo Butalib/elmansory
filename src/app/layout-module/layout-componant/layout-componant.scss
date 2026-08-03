@@ -18,7 +18,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #f8f9fa;
+      background: #ffffff;
+
   /* لون خلفية رمادي فاتح مريح للعين عشان يفصل عن السايدبار الأبيض */
     transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 

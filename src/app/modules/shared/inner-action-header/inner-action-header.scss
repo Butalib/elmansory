@@ -1,0 +1,113 @@
+@use 'sass:map';
+@use '../../../../assets/styles/variables' as vars; // عدل المسار حسب مشروعك
+
+.inner-action-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  /* من صورة 1: Padding 24 24 18 24 */
+  padding: 1rem 0px  ;
+  width: 100%; /* Fill */
+  /* Height Hug -> متكتبش height وسيب الـ padding يظبطه */
+
+  // تنسيق مربع البحث (صورة 2)
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Gap من فيجما */
+    
+    border: 1px solid map.get(vars.$colors, 'black', 100);
+    border-radius: 12px; /* Radius من فيجما */
+    
+    /* Fixed Width */
+    width: 445px; 
+    max-width: 100%; /* عشان الموبايل */
+    
+    /* Padding من فيجما: Top 10, Right 12, Bottom 10, Left 12 */
+    padding: 10px 12px 10px 12px;
+    
+    transition: border-color 0.3s ease;
+
+    &:focus-within {
+      border-color: map.get(vars.$colors, 'primary', 500);
+      background-color: #fff;
+    }
+
+    input {
+      border: none;
+      background: transparent;
+      outline: none;
+      flex-grow: 1; /* Fill */
+      font-family: inherit;
+      color: map.get(vars.$colors, 'black', 800);
+      font-size: 14px;
+    }
+
+    i {
+      color: map.get(vars.$colors, 'black', 400);
+      font-size: 18px;
+    }
+  }
+
+  // تنسيق حاوية الأكشنز (صورة 3)
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Gap من فيجما */
+
+    
+    // تنسيق مربع التاريخ (صورة 4)
+    .date-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      gap: 1rem; /* Gap من فيجما */
+      width: fit-content; /* Hug */
+      background-color: map.get(vars.$colors, 'black', 50);
+      border: 1px solid map.get(vars.$colors, 'black', 100);
+      border-radius: 16px; /* Radius من فيجما */
+      
+      /* Padding من فيجما: Top 10, Right 16, Bottom 10, Left 24 */
+      padding: 10px 24px 10px 16px; /* معكوسة يمين وشمال عشان الـ RTL */
+      
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: map.get(vars.$colors, 'black', 700);
+      cursor: default;
+    }
+
+    // تنسيق زرار الإضافة (صورة 5)
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px; /* Gap من فيجما */
+      width: 188px; /* Hug */
+      /* التعديل هنا: الـ Background مش لون ثابت، ده Gradient من فيجما */
+      background: linear-gradient(90deg, #00B8FF 0%, #00A3DE 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 16px; /* Radius من فيجما */
+      
+      /* Padding من فيجما: Top/Bottom 12, Right/Left 16 */
+      padding: 12px 16px;
+      
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      i {
+        font-size: 18px;
+      }
+    }
+  }
+}

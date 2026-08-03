@@ -1,1 +1,38 @@
-<p>inner-action-header works!</p>
+<div class="inner-action-header"  >  
+  @if (showSearch) {
+    <div class="search-box">
+      <input
+        type="text"
+        [placeholder]="searchPlaceholder"
+        #searchInput
+        [formControl]="searchControl">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+  }
+  <div class="header-actions">    
+    @if (showDate) {
+      <div class="date-box">
+        <span>{{ dateLabel }}</span>
+        <i class="fa-regular fa-calendar"></i>
+      </div>
+    }
+    @if (showActionButton) {
+      <button
+        type="button"
+        class="action-btn"
+        (click)="onActionClicked()">
+        <i [class]="actionIcon"></i>
+        <span>{{ actionLabel }}</span>
+      </button>
+    }
+    @if (showFilterButton) {
+      <button
+        type="button"
+        class="filter-btn"
+        (click)="onFilterClicked()">
+        <span>تصفية</span>
+        <i class="fa-solid fa-sliders"></i>
+      </button>
+    }
+  </div>
+</div>
