@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../../interface/iuser';
 import { map, Observable } from 'rxjs';
-import { ApiDataService } from '../api-data';
+import { ApiDataService } from '../data/api.data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { ApiDataService } from '../api-data';
 export class AuthService {
   constructor(private apiService: ApiDataService) { }
 
-  login(email: string, password: string) :Observable<boolean> {
+  login(email: string, password: string): Observable<boolean> {
 
     return this.apiService.get<IUser[]>('users')
       .pipe(
@@ -33,23 +33,23 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');
-    
+
   }
 
   isLoggedIn(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
   }
 
-  checkEmail(email: string) : Observable<IUser | undefined> {
+  checkEmail(email: string): Observable<IUser | undefined> {
     return this.apiService.get<IUser[]>('users')
       .pipe(
         map(users => {
           const user = users.find(u => u.email === email);
-          return user; 
+          return user;
         })
       );
   }
   getUsername(): string {
     return localStorage.getItem('username') || '';
-}
+  }
 }

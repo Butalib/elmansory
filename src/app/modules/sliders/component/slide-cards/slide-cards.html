@@ -1,0 +1,9 @@
+<div class="card-actions">
+
+    <app-btn-delete (delete)="onDelete.emit()">
+    </app-btn-delete>
+
+    <app-btn-switch [checked]="slider.isActive" (toggle)="toggle.emit($event)">
+    </app-btn-switch>
+
+</div>
