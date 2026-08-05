@@ -23,11 +23,11 @@ $text-dark:    map.get(vars.$colors, 'black', 800);  // لون النص النش
 }
 
 .sidebar {
-  width: 250px;
+  width: 15.625rem;
   height: 100%;
   background: #ffffff;
   /* خط فاصل على الشمال (في الـ RTL) */
-  border-inline-end: 1px solid $border-color; 
+  border-inline-end: 0.0625rem solid $border-color; 
   display: flex;
   flex-direction: column;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -38,10 +38,10 @@ $text-dark:    map.get(vars.$colors, 'black', 800);  // لون النص النش
 .sidebar::before {
   content: '';
   display: block;
-  flex: 0 0 100px;
+  flex: 0 0 6.25rem;
   /* تأكد من مسار الصورة */
-  background: url('../../../assets/img/login/logo.png') center center / 130px no-repeat;
-  margin-bottom: 16px;
+  background: url('../../../assets/img/login/logo.png') center center / 8.125rem no-repeat;
+  margin-bottom: 1rem;
 }
 
 .sidebar-menu {
@@ -49,10 +49,10 @@ $text-dark:    map.get(vars.$colors, 'black', 800);  // لون النص النش
   overflow-y: auto;
   list-style: none;
   margin: 0;
-  padding: 0 0 12px 0; /* قللنا البادينج السفلي */
+  padding: 0 0 0.75rem 0; /* قللنا البادينج السفلي */
   display: flex;
   flex-direction: column;
-  gap: 2px; /* قللنا المسافة بين العناصر من 4 لـ 2 عشان نلم الدنيا */
+  gap: 0.125rem; /* قللنا المسافة بين العناصر من 4 لـ 2 عشان نلم الدنيا */
   
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
@@ -72,18 +72,18 @@ button.sidebar-link {
    ========================================================================== */
 .sidebar-link, .submenu-link {
   width: 88%;
-  min-height: 38px; /* صغرنا الارتفاع من 48 لـ 40 */
+  min-height: 2.375rem; /* صغرنا الارتفاع من 48 لـ 40 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px 8px 2px; /* صغرنا البادينج الداخلي */
+  padding: 0.5rem 1rem 0.5rem 0.125rem; /* صغرنا البادينج الداخلي */
   background: transparent;
   border: none;
   color: var(--sidebar-text);
   cursor: pointer;
   text-decoration: none;
-  border-radius: 12px 0 0 12px; /* تصغير الكيرف شوية عشان يتناسب مع الحجم الجديد */
-  border-inline-start: 4px solid transparent; 
+  border-radius: 0.75rem 0 0 0.75rem; /* تصغير الكيرف شوية عشان يتناسب مع الحجم الجديد */
+  border-inline-start: 0.25rem solid transparent; 
   transition: all 0.2s ease;
 }
 
@@ -95,25 +95,25 @@ button.sidebar-link {
 /* لما تيجي تعمل زرار Logout، اديله الكلاس ده، وهتلاقيه نزل لآخر الشاشة أوتوماتيك */
 .logout-wrapper {
   margin-top: auto; /* السر هنا: بيزق نفسه لأسفل حاوية الـ Flex */
-  padding: 12px 0;
-  border-top: 1px solid var(--border-color);
+  padding: 0.75rem 0;
+  border-top: 0.0625rem solid var(--border-color);
 }
 
 .sidebar-content {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .sidebar-icon {
-  width: 22px;
-  height: 22px;
+  width: 1.375rem;
+  height: 1.375rem;
   opacity: 0.7;
   transition: all 0.2s ease;
 }
 
 .sidebar-title {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   white-space: nowrap; /* يمنع النص من النزول لسطر جديد */
   opacity: 0.6;
@@ -121,8 +121,8 @@ button.sidebar-link {
 
 /* سهم القوائم الفرعية */
 .sidebar-arrow {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   opacity: 0.5;
   transition: transform 0.3s ease;
   
@@ -140,7 +140,7 @@ button.sidebar-link {
   font-weight: 600;
   
   /* البوردر الأزرق على اليمين (inline-start في الـ RTL) */
-  border-inline-start: 4px solid $primary-500; 
+  border-inline-start: 0.25rem solid $primary-500; 
 
   .sidebar-icon {
     opacity: 1;
@@ -162,18 +162,18 @@ button.sidebar-link {
   padding: 0;
   margin:  0;
   /* مسافة من اليمين عشان تبان إنها متفرعة */
-  padding-inline-start: 48px; 
+  padding-inline-start: 3rem; 
   font-family: inherit; /* إجبار القوائم الفرعية على استخدام خط المشروع */
   font-weight: 500;
   opacity: 0.6;
   .submenu-link {
-    min-height: 35px;
-    padding: 8px ;
-    font-size: 15px;
-    border-radius: 20px 0 0 20px;
+    min-height: 2.1875rem;
+    padding: 0.5rem ;
+    font-size: 0.9375rem;
+    border-radius: 1.25rem 0 0 1.25rem;
     
     &.active {
-      border-inline-start: 3px solid $primary-500;
+      border-inline-start: 0.1875rem solid $primary-500;
     }
   }
 }
@@ -182,7 +182,7 @@ button.sidebar-link {
    6. حالة التصغير (Collapsed State)
    ========================================================================== */
 .sidebar.collapsed {
-  width: 80px;
+  width: 5rem;
   
   .sidebar-title, .sidebar-arrow {
     display: none;

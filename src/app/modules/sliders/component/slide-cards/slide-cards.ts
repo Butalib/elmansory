@@ -1,4 +1,5 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ISlider } from '../../../../core/interface/ISlider';
 
 @Component({
   selector: 'app-slide-cards',
@@ -7,8 +8,14 @@ import { Component, EventEmitter } from '@angular/core';
   styleUrl: './slide-cards.scss',
 })
 export class SlideCards {
+  @Input({ required: true })
+  slider!: ISlider;
 
-  slider: any;
+  @Output()
   toggle = new EventEmitter<boolean>();
-  onDelete = new EventEmitter<void>();
+
+  @Output()
+  delete = new EventEmitter<void>();
+  @Output()
+  edit = new EventEmitter<void>();
 }

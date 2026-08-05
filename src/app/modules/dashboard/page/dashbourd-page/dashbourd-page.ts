@@ -60,11 +60,11 @@ export class DashbourdPage {
     colors: ['#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#00ADE9', '#E2F6FD', '#E2F6FD'],
     xaxis: {
       categories: ['أ/ ياسين حمزة', 'أ/ حسين حمزة', 'أ/ علي عبد الله', 'أ/ أحمد الجاف', 'أ/ منذر الفاتح', 'أ/ دانيار الجاف', 'أ/ حسين حمزة', 'أ/ قاسم علي', 'أ/ حسين حمزة', 'أ/ ياسين حمزة'],
-      labels: { rotate: 0, trim: true, style: { colors: '#686868', fontSize: '10px' } },
+      labels: { rotate: 0, trim: true, style: { colors: '#686868', fontSize: '0.625rem' } },
       axisBorder: { show: false },
       axisTicks: { show: false },
     },
-    yaxis: { opposite: true, min: 0, max: 100, tickAmount: 10, labels: { style: { colors: '#222', fontSize: '11px' } } },
+    yaxis: { opposite: true, min: 0, max: 100, tickAmount: 10, labels: { style: { colors: '#222', fontSize: '0.6875rem' } } },
     grid: { borderColor: '#E8E8E8', strokeDashArray: 4, xaxis: { lines: { show: false } }, yaxis: { lines: { show: true } } },
     legend: { show: false },
     tooltip: { y: { formatter: (value) => `${value} حجز` } },

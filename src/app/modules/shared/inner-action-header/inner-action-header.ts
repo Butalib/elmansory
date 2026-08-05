@@ -23,9 +23,6 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   @Output() actionClicked = new EventEmitter<void>();
   @Output() filterClicked = new EventEmitter<void>();
   //event handlers
-  onSearch(value: string) {
-    this.search.emit(value);
-  }
   onActionClicked() {
     this.actionClicked.emit();
   }
@@ -42,7 +39,6 @@ export class InnerActionHeader implements OnInit, OnDestroy {
       distinctUntilChanged(), // متكررش الريكوست لنفس الكلمة
       takeUntil(this.destroy$) // لمنع تسريب الذاكرة (Memory Leak)
     ).subscribe(value => {
-      console.log('Search Value:', value);
       this.search.emit(value || '');
     });
   }

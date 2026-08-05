@@ -1,9 +1,46 @@
-<div class="card-actions">
+<div class="slider-card">
 
-    <app-btn-delete (delete)="onDelete.emit()">
-    </app-btn-delete>
+    <div class="card-actions">
 
-    <app-btn-switch [checked]="slider.isActive" (toggle)="toggle.emit($event)">
-    </app-btn-switch>
 
+        <app-btn-switch [checked]="slider.isActive" (toggle)="toggle.emit($event)">
+        </app-btn-switch>
+        <app-btn-delete (delete)="delete.emit()">
+        </app-btn-delete>
+
+    </div>
+
+    <div (click)="edit.emit()" class="card-image">
+
+        <img [src]="slider.imageUrl" [alt]="slider.title">
+
+    </div>
+
+    <div class="card-content">
+
+        <div class="card-field">
+
+            <span class="field-label">
+                مكان عرض الإعلان
+            </span>
+
+            <span class="field-value">
+                {{ slider.displayLocation }}
+            </span>
+
+        </div>
+
+        <div class="card-field">
+
+            <span class="field-label">
+                تاريخ الإنشاء
+            </span>
+
+            <span class="field-value">
+                {{ slider.date | date:'dd MMMM yyyy' }}
+            </span>
+
+        </div>
+
+    </div>
 </div>

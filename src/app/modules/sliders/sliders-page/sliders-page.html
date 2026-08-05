@@ -1,5 +1,10 @@
-<div class="div">
-  <app-inner-action-header [showSearch]="true" [showActionButton]="true" [showDate]="true"
-    [actionLabel]="'إضافة إعلان جديد'" [dateLabel]="'28 أبريل - 5 مايو'">
-  </app-inner-action-header>
+<app-inner-action-header [showSearch]="true" [showActionButton]="true" [showDate]="true"
+  [actionLabel]="'إضافة إعلان جديد'" [dateLabel]="'28 أبريل - 5 مايو'">
+</app-inner-action-header>
+<div class="sliders-grid">
+  @for (slider of sliders$ | async; track $index) {
+  <app-slide-cards [slider]="slider" (edit)="onEdit(slider)" (delete)="onDelete(slider)"
+    (toggle)="onToggle(slider, $event)">
+  </app-slide-cards>
+  }
 </div>

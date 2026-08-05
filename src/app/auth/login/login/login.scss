@@ -8,7 +8,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  padding: 32px 20px;
+  padding: 2rem 1.25rem;
   box-sizing: border-box;
   background: var(--color-black-50);
   font-family: vars.$font-family-base;
@@ -17,10 +17,10 @@
 .background-wrapper {
     position: absolute;
     left: 50%;
-    top: 241px; // عدلها حسب الفيجما
+    top: 15.0625rem; // عدلها حسب الفيجما
     transform: translateX(-50%);
-    width: 1340px;
-    height: 760px;
+    width: 83.75rem;
+    height: 47.5rem;
     pointer-events: none;
     z-index: 0;
 }
@@ -42,13 +42,13 @@
     z-index: 1;
 }
 .login-card {
-  width: min(100%, 500px);
+  width: min(100%, 31.25rem);
   box-sizing: border-box;
-  padding: 40px 38px 38px;
-  border: 1px solid color-mix(in srgb, var(--color-primary-500) 8%, transparent);
-  border-radius: 24px;
+  padding: 2.5rem 2.375rem 2.375rem;
+  border: 0.0625rem solid color-mix(in srgb, var(--color-primary-500) 8%, transparent);
+  border-radius: 1.5rem;
   background: var(--color-black-50);
-  box-shadow: 0 20px 55px color-mix(in srgb, var(--color-primary-500) 12%, transparent);
+  box-shadow: 0 1.25rem 3.4375rem color-mix(in srgb, var(--color-primary-500) 12%, transparent);
 }
 
 .login-header {
@@ -60,9 +60,9 @@
 
 .logo {
   display: block;
-  width: 190px;
+  width: 11.875rem;
   height: auto;
-  margin-bottom: 26px;
+  margin-bottom: 1.625rem;
 }
 
 .login-header h1 {
@@ -74,7 +74,7 @@
 }
 
 .login-header p {
-  margin: 8px 0 0;
+  margin: 0.5rem 0 0;
   color: var(--color-black-500);
   font-size: map.get(map.get(vars.$text-sizes, 'sm'), size);
   line-height: map.get(map.get(vars.$text-sizes, 'sm'), line-height);
@@ -83,18 +83,18 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 32px;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  min-height: 54px;
+  min-height: 3.375rem;
   box-sizing: border-box;
-  padding: 0 16px;
-  border: 1px solid var(--color-black-200);
-  border-radius: 12px;
+  padding: 0 1rem;
+  border: 0.0625rem solid var(--color-black-200);
+  border-radius: 0.75rem;
   background: var(--color-black-50);
   transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
@@ -102,14 +102,14 @@
 .input-group:focus-within {
   border-color: var(--color-primary-500);
   background: var(--color-black-50);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary-500) 12%, transparent);
+  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-primary-500) 12%, transparent);
 }
 
 .input-group input {
   min-width: 0;
   flex: 1;
   order: 2;
-  padding: 0 12px;
+  padding: 0 0.75rem;
   border: 0;
   outline: 0;
   background: transparent;
@@ -145,8 +145,8 @@
 /* 4. تنسيق رسالة الخطأ اللي تحت الحقل */
 .error-message {
   color: var(--color-states-error, #f44336);
-  font-size: 12px;
-  margin-top: 4px;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
   display: block;
 }
 
@@ -155,48 +155,48 @@
 }
 
 button {
-  min-height: 54px;
-  margin-top: 4px;
+  min-height: 3.375rem;
+  margin-top: 0.25rem;
   border: 0;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: var(--color-primary-500);
   color: var(--color-black-50);
   font: inherit;
   font-size: map.get(map.get(vars.$text-sizes, 'lg'), size);
   font-weight: map.get(vars.$font-weights, 'bold');
   cursor: pointer;
-  box-shadow: 0 8px 18px color-mix(in srgb, var(--color-primary-500) 20%, transparent);
+  box-shadow: 0 0.5rem 1.125rem color-mix(in srgb, var(--color-primary-500) 20%, transparent);
   transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
 button:hover {
   background: var(--color-primary-400);
-  box-shadow: 0 10px 22px color-mix(in srgb, var(--color-primary-500) 28%, transparent);
+  box-shadow: 0 0.625rem 1.375rem color-mix(in srgb, var(--color-primary-500) 28%, transparent);
 }
 
 button:active {
-  transform: translateY(1px);
+  transform: translateY(0.0625rem);
 }
 
 
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .login-page {
-    padding: 20px 16px;
+    padding: 1.25rem 1rem;
   }
 
   .background-wrapper {
-    top: calc(50% - 247px + 70px);
-    width: min(calc(100% - 32px), 530px);
-    height: 210px;
+    top: calc(50% - 15.4375rem + 4.375rem);
+    width: min(calc(100% - 2rem), 33.125rem);
+    height: 13.125rem;
   }
 
   .login-card {
-    padding: 32px 22px 28px;
+    padding: 2rem 1.375rem 1.75rem;
   }
 
   .logo {
-    width: 170px;
-    margin-bottom: 22px;
+    width: 10.625rem;
+    margin-bottom: 1.375rem;
   }
 }

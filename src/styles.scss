@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 @use 'assets/styles/variables';
 @use 'assets/styles/utilities';
+
 @font-face {
   font-family: 'Hanimation Arabic';
   src: url('./assets/fonts/hanimation/regular.otf') format('opentype');
@@ -24,18 +25,15 @@
   font-style: normal;
   font-display: swap;
 }
+
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
+  @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
       typography: Roboto,
       density: 0,
-    )
-  );
+    ));
 
   --mat-sys-primary: var(--color-primary-500);
   --mat-sys-on-primary: #ffffff;
@@ -60,49 +58,49 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
 
-  -webkit-box-shadow: 0 0 0 30px var(--color-black-50) inset !important;
-  
+  -webkit-box-shadow: 0 0 0 1.875rem var(--color-black-50) inset !important;
+
   -webkit-text-fill-color: var(--color-black-900, #333) !important;
-  
+
   border: none !important;
   outline: none !important;
-  
+
   transition: background-color 5000s ease-in-out 0s;
 }
 
 
-#toast-container > .ngx-toastr {
-  border-radius: 12px !important; 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+#toast-container>.ngx-toastr {
+  border-radius: 0.75rem !important;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08) !important;
   font-family: inherit !important;
-  
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+
+  backdrop-filter: blur(0.625rem) !important;
+  -webkit-backdrop-filter: blur(0.625rem) !important;
 }
 
-#toast-container > .toast-success {
+#toast-container>.toast-success {
   background-color: rgba(52, 199, 89, 0.85) !important;
   color: #ffffff !important;
-  border: 1px solid rgba(52, 199, 89, 0.2) !important; 
+  border: 0.0625rem solid rgba(52, 199, 89, 0.2) !important;
 }
 
-#toast-container > .toast-error {
-  
+#toast-container>.toast-error {
+
   background-color: rgba(255, 59, 48, 0.85) !important;
   color: #ffffff !important;
-  border: 1px solid rgba(255, 59, 48, 0.2) !important;
+  border: 0.0625rem solid rgba(255, 59, 48, 0.2) !important;
 }
 
-#toast-container > .toast-warning {
-  
+#toast-container>.toast-warning {
+
   background-color: rgba(255, 204, 0, 0.85) !important;
-  color: var(--color-black-900, #1a1a1a) !important; 
-  border: 1px solid rgba(255, 204, 0, 0.2) !important;
+  color: var(--color-black-900, #1a1a1a) !important;
+  border: 0.0625rem solid rgba(255, 204, 0, 0.2) !important;
 }
 
-#toast-container > .toast-info {
-  
+#toast-container>.toast-info {
+
   background-color: rgba(0, 162, 232, 0.85) !important;
   color: #ffffff !important;
-  border: 1px solid rgba(0, 162, 232, 0.2) !important;
+  border: 0.0625rem solid rgba(0, 162, 232, 0.2) !important;
 }

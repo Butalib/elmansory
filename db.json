@@ -13,7 +13,7 @@
     {
       "id": "1",
       "title": "مكان جديد للتعلم",
-      "imageUrl": "assets/img/sliders/slideadd.png",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
       "date": "2025-09-16T00:00:00.000Z",
       "isActive": true,
       "displayLocation": "home_page"
@@ -21,7 +21,7 @@
     {
       "id": "2",
       "title": "العودة",
-      "imageUrl": "assets/img/sliders/slideadd.png",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
       "date": "2025-09-16T00:00:00.000Z",
       "isActive": true,
       "displayLocation": "category_page"
@@ -29,7 +29,7 @@
     {
       "id": "3",
       "title": "عروض الصيف",
-      "imageUrl": "assets/img/slidres/slideadd.png",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
       "date": "2025-08-01T00:00:00.000Z",
       "isActive": false,
       "displayLocation": "home_page"
@@ -37,7 +37,7 @@
     {
       "id": "4",
       "title": "عروض الصيف",
-      "imageUrl": "assets/img/sliders/slideadd.png",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
       "date": "2025-08-01T00:00:00.000Z",
       "isActive": true,
       "displayLocation": "home_page"
@@ -45,7 +45,7 @@
     {
       "id": "5",
       "title": "عروض الصيف",
-      "imageUrl": "assets/img/sliders/slideadd.png",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
       "date": "2025-08-01T00:00:00.000Z",
       "isActive": true,
       "displayLocation": "home_page"
@@ -53,7 +53,39 @@
     {
       "id": "6",
       "title": "عروض الصيف",
-      "imageUrl": "assets/img/sliders/slideadd.png",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
+      "date": "2025-08-01T00:00:00.000Z",
+      "isActive": true,
+      "displayLocation": "home_page"
+    },
+    {
+      "id": "7",
+      "title": "عروض الصيف",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
+      "date": "2025-08-01T00:00:00.000Z",
+      "isActive": true,
+      "displayLocation": "home_page"
+    },
+    {
+      "id": "8",
+      "title": "عروض الصيف",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
+      "date": "2025-08-01T00:00:00.000Z",
+      "isActive": true,
+      "displayLocation": "home_page"
+    },
+    {
+      "id": "9",
+      "title": "عروض الصيف",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
+      "date": "2025-08-01T00:00:00.000Z",
+      "isActive": true,
+      "displayLocation": "home_page"
+    },
+    {
+      "id": "10",
+      "title": "عروض الصيف",
+      "imageUrl": "/assets/img/slidres/slidadd.png",
       "date": "2025-08-01T00:00:00.000Z",
       "isActive": true,
       "displayLocation": "home_page"

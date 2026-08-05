@@ -7,33 +7,25 @@ import { ApiDataService } from '../data/api.data.service';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private apiService: ApiDataService) { }
+  constructor(private apiService: ApiDataService) {}
 
   login(email: string, password: string): Observable<boolean> {
-
-    return this.apiService.get<IUser[]>('users')
-      .pipe(
-        map(users => {
-          const user = users.find(
-            u => u.email === email &&
-              u.password === password
-          );
-          if (user) {
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('username', user.name);
-            return true;
-          }
-          return false;
-        })
-      );
-
+    return this.apiService.get<IUser[]>('users').pipe(
+      map((users) => {
+        const user = users.find((u) => u.email === email && u.password === password);
+        if (user) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('username', user.name);
+          return true;
+        }
+        return false;
+      }),
+    );
   }
-
   // logout
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');
-
   }
 
   isLoggedIn(): boolean {
@@ -41,13 +33,12 @@ export class AuthService {
   }
 
   checkEmail(email: string): Observable<IUser | undefined> {
-    return this.apiService.get<IUser[]>('users')
-      .pipe(
-        map(users => {
-          const user = users.find(u => u.email === email);
-          return user;
-        })
-      );
+    return this.apiService.get<IUser[]>('users').pipe(
+      map((users) => {
+        const user = users.find((u) => u.email === email);
+        return user;
+      }),
+    );
   }
   getUsername(): string {
     return localStorage.getItem('username') || '';

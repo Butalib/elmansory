@@ -1,8 +1,7 @@
 import { BehaviorSubject, tap, Observable } from 'rxjs';
-import { ApiDataService } from './api.data.service'; // ظبط المسار
-
+import { ApiDataService } from './api.data.service';
+import { of } from 'rxjs';
 export abstract class GenericCrudService<T extends { id: string | number }> {
-
   //cache source of truth 
   protected cacheSubject = new BehaviorSubject<T[]>([]);
   public items$ = this.cacheSubject.asObservable();
@@ -11,6 +10,10 @@ export abstract class GenericCrudService<T extends { id: string | number }> {
     private apiService: ApiDataService
   ) { }
   loadAll(): Observable<T[]> {
+    const currentData = this.cacheSubject.getValue();
+    if (currentData && currentData.length > 0) {
+      return of(currentData);
+    }
     return this.apiService.get<T[]>(this.endpoint).pipe(
       tap((data: T[]) => this.cacheSubject.next(data))
     );
@@ -24,7 +27,6 @@ export abstract class GenericCrudService<T extends { id: string | number }> {
     );
   }
   update(item: T): Observable<T> {
-    // استخدمنا item.id بأمان لأننا عاملين Constraint
     return this.apiService.put<T>(`${this.endpoint}/${item.id}`, item).pipe(
       tap((updatedItem: T) => {
         const currentData = this.cacheSubject.getValue() || [];
@@ -35,8 +37,8 @@ export abstract class GenericCrudService<T extends { id: string | number }> {
       })
     );
   }
-  delete(id: string | number): Observable<any> {
-    return this.apiService.delete<any>(`${this.endpoint}/${id}`).pipe(
+  delete(id: string | number): Observable<void> {
+    return this.apiService.delete<void>(`${this.endpoint}/${id}`).pipe(
       tap(() => {
         const currentData = this.cacheSubject.getValue() || [];
         const filteredList = currentData.filter((t) => t.id !== id);
