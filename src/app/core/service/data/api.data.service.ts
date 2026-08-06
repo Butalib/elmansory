@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { first, Observable, take } from 'rxjs';
 
 @Injectable({
@@ -7,22 +7,34 @@ import { first, Observable, take } from 'rxjs';
 })
 export class ApiDataService {
   private readonly baseUrl = 'http://localhost:3000';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+  get<T>(endpoint: string, queryParams?: any): Observable<T> {
+    let params = new HttpParams();
 
-  get<T = any>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${endpoint}`). pipe(take(1));
+    if (queryParams) {
+      Object.keys(queryParams).forEach((key) => {
+        const value = queryParams[key];
+        if (value !== null && value !== undefined && value !== '') {
+          params = params.append(key, value.toString());
+        }
+      });
+    }
+    console.log('Making GET request to:', `${this.baseUrl}/${endpoint}`, 'with params:', params.toString());
+    return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { params }).pipe(take(1));
   }
 
+
+
   post<T = any>(endpoint: string, body: any): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body). pipe(first());
+    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body).pipe(first());
   }
 
   put<T = any>(endpoint: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body). pipe(take(1));
+    return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body).pipe(take(1));
   }
 
   delete<T = any>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.baseUrl}/${endpoint}`). pipe(take(1));
+    return this.http.delete<T>(`${this.baseUrl}/${endpoint}`).pipe(take(1));
   }
 
 }

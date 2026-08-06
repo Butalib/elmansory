@@ -1,49 +1,51 @@
-import { BehaviorSubject, tap, Observable } from 'rxjs';
+import { tap, Observable, of } from 'rxjs';
 import { ApiDataService } from './api.data.service';
-import { of } from 'rxjs';
+import { IQueryEngine } from '../../interface/IQueryEngine';
+
 export abstract class GenericCrudService<T extends { id: string | number }> {
-  //cache source of truth 
-  protected cacheSubject = new BehaviorSubject<T[]>([]);
-  public items$ = this.cacheSubject.asObservable();
+
+  protected queryCache = new Map<string, T[]>();
+
   constructor(
     protected endpoint: string,
     private apiService: ApiDataService
   ) { }
-  loadAll(): Observable<T[]> {
-    const currentData = this.cacheSubject.getValue();
-    if (currentData && currentData.length > 0) {
-      return of(currentData);
+
+  loadByQuery(query: IQueryEngine): Observable<T[]> {
+    const queryKey = JSON.stringify(query);
+
+    if (this.queryCache.has(queryKey)) {
+      console.log(' Data loaded from Cache for query:', query);
+      return of(this.queryCache.get(queryKey)!);
     }
-    return this.apiService.get<T[]>(this.endpoint).pipe(
-      tap((data: T[]) => this.cacheSubject.next(data))
+
+    return this.apiService.get<T[]>(this.endpoint, query).pipe(
+      tap((data: T[]) => {
+        this.queryCache.set(queryKey, data);
+        console.log(' Data loaded from Server and cached.');
+      })
     );
   }
+
   add(item: T): Observable<T> {
     return this.apiService.post<T>(this.endpoint, item).pipe(
-      tap((newItem: T) => {
-        const currentData = this.cacheSubject.getValue() || [];
-        this.cacheSubject.next([...currentData, newItem]);
-      })
+      tap(() => this.invalidateCache())
     );
   }
+
   update(item: T): Observable<T> {
     return this.apiService.put<T>(`${this.endpoint}/${item.id}`, item).pipe(
-      tap((updatedItem: T) => {
-        const currentData = this.cacheSubject.getValue() || [];
-        const updatedList = currentData.map((t) =>
-          t.id === updatedItem.id ? updatedItem : t
-        );
-        this.cacheSubject.next(updatedList);
-      })
+      tap(() => this.invalidateCache())
     );
   }
+
   delete(id: string | number): Observable<void> {
     return this.apiService.delete<void>(`${this.endpoint}/${id}`).pipe(
-      tap(() => {
-        const currentData = this.cacheSubject.getValue() || [];
-        const filteredList = currentData.filter((t) => t.id !== id);
-        this.cacheSubject.next(filteredList);
-      })
+      tap(() => this.invalidateCache())
     );
+  }
+  protected invalidateCache(): void {
+    console.log('🧹 Cache Invalidated due to data mutation.');
+    this.queryCache.clear();
   }
 }

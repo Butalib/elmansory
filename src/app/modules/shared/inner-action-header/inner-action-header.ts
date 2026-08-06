@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { debounce, distinctUntilChanged, map, Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-inner-action-header',
@@ -33,13 +33,22 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   searchControl = new FormControl('');
   private destroy$ = new Subject<void>();
   ngOnInit() {
-    // 2. تطبيق الـ Debounce
     this.searchControl.valueChanges.pipe(
-      debounceTime(500), // استنى نص ثانية بعد آخر حرف
-      distinctUntilChanged(), // متكررش الريكوست لنفس الكلمة
-      takeUntil(this.destroy$) // لمنع تسريب الذاكرة (Memory Leak)
+      // 1. تحديد وقت التأخير ديناميكياً
+      debounce((value: string | null) => {
+        // لو القيمة موجودة وآخر حرف هو مسافة، اضرب فوراً (0)
+        // غير كده، استنى 500 ملي ثانية
+        const shouldFireImmediately = value && value.endsWith(' ');
+        return shouldFireImmediately ? timer(0) : timer(500);
+      }),
+      // 2. تنظيف الكلمة من المسافات الزايدة
+      map((value: string | null) => (value ? value.trim() : '')),
+      // 3. منع إرسال نفس الكلمة مرتين متتاليتين
+      distinctUntilChanged(),
+      takeUntil(this.destroy$)
     ).subscribe(value => {
-      this.search.emit(value || '');
+      console.log('Search value emitted:', value);
+      this.search.emit(value);
     });
   }
   ngOnDestroy(): void {

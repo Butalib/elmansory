@@ -14,18 +14,5 @@ export class SliderService extends GenericCrudService<ISlider> {
   constructor(apiService: ApiDataService) {
     super('sliders', apiService);
   }
-  getActiveSliders(): Observable<ISlider[]> {
-    return this.items$.pipe(
-      map((sliders) => sliders.filter((slider) => slider.isActive))
-    );
-  }
-  getSlidersByLocation(
-    location: SliderDisplayLocation
-  ): Observable<ISlider[]> {
-    return this.items$.pipe(
-      map((sliders) =>
-        sliders.filter((slider) => slider.displayLocation === location)
-      )
-    );
-  }
+
 }

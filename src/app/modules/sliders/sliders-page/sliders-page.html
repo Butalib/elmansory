@@ -1,10 +1,17 @@
-<app-inner-action-header [showSearch]="true" [showActionButton]="true" [showDate]="true"
-  [actionLabel]="'إضافة إعلان جديد'" [dateLabel]="'28 أبريل - 5 مايو'">
+<app-inner-action-header [showSearch]="true" [showActionButton]="true" [actionLabel]="'إضافة إعلان جديد'"
+  [showDate]="true" [dateLabel]="'28 أبريل - 5 مايو'" (search)="onSearch($event)">
 </app-inner-action-header>
+
+
 <div class="sliders-grid">
-  @for (slider of sliders$ | async; track $index) {
+  @for (slider of engine.data$ | async; track slider.id) {
+  <!-- رجعنا توصيل الأسلاك (الـ Events) تاني هنا -->
   <app-slide-cards [slider]="slider" (edit)="onEdit(slider)" (delete)="onDelete(slider)"
     (toggle)="onToggle(slider, $event)">
   </app-slide-cards>
+  } @empty {
+  <div class="no-data">
+    <span>لا يوجد إعلانات متطابقة مع البحث</span>
+  </div>
   }
 </div>
