@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { IQueryEngine } from '../../../core/interface/IQueryEngine';
 import { SliderService } from '../../../core/service/slider.service';
 import { ISlider } from '../../../core/interface/ISlider';
@@ -17,6 +17,42 @@ export class SlidersPage implements OnInit {
     (data, query) => this.filterSlidersLocally(data, query),
     'local'
   );
+  // Modal State Management 
+  readonly isModalOpen = signal(false);
+  readonly selectedSlider = signal<ISlider | null>(null);
+  readonly modalMode = signal<'add' | 'edit'>('add');
+  // 1. دالة مخصصة لفتح مودل الإضافة
+  openModalForAdd(): void {
+    this.modalMode.set('add');
+    this.selectedSlider.set(null);
+    this.isModalOpen.set(true);
+  }
+
+  // 2. دالة مخصصة لفتح مودل التعديل
+  openModalForEdit(slider: ISlider): void {
+    this.modalMode.set('edit');
+    this.selectedSlider.set(slider);
+    this.isModalOpen.set(true);
+  }
+
+  // 3. دالة مخصصة للإغلاق وتصفير الحالة
+  closeModal(): void {
+    this.isModalOpen.set(false);
+    this.selectedSlider.set(null);
+  }
+
+  // 4. دالة استقبال الداتا بعد الحفظ من المودل (سنبني اللوجيك الخاص بها لاحقاً)
+  onSaveSlider(data: ISlider): void {
+    console.log('Data received from modal to be saved:', data);
+    this.closeModal(); // إغلاق المودل مؤقتاً بعد الحفظ
+  }
+
+  // 5. تعديل دالة onEdit الموجودة عندك لتقوم بفتح المودل
+  onEdit(slider: ISlider): void {
+    console.log('Edit clicked for slider:', slider);
+    this.openModalForEdit(slider);
+  }
+
   ngOnInit(): void {
   }
   onSearch(searchTerm: string): void {
@@ -37,9 +73,7 @@ export class SlidersPage implements OnInit {
   onDelete(slider: ISlider): void {
     console.log(slider);
   }
-  onEdit(slider: ISlider): void {
-    console.log(slider);
-  }
+
   onToggle(slider: ISlider, checked: boolean): void {
     console.log(slider, checked);
   }

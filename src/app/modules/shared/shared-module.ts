@@ -8,9 +8,11 @@ import { BtnSwitch } from './kit/action/btn-switch/btn-switch';
 import { BtnEdit } from './kit/action/btn-edit/btn-edit';
 import { BtnDelete } from './kit/action/btn-delete/btn-delete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog';
+import { UiModalComponent } from './kit/ui-modal-component/ui-modal-component';
 @NgModule({
-  declarations: [InnerActionHeader, BtnSwitch, BtnEdit, BtnDelete],
+  declarations: [InnerActionHeader, BtnSwitch, BtnEdit, BtnDelete, ConfirmationDialog, UiModalComponent],
   imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule],
-  exports: [InnerActionHeader, BtnSwitch, BtnEdit, BtnDelete, MatSlideToggleModule],
+  exports: [InnerActionHeader, BtnSwitch, BtnEdit, BtnDelete, MatSlideToggleModule, UiModalComponent],
 })
 export class SharedModule { }

@@ -4,8 +4,6 @@ import { GenericCrudService } from './data/generic-crud.service';
 import { ApiDataService } from './data/api.data.service';
 
 import { ISlider } from '../interface/ISlider';
-import { SliderDisplayLocation } from '../enum/SliderDisplayLocation';
-import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

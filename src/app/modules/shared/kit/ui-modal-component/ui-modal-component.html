@@ -1,0 +1,33 @@
+@if (isOpen) {
+<div class="modal-backdrop" (click)="closeModal.emit()">
+    <div class="modal-container" dir="rtl" (click)="$event.stopPropagation()">
+
+        <!-- الهيدر -->
+        <div class="modal-header">
+            <h2 class="modal-title">{{ title }}</h2>
+            <button class="close-btn" (click)="closeModal.emit()">
+                <img draggable="false" src="assets/icon/slyders/cancel-01.svg" alt="Close">
+            </button>
+        </div>
+
+        <!-- المحتوى المتغير -->
+        <div class="modal-body">
+            <ng-content></ng-content>
+        </div>
+
+        <!-- الفوتر والأزرار (كلاسات ثابتة، نصوص متغيرة) -->
+        <div class="modal-footer modal-actions">
+
+            <button type="button" class="btn btn-secondary" (click)="closeModal.emit()">
+                {{ cancelLabel }}
+            </button>
+            <button type="button" class="btn btn-primary" [disabled]="isConfirmDisabled" (click)="confirm.emit()">
+                {{ confirmLabel }}
+            </button>
+
+
+        </div>
+
+    </div>
+</div>
+}

@@ -1,0 +1,154 @@
+@use 'sass:map';
+// اربط مسار الفايل ده صح على حسب مكان الـ variables عندك
+@use '../../../../../assets/styles/variables' as vars;
+
+// تنسيق المودل نفسه (خلفية، حاوية، إلخ)
+.modal-backdrop {
+    // ... تنسيقات الخلفية المظلمة ...
+}
+
+.modal-container {
+    &.sm {
+        max-width: 420px;
+    }
+
+    &.md {
+        max-width: 650px;
+    }
+
+    &.lg {
+        max-width: 850px;
+    }
+
+    &.xl {
+        max-width: 1100px;
+    }
+}
+
+.modal-actions {
+    display: flex;
+    gap: 16px; // المسافة بين الزرارين
+    padding-top: 24px; // حسب تصميم الفيجما
+}
+
+// 1. التنسيق المشترك للزرار
+.btn {
+    flex: 1; // عشان الزرارين ياخدوا نفس المساحة جنب بعض
+    padding: 12px 24px;
+    border-radius: 8px; // حواف دائرية زي الفيجما
+    border: none;
+    font-family: vars.$font-family-base;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// 2. الكلاس الثابت للزرار الرئيسي (الأزرق)
+.btn-primary {
+    // بنجيب اللون الـ Primary درجة 500 من الـ map بتاعتك
+    background: linear-gradient(90deg, #5dc7f0 0%, #00A3DE 100%);
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+        background-color: map.get(map.get(vars.$colors, 'primary'), 600);
+    }
+}
+
+// 3. الكلاس الثابت للزرار الثانوي (الإلغاء - الرمادي الفاتح)
+.btn-secondary {
+    // بنجيب اللون الأسود/الرمادي درجة 50 من الـ map
+    background-color: map.get(map.get(vars.$colors, 'black'), 50);
+    color: map.get(map.get(vars.$colors, 'primary'), 500);
+
+    &:hover {
+        background-color: map.get(map.get(vars.$colors, 'black'), 100);
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    /* يجعله ثابتاً فوق كل شيء */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* لون أسود شفاف */
+    z-index: 1000;
+    /* أعلى طبقة في التطبيق */
+
+    /* Flexbox لتوسيط الصندوق الأبيض في منتصف الشاشة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// 2. صندوق المودل الأبيض نفسه
+.modal-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    /* العرض الأقصى حسب تصميم الفيجما */
+    border-radius: 12px;
+    /* حواف دائرية */
+    padding: 24px;
+    /* مساحات داخلية */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* ظل خفيف */
+    z-index: 1001;
+    /* يجب أن يكون أعلى من الخلفية */
+
+    /* أنيميشن خفيف عند الفتح */
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+// 3. تنسيق الهيدر
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+
+    .modal-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+
+        &:hover {
+            color: #000;
+        }
+    }
+}
+
+// الأنيميشن (عشان يدي إحساس احترافي)
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 
+لا تنسَ أن تضع كود الـ .btn والـ .btn-primary اللي كتبناه 
+في الرد السابق تحت هذا الكود مباشرة لتنسيق الأزرار
+*/

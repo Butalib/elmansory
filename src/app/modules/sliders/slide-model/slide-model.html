@@ -1,1 +1,35 @@
-<p>slide-model works!</p>
+<app-ui-modal [isOpen]="isOpen" [title]="modalTitle" [isConfirmDisabled]="sliderForm.invalid" (closeModal)="onCancel()"
+    (confirm)="onSubmit()">
+
+    <!-- 1. ربط الفورم بالـ ViewModel -->
+    <form [formGroup]="sliderForm" (ngSubmit)="onSubmit()" class="form-content">
+
+        <!-- منطقة رفع الصورة (مؤقتاً سنضعها كـ Input نصي حتى نبني لوجيك الرفع) -->
+        <div class="form-group">
+            <label>رابط الصورة</label>
+            <input type="text" formControlName="imageUrl" class="form-control" placeholder="أدخل رابط الصورة...">
+            <!-- رسالة الخطأ -->
+            @if (sliderForm.get('imageUrl')?.invalid && sliderForm.get('imageUrl')?.touched) {
+            <small class="error-text">هذا الحقل مطلوب</small>
+            }
+        </div>
+
+        <div class="form-group">
+            <label>العنوان</label>
+            <input type="text" formControlName="title" class="form-control" placeholder="أدخل العنوان...">
+            @if (sliderForm.get('title')?.invalid && sliderForm.get('title')?.touched) {
+            <small class="error-text">العنوان مطلوب ويجب أن يكون 3 أحرف على الأقل</small>
+            }
+        </div>
+
+        <div class="form-group">
+            <label>الموقع (Location)</label>
+            <input type="text" formControlName="location" class="form-control" placeholder="أدخل الموقع...">
+            @if (sliderForm.get('location')?.invalid && sliderForm.get('location')?.touched) {
+            <small class="error-text">هذا الحقل مطلوب</small>
+            }
+        </div>
+
+    </form>
+
+</app-ui-modal>

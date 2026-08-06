@@ -45,7 +45,7 @@ export abstract class GenericCrudService<T extends { id: string | number }> {
     );
   }
   protected invalidateCache(): void {
-    console.log('🧹 Cache Invalidated due to data mutation.');
+    console.log('Cache Invalidated due to data mutation.');
     this.queryCache.clear();
   }
 }

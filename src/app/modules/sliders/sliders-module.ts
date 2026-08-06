@@ -5,10 +5,11 @@ import { SlidersRoutingModule } from './sliders-routing-module';
 import { SlidersPage } from './sliders-page/sliders-page';
 import { SharedModule } from '../shared/shared-module';
 import { SlideCards } from './component/slide-cards/slide-cards';
-import { SlideModel } from './slide-model/slide-model';
+import { SlideModelComponent } from './slide-model/slide-model';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [SlidersPage, SlideCards, SlideModel],
-  imports: [CommonModule, SlidersRoutingModule, SharedModule, SharedModule],
+  declarations: [SlidersPage, SlideCards, SlideModelComponent],
+  imports: [CommonModule, SlidersRoutingModule, SharedModule, ReactiveFormsModule],
 })
 export class SlidersModule { }
