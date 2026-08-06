@@ -34,7 +34,13 @@ export class SlidersPage implements OnInit {
       slider.displayLocation?.toLowerCase().includes(term)
     );
   }
-  onDelete(slider: ISlider): void { console.log(slider); }
-  onEdit(slider: ISlider): void { console.log(slider); }
-  onToggle(slider: ISlider, checked: boolean): void { console.log(slider, checked); }
+  onDelete(slider: ISlider): void {
+    console.log(slider);
+  }
+  onEdit(slider: ISlider): void {
+    console.log(slider);
+  }
+  onToggle(slider: ISlider, checked: boolean): void {
+    console.log(slider, checked);
+  }
 }
