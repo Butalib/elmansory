@@ -26,6 +26,8 @@ export class UiSelectComponent {
 
   @Input()
   options: ISelectOption[] = [];
+  // إضافة استقبال مسار الأيقونة (اختياري)
+  @Input() icon?: string;
 
   isOpen = false;
 

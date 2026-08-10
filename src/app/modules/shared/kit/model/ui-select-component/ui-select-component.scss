@@ -56,6 +56,8 @@
 
     white-space: nowrap;
     text-overflow: ellipsis;
+    opacity: 0.8;
+    font-size: .95rem;
 }
 
 .dropdown-icon {
@@ -97,6 +99,12 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     z-index: 1000;
+}
+
+.prefix-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0; // يمنع الصورة إنها تصغر لو النص طويل
 }
 
 .option-item {
