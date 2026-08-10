@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     readonly layoutServices: LayoutServices
   ) { }
-ngOnInit() {
+  ngOnInit() {
     // 2. معالجة الـ Initial Load: نقرأ الـ URL الحالي فوراً أول ما الهيدر يتولد
     this.updatePageTitle(this.router.url);
 
@@ -37,10 +37,10 @@ ngOnInit() {
   private updatePageTitle(url: string) {
     const urlSegments = url.split('/');
     const currentRoutePath = urlSegments[urlSegments.length - 1];
-    
+
     // البحث في السيرفس بناءً على المسار
     const newTitle = this.layoutServices.findTitleByRoute(currentRoutePath);
-    
+
     // تحديث مصدر الحقيقة (Single Source of Truth)
     this.layoutServices.pageTitle.set(newTitle);
   }

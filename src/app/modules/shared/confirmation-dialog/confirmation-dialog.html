@@ -1,1 +1,5 @@
-<p>confirmation-dialog works!</p>
+<app-modal-container [isOpen]="isOpen" [title]="title" [size]="size" [confirmLabel]="confirmLabel"
+  [cancelLabel]="cancelLabel" [isConfirmDisabled]="isLoading" (closeModal)="cancel.emit()" (confirm)="confirm.emit()"
+  [confirmTheme]="confirmTheme">
+
+</app-modal-container>

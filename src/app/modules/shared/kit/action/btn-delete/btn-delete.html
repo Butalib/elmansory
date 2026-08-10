@@ -1,3 +1,15 @@
 <button type="button" class="btn-delete" (click)="onDelete()">
-  <img draggable="false" class="sidebar-icon" src="assets/icon/shared/delete-02.svg" [alt]="delete" />
+  <img draggable="false" class="sidebar-icon" src="assets/icon/shared/delete-02.svg" alt="delete" />
 </button>
+
+<app-confirmation-dialog
+  [isOpen]="isConfirmOpen"
+  [title]="confirmTitle"
+  [message]="confirmMessage"
+  [confirmLabel]="confirmLabel"
+  [cancelLabel]="cancelLabel"
+  confirmTheme="error"
+  (cancel)="onCancelDelete()"
+  (confirm)="onConfirmDelete()"
+>
+</app-confirmation-dialog>

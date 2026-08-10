@@ -9,10 +9,30 @@ import { BtnEdit } from './kit/action/btn-edit/btn-edit';
 import { BtnDelete } from './kit/action/btn-delete/btn-delete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog';
-import { UiModalComponent } from './kit/ui-modal-component/ui-modal-component';
+import { UiModalComponent } from './kit/model/ui-modal-component/ui-modal-component';
+import { UiSelectComponent } from './kit/model/ui-select-component/ui-select-component';
+import { UiImageUploadComponent } from './kit/model/ui-image-upload-component/ui-image-upload-component';
 @NgModule({
-  declarations: [InnerActionHeader, BtnSwitch, BtnEdit, BtnDelete, ConfirmationDialog, UiModalComponent],
+  declarations: [
+    InnerActionHeader,
+    BtnSwitch,
+    BtnEdit,
+    BtnDelete,
+    ConfirmationDialog,
+    UiModalComponent,
+    UiSelectComponent,
+    UiImageUploadComponent,
+  ],
   imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule],
-  exports: [InnerActionHeader, BtnSwitch, BtnEdit, BtnDelete, MatSlideToggleModule, UiModalComponent],
+  exports: [
+    InnerActionHeader,
+    BtnSwitch,
+    BtnEdit,
+    BtnDelete,
+    MatSlideToggleModule,
+    UiModalComponent,
+    UiImageUploadComponent,
+    UiSelectComponent,
+  ],
 })
 export class SharedModule { }

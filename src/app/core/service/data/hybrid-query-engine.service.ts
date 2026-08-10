@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { IQueryEngine } from '../../interface/IQueryEngine';
 export class HybridQueryEngine<T> {
-    private queryState$ = new BehaviorSubject<IQueryEngine>({});
+    public queryState$ = new BehaviorSubject<IQueryEngine>({});
     public data$: Observable<T[]>;
     constructor(
         private fetchFromServer: (query: IQueryEngine) => Observable<T[]>,

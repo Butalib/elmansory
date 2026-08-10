@@ -27,18 +27,23 @@ export abstract class GenericCrudService<T extends { id: string | number }> {
     );
   }
 
-  add(item: T): Observable<T> {
+  add(item: T | FormData): Observable<T> {
     return this.apiService.post<T>(this.endpoint, item).pipe(
       tap(() => this.invalidateCache())
     );
   }
 
-  update(item: T): Observable<T> {
-    return this.apiService.put<T>(`${this.endpoint}/${item.id}`, item).pipe(
+  // update(item: T | FormData): Observable<T> {
+  //   return this.apiService.put<T>(`${this.endpoint}/${item.id}`, item).pipe(
+  //     tap(() => this.invalidateCache())
+  //   );
+  // }
+  // استلام الـ id كمعامل أول، والبيانات كمعامل ثاني
+  update(id: string | number, item: T | FormData): Observable<T> {
+    return this.apiService.put<T>(`${this.endpoint}/${id}`, item).pipe(
       tap(() => this.invalidateCache())
     );
   }
-
   delete(id: string | number): Observable<void> {
     return this.apiService.delete<void>(`${this.endpoint}/${id}`).pipe(
       tap(() => this.invalidateCache())

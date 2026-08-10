@@ -1,37 +1,34 @@
 @use 'sass:map';
-// اربط مسار الفايل ده صح على حسب مكان الـ variables عندك
-@use '../../../../../assets/styles/variables' as vars;
-
-// تنسيق المودل نفسه (خلفية، حاوية، إلخ)
-.modal-backdrop {
-    // ... تنسيقات الخلفية المظلمة ...
-}
+@use '../../../../../../assets/styles/variables' as vars;
 
 .modal-container {
+    &.vsm {
+        max-width: 20.625rem;
+    }
+
     &.sm {
-        max-width: 420px;
+        max-width: 28.125rem;
     }
 
     &.md {
-        max-width: 650px;
+        max-width: 40.625rem;
     }
 
     &.lg {
-        max-width: 850px;
+        max-width: 53.125rem;
     }
 
     &.xl {
-        max-width: 1100px;
+        max-width: 68.75rem;
     }
 }
 
 .modal-actions {
     display: flex;
-    gap: 16px; // المسافة بين الزرارين
+    gap: 16px; // المسافة بين الزرارين 
     padding-top: 24px; // حسب تصميم الفيجما
 }
 
-// 1. التنسيق المشترك للزرار
 .btn {
     flex: 1; // عشان الزرارين ياخدوا نفس المساحة جنب بعض
     padding: 12px 24px;
@@ -59,6 +56,17 @@
     }
 }
 
+// الكلاس الجديد الخاص بزر الحذف
+.btn-error {
+    background: linear-gradient(90deg, #e13434 0%, #951717 100%);
+    color: #ffffff;
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+        background-color: #b91c1c; // أحمر داكن عند مرور الماوس
+    }
+}
+
 // 3. الكلاس الثابت للزرار الثانوي (الإلغاء - الرمادي الفاتح)
 .btn-secondary {
     // بنجيب اللون الأسود/الرمادي درجة 50 من الـ map
@@ -72,38 +80,53 @@
 
 .modal-backdrop {
     position: fixed;
-    /* يجعله ثابتاً فوق كل شيء */
-    top: 0;
-    left: 0;
+
+    inset: 0;
+
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* لون أسود شفاف */
-    z-index: 1000;
-    /* أعلى طبقة في التطبيق */
 
-    /* Flexbox لتوسيط الصندوق الأبيض في منتصف الشاشة */
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    z-index: 1000;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    overflow-y: auto;
 }
 
-// 2. صندوق المودل الأبيض نفسه
 .modal-container {
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 600px;
-    /* العرض الأقصى حسب تصميم الفيجما */
-    border-radius: 12px;
-    /* حواف دائرية */
-    padding: 24px;
-    /* مساحات داخلية */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    /* ظل خفيف */
-    z-index: 1001;
-    /* يجب أن يكون أعلى من الخلفية */
+    box-sizing: border-box;
 
-    /* أنيميشن خفيف عند الفتح */
+    width: 100%;
+
+    /*
+     * الـ size يحدد الـ max-width
+     * لكن عمره ما يتعدى مساحة الشاشة
+     */
+    max-width: 600px;
+
+    max-height: calc(100vh - 32px);
+
+    padding: 24px;
+
+    background-color: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    z-index: 1001;
+
+    display: flex;
+    flex-direction: column;
+
     animation: slideIn 0.3s ease-out forwards;
 }
 
@@ -148,7 +171,37 @@
     }
 }
 
-/* 
-لا تنسَ أن تضع كود الـ .btn والـ .btn-primary اللي كتبناه 
-في الرد السابق تحت هذا الكود مباشرة لتنسيق الأزرار
-*/
+@media (max-width: 1400px) {
+
+    .modal-backdrop {
+        padding: 12px;
+    }
+
+    .modal-container {
+        max-width: 40%;
+
+        max-height: calc(100vh - 24px);
+
+        padding: 16px;
+
+        border-radius: 10px;
+    }
+
+    .modal-header {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+
+        .modal-title {
+            font-size: 1rem;
+        }
+    }
+
+    .modal-actions {
+        gap: 8px;
+        padding-top: 16px;
+    }
+
+    .btn {
+        padding: 10px 16px;
+    }
+}

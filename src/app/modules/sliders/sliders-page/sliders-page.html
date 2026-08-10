@@ -5,7 +5,7 @@
 <div class="sliders-grid">
   <!-- الكود الخاص بالـ Loop وعرض الكروت كما هو عندك بالضبط -->
   @for (slider of engine.data$ | async; track slider.id) {
-  <app-slide-cards [slider]="slider" (edit)="onEdit(slider)" (delete)="onDelete(slider)"
+  <app-slide-cards [slider]="slider" (edit)="openModalForEdit(slider)" (delete)="onDelete(slider)"
     (toggle)="onToggle(slider, $event)">
   </app-slide-cards>
   } @empty {
@@ -18,5 +18,5 @@
 <!-- حقن المودل في نهاية الصفحة وربطه بالـ Signals -->
 <!-- نستخدم () لاستخراج القيمة من الـ Signal -->
 <app-slide-model [isOpen]="isModalOpen()" [mode]="modalMode()" [sliderData]="selectedSlider()" (close)="closeModal()"
-  (save)="onSaveSlider($event)">
+  (save)="onSaveSlider($event)"> <!-- التعديل هنا: تمرير $event مباشرة -->
 </app-slide-model>
