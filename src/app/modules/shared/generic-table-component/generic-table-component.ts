@@ -44,12 +44,15 @@ export class GenericTableComponent {
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.pageChange.emit(this.currentPage + 1);
+      console.log(this.currentPage + 1);
+
     }
   }
 
   prevPage(): void {
     if (this.currentPage > 1) {
       this.pageChange.emit(this.currentPage - 1);
+      console.log(this.currentPage - 1);
     }
   }
 }

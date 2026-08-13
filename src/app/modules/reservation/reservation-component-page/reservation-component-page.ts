@@ -1,7 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { ITableColumn } from '../../../core/interface/IGenericTable';
-import { IQueryEngine } from '../../../core/interface/IQueryEngine';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';
 import { ReservationTableRow } from '../../../core/interface/IReservation';
 import { Reservations } from '../../../core/service/reservations.service';
@@ -14,7 +12,7 @@ import { Reservations } from '../../../core/service/reservations.service';
 })
 export class ReservationComponentPage implements OnInit {
   private reservationsService = inject(Reservations);
-  //config for the generic table component 
+
   tableColumns: ITableColumn[] = [
     { key: 'code', label: 'كود الطالب', type: 'text' },
     { key: 'studentName', label: 'اسم الطالب', type: 'text' },
@@ -23,76 +21,45 @@ export class ReservationComponentPage implements OnInit {
     { key: 'phoneNumber', label: 'رقم الهاتف', type: 'text' },
     { key: 'teacherName', label: 'اسم المعلم', type: 'text' },
     { key: 'telegramLink', label: 'رابط التلجرام', type: 'text' },
-
   ];
 
+  // الكومبوننت بيعمل الكونفيجريشن بس!
   engine = new HybridQueryEngine<ReservationTableRow>(
     (query) => this.reservationsService.loadByQuery(query),
-    (data, query) => this.filterReservationsLocally(data, query),
-    'local',
+    {
+      mode: 'local',
+      // بنقول للـ Engine ابحث في الأعمدة دي لو اليوزر كتب في السيرش
+      searchKeys: ['code', 'studentName', 'governorate', 'region', 'phone', 'teacherName', 'telegramLink']
+    }
   );
+
+  currentPage: number = 1;
+
   ngOnInit(): void {
+    // تحديد الحالة المبدئية للجدول
     this.engine.patchQuery({
+      _page: this.currentPage,
+      _limit: 10,
       _sort: 'createdAt',
       _order: 'desc'
     });
-
-    this.engine.data$.subscribe(data => {
-      console.log('Reservations:', data);
-      console.log('First reservation:', data[0]);
-      console.log('Phone:', data[0]?.phone);
-    });
   }
 
-
-
   onPageChange(newPage: number): void {
+    this.currentPage = newPage;
     this.engine.patchQuery({ _page: newPage });
+  }
+
+  onSearch(searchTerm: string): void {
+    // لما بنسيرش بنرجع للصفحة الأولى عشان النتائج تظهر صح
+    this.engine.patchQuery({ searchTerm, _page: this.currentPage });
   }
 
   openModalForAdd(): void {
     console.log('Open add reservation modal');
   }
 
-  onSearch(searchTerm: string): void {
-    this.engine.patchQuery({ searchTerm });
-  }
-
   openFilterModal(): void {
     console.log('Open reservation filter modal');
-  }
-
-
-  private filterReservationsLocally(
-    data: ReservationTableRow[],
-    query: IQueryEngine,
-  ): ReservationTableRow[] {
-    let result = [...data];
-
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      result = result.filter(
-        (reservation) =>
-          reservation.code.toLowerCase().includes(term) ||
-          reservation.studentName.toLowerCase().includes(term) ||
-          reservation.governorate.toLowerCase().includes(term) ||
-          reservation.region.toLowerCase().includes(term) ||
-          reservation.phone.includes(term) ||
-          reservation.teacherName.toLowerCase().includes(term) ||
-          reservation.telegramLink.toLowerCase().includes(term)
-      );
-    }
-
-    if (query._sort) {
-      result.sort((a, b) => {
-        const firstValue = String(a[query._sort as keyof ReservationTableRow] ?? '');
-        const secondValue = String(b[query._sort as keyof ReservationTableRow] ?? '');
-        const comparison = firstValue.localeCompare(secondValue);
-
-        return query._order === 'desc' ? -comparison : comparison;
-      });
-    }
-
-    return result;
   }
 }

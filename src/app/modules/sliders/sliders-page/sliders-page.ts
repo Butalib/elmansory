@@ -18,8 +18,10 @@ export class SlidersPage implements OnInit {
 
   engine = new HybridQueryEngine<ISlider>(
     (query: IQueryEngine) => this.sliderService.loadByQuery(query),
-    (data, query) => this.filterSlidersLocally(data, query),
-    'local',
+    {
+      mode: 'local',
+      searchKeys: ['title', 'displayLocation']
+    }
   );
   // Modal State Management
   readonly isModalOpen = signal(false);
@@ -49,6 +51,8 @@ export class SlidersPage implements OnInit {
           this.toastr.success('تمت إضافة الإعلان بنجاح');
           this.closeModal();
           this.refreshSlyders();
+          console.log('data add', data);
+          console.log(this.engine.localDataCache$);
         },
         error: () => this.toastr.error('حدث خطأ أثناء الإضافة'),
       });
@@ -60,23 +64,29 @@ export class SlidersPage implements OnInit {
             this.toastr.success('تم تعديل الإعلان بنجاح');
             this.closeModal();
             this.refreshSlyders();
+            console.log('data edit', data);
+            console.log('selectedSlider', this.selectedSlider()?.id);
+            console.log('id', id);
+            console.log(this.engine.localDataCache$?.subscribe({
+              next: (data) => console.log('localDataCache$', data)
+            }));
           },
           error: () => this.toastr.error('حدث خطأ أثناء التعديل'),
         });
       }
     }
   }
-
   onDelete(slider: ISlider): void {
     this.sliderService.delete(slider.id).subscribe({
       next: () => {
         this.toastr.success('تم الحذف بنجاح');
         this.refreshSlyders();
+        console.log(this.engine.localDataCache$);
+
       },
       error: () => this.toastr.error('حدث خطأ أثناء الحذف'),
     });
   }
-
   onToggle(slider: ISlider, checked: boolean): void {
     // نعمل نسخة من الإعلان ونغير حالته
     const updatedSlider = { ...slider, isActive: checked };
@@ -92,10 +102,8 @@ export class SlidersPage implements OnInit {
       },
     });
   }
-
   private refreshSlyders(): void {
-    const currentQuery = this.engine.queryState$.getValue();
-    this.engine.patchQuery({ ...currentQuery });
+    this.engine.invalidateCache();
   }
   ngOnInit(): void { }
   onSearch(searchTerm: string): void {

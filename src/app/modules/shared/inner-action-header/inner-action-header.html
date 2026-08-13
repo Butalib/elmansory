@@ -7,6 +7,12 @@
   </div>
   }
   <div class="header-actions">
+    @if (showFilterButton) {
+    <button type="button" class="date-box" (click)="onFilterClicked()">
+      <img draggable="false" src="assets/icon/main-header/filter-horizontal.svg" alt="Filters Icon" class="date-icon">
+      <span>تصفية</span>
+    </button>
+    }
     @if (showDate) {
     <div class="date-box">
       <img draggable="false" src="assets/icon/main-header/calendar-02.svg" alt="Date Icon" class="date-icon">
@@ -19,10 +25,6 @@
       <span>{{ actionLabel }}</span>
     </button>
     }
-    @if (showFilterButton) {
-    <button type="button" class="filter-btn" (click)="onFilterClicked()">
-      <span>تصفية</span>
-    </button>
-    }
+
   </div>
 </div>
