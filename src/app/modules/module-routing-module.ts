@@ -13,7 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'sliders',
-    loadChildren : () => import('./sliders/sliders-module').then(m => m.SlidersModule)
+    loadChildren: () => import('./sliders/sliders-module').then(m => m.SlidersModule)
+  },
+  {
+    path: 'reservation',
+    loadChildren: () => import('./reservation/reservation-module').then(m => m.ReservationModule)
   }
 ];
 
@@ -21,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ModuleRoutingModule {}
+export class ModuleRoutingModule { }

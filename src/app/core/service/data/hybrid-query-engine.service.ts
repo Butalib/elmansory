@@ -30,16 +30,15 @@ export class HybridQueryEngine<T> {
             })
         );
     }
+    //who is any feature use to add filter or search or sort or pagination or any feature that modify the query state, they should call this method to update the query state. Butailb 
     patchQuery(partialQuery: Partial<IQueryEngine>): void {
         const current = this.queryState$.getValue();
-
         const newQuery = { ...current, ...partialQuery };
         Object.keys(newQuery).forEach(key => {
             if (newQuery[key] === undefined || newQuery[key] === '') {
                 delete newQuery[key];
             }
         });
-
         this.queryState$.next(newQuery);
     }
     switchMode(newMode: 'server' | 'local'): void {

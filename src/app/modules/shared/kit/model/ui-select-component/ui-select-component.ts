@@ -54,7 +54,7 @@ export class UiSelectComponent {
       option => option.id === value
     );
 
-    return selectedOption?.label ?? '';
+    return selectedOption?.option ?? '';
   }
 
   // =========================

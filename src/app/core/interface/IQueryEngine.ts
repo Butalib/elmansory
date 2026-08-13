@@ -1,9 +1,10 @@
 export interface IQueryEngine {
-    q?: string;
+    searchTerm?: string;
     _page?: number;
     _limit?: number;
     _sort?: string;
     _order?: 'asc' | 'desc';
+    filters?: Record<string, unknown>;
     [key: string]: any;
     title_like?: string;
     isActive?: boolean;

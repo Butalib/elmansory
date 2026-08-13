@@ -130,7 +130,7 @@ export class SlideModelComponent implements OnInit, OnChanges {
 
     const matchedLocation = this.locations.find(
       location =>
-        location.label === this.sliderData?.displayLocation ||
+        location.option === this.sliderData?.displayLocation ||
         location.id === this.sliderData?.displayLocation
     );
 
@@ -199,7 +199,7 @@ export class SlideModelComponent implements OnInit, OnChanges {
       ...(this.sliderData ?? {} as ISlider),
 
       displayLocation:
-        selectedLocation?.label ?? locationId,
+        selectedLocation?.option ?? locationId,
 
       isActive:
         this.mode === 'add'

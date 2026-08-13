@@ -18,6 +18,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   @Input() actionIcon: string = 'fa-solid fa-plus';
   @Input() dateLabel: string = '';
   @Input() searchPlaceholder: string = 'ابحث هنا...';
+  @Input() btnIcon: string = '';
   // ui event 
   @Output() search = new EventEmitter<string>();
   @Output() actionClicked = new EventEmitter<void>();

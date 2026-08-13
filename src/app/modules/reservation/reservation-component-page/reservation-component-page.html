@@ -1,0 +1,11 @@
+<app-inner-action-header [showSearch]="true" [showActionButton]="true" [actionLabel]="'إضافة حجز جديد'"
+  [btnIcon]="'assets/icon/main-header/add.svg'" [showDate]="true" [dateLabel]="'28 أبريل - 5 مايو'"
+  (search)="onSearch($event)" (actionClicked)="openModalForAdd()" (filterClicked)="openFilterModal()">
+</app-inner-action-header>
+
+
+
+
+
+<app-generic-table [columns]="tableColumns" [data]="engine.data$ | async" [totalPages]="2" >
+</app-generic-table>

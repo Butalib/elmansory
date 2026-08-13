@@ -12,6 +12,7 @@ import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog';
 import { UiModalComponent } from './kit/model/ui-modal-component/ui-modal-component';
 import { UiSelectComponent } from './kit/model/ui-select-component/ui-select-component';
 import { UiImageUploadComponent } from './kit/model/ui-image-upload-component/ui-image-upload-component';
+import { GenericTableComponent } from './generic-table-component/generic-table-component';
 @NgModule({
   declarations: [
     InnerActionHeader,
@@ -22,6 +23,7 @@ import { UiImageUploadComponent } from './kit/model/ui-image-upload-component/ui
     UiModalComponent,
     UiSelectComponent,
     UiImageUploadComponent,
+    GenericTableComponent,
   ],
   imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule],
   exports: [
@@ -33,6 +35,7 @@ import { UiImageUploadComponent } from './kit/model/ui-image-upload-component/ui
     UiModalComponent,
     UiImageUploadComponent,
     UiSelectComponent,
+    GenericTableComponent,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

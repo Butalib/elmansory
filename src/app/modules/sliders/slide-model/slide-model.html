@@ -1,11 +1,8 @@
 <app-modal-container [size]="'sm'" [isOpen]="isOpen" [title]="modalTitle" [isConfirmDisabled]="sliderForm.invalid"
     (closeModal)="onCancel()" (confirm)="onSubmit()">
-
     <form [formGroup]="sliderForm" (ngSubmit)="onSubmit()" class="form-content">
-
         <!-- Image -->
         <div class="form-group">
-
             <app-ui-image-upload [isOpen]="isOpen"
                 [existingImageUrl]="mode === 'edit'? sliderData?.imageUrl ?? null: null"
                 (fileSelected)="onImageSelected($event)">
@@ -21,15 +18,11 @@
             }
 
         </div>
-
-
         <!-- Location -->
         <div class="form-group">
-
             <app-ui-select icon="assets/icon/sidebar/megaphone-01.svg" placeholder="مكان العرض" [options]="locations"
                 [control]="getControl('location')">
             </app-ui-select>
-
             @if (
             sliderForm.get('location')?.invalid &&
             sliderForm.get('location')?.touched

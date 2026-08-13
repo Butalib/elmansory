@@ -26,7 +26,7 @@
 
             @for (option of options; track option.id) {
             <li class="option-item" [class.selected]="option.id === control.value" (click)="selectOption(option)">
-                {{ option.label }}
+                {{ option.option }}
             </li>
             }
 
