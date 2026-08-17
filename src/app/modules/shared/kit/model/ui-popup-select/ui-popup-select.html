@@ -1,0 +1,74 @@
+<div class="popup-select">
+
+    <!-- Trigger -->
+
+    <button type="button" class="popup-select__trigger" [disabled]="isDisabled" (click)="toggle()">
+
+        @if (icon) {
+        <img class="popup-select__icon" [src]="icon" alt="" draggable="false">
+        }
+
+        <span class="popup-select__text">
+
+            {{ selectedText || placeholder }}
+
+        </span>
+
+        <span class="popup-select__arrow" [class.rotated]="isOpen">
+            ⌄
+        </span>
+
+    </button>
+
+
+    <!-- Popup -->
+
+    @if (isOpen) {
+
+    <div class="popup-select__panel" (click)="$event.stopPropagation()">
+
+        <!-- Search -->
+
+        <div class="popup-select__search">
+
+            <app-ui-input placeholder="ابحث..." [value]="searchTerm" (valueChange)="searchTerm = $event" [control]="searchControl" >
+            </app-ui-input>
+
+        </div>
+
+
+        <!-- Options -->
+
+        <div class="popup-select__options">
+
+            @for (
+            option of filteredOptions;
+            track option.id
+            ) {
+
+            <button type="button" class="popup-select__option" [class.selected]="option.id === currentValue"
+                (click)="selectOption(option)">
+
+                <span>
+                    {{ option.option }}
+                </span>
+
+            </button>
+
+            }
+
+            @empty {
+
+            <div class="popup-select__empty">
+                لا توجد نتائج
+            </div>
+
+            }
+
+        </div>
+
+    </div>
+
+    }
+
+</div>

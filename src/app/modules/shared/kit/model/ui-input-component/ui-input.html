@@ -1,0 +1,10 @@
+<div class="ui-input">
+
+    @if (icon) {
+    <img class="ui-input__icon" [src]="icon" alt="" draggable="false">
+    }
+
+    <input class="ui-input__control" [type]="type" [placeholder]="placeholder" [value]="inputValue"
+        (input)="onInput($event)" [formControl]="control">
+
+</div>

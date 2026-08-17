@@ -5,7 +5,7 @@
 
 <div class="sliders-grid">
   <!-- الكود الخاص بالـ Loop وعرض الكروت كما هو عندك بالضبط -->
-  @for (slider of engine.data$ | async; track slider.id) {
+  @for (slider of engine.result$ | async; track slider.id) {
   <app-slide-cards [slider]="slider" (edit)="openModalForEdit(slider)" (delete)="onDelete(slider)"
     (toggle)="onToggle(slider, $event)">
   </app-slide-cards>

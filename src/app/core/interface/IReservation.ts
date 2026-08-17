@@ -2,10 +2,11 @@ export interface ReservationTableRow {
     id: string;
     code: string;
     studentName: string;
-    governorate: string;
-    region: string;
-    phone: string;
-    teacherName: string;
+    governorateId: string;
+    regionId: string;
+    subjectId: string;
+    phoneNumber: string;
+    teacherId: string;
     telegramLink: string;
     isActive?: boolean;
     createdAt: string;

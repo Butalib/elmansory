@@ -1,0 +1,141 @@
+.popup-select {
+    display: block;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+
+    &__trigger {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: #f7f8fa;
+        border-radius: 8px;
+        padding: 0 16px;
+        height: 52px;
+        /* تصفير إعدادات الزرار الافتراضية المزعجة */
+        border: 1px solid transparent;
+        outline: none;
+        font-family: inherit;
+
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: right;
+        box-sizing: border-box;
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: #f0f2f5;
+        }
+
+        &:focus,
+        &.open {
+            border-color: #00a3ff;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+    }
+
+    &__icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 12px;
+        object-fit: contain;
+        opacity: 0.6;
+        flex-shrink: 0;
+    }
+
+    &__text {
+        flex: 1;
+        font-size: 14px;
+        color: #333333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__arrow {
+        font-size: 18px;
+        color: #a3a3a3;
+        margin-right: 12px;
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+
+        &.rotated {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__panel {
+        position: absolute;
+        top: calc(100% + 4px);
+        /* مسافة ناعمة تحت الحقل */
+        left: 0;
+        right: 0;
+        background-color: #ffffff;
+        border: 1px solid #eaeaea;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        z-index: 1050;
+        max-height: 280px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    &__search {
+        padding: 10px;
+        border-bottom: 1px solid #eaeaea;
+        background: #fafafa;
+        flex-shrink: 0;
+    }
+
+    &__options {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__option {
+        width: 100%;
+        text-align: right;
+        padding: 12px 16px;
+        font-size: 14px;
+        color: #333333;
+        /* تصفير الزرار الداخلي للخيارات */
+        background: none;
+        border: none;
+        outline: none;
+        font-family: inherit;
+
+        cursor: pointer;
+        transition: background-color 0.2s;
+        box-sizing: border-box;
+
+        &:hover {
+            background-color: #f7f8fa;
+        }
+
+        &.selected {
+            background-color: #e6f4ff;
+            color: #00a3ff;
+            font-weight: 500;
+        }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 24px 16px;
+        color: #999999;
+        font-size: 14px;
+    }
+}

@@ -1,114 +1,146 @@
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap, map, catchError, shareReplay, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { IQueryEngine } from '../../interface/IQueryEngine';
+import { IPaginationState } from '../../interface/IPaginationState';
 
-export interface EngineConfig<T> {
-    mode: 'server' | 'local';
-    searchKeys?: (keyof T)[]; // بنبعتله هنا الـ keys اللي هيبحث فيها لو المود local
-}
+export type QueryMode = 'server' | 'local';
 
 export class HybridQueryEngine<T> {
-    public queryState$ = new BehaviorSubject<IQueryEngine>({ _page: 1, _limit: 10 });
-    public data$: Observable<T[]>;
+    private sourceData: T[] = [];
+    private sourceLoaded = false;
+    private sourceSubscription?: Subscription;
+    private querySubscription?: Subscription;
 
-    // ضفنا دول عشان الـ Pagination في الـ UI يشتغل أوتوماتيك
-    public totalItems$ = new BehaviorSubject<number>(0);
-    public totalPages$ = new BehaviorSubject<number>(0);
+    private readonly queryState = new BehaviorSubject<IQueryEngine>({ _page: 1, _limit: 7 });
+    readonly query$ = this.queryState.asObservable();
 
-    public localDataCache$: Observable<T[]> | null = null;
-    private config: EngineConfig<T>;
+    private readonly resultSubject = new BehaviorSubject<T[]>([]);
+    readonly result$ = this.resultSubject.asObservable();
+
+    private readonly paginationSubject = new BehaviorSubject<IPaginationState>({
+        currentPage: 1, pageSize: 10, totalItems: 0, totalPages: 0,
+    });
+    readonly pagination$ = this.paginationSubject.asObservable();
 
     constructor(
-        private fetchFromServer: (query: IQueryEngine) => Observable<T[]>,
-        config: Partial<EngineConfig<T>> = {}
+        private readonly fetchFromServer: (query: IQueryEngine) => Observable<T[]>,
+        private readonly localQueryStrategy: (data: T[], query: IQueryEngine) => T[],
+        private readonly source$: Observable<T[]> | null = null,
+        private readonly mode: QueryMode = 'local',
     ) {
-        // Default Config
-        this.config = { mode: 'server', searchKeys: [], ...config };
+        this.querySubscription = this.query$.pipe(
+            switchMap(query => this.executeQuery(query))
+        ).subscribe();
 
-        this.data$ = this.queryState$.pipe(
-            switchMap((query) => {
-                if (this.config.mode === 'server') {
-                    // في حالة السيرفر: الباك إند هو اللي بيحسب وبيرجع كل حاجة
-                    return this.fetchFromServer(query).pipe(
-                        // هنا مفروض الباك إند بيرجع TotalPages بس هنفترض إنه بيرجع الداتا حالياً
-                        catchError((err) => {
-                            console.error('[Engine] Server Error:', err);
-                            return of([]);
-                        })
-                    );
-                } else {
-                    // Local Mode Pipeline
-                    if (!this.localDataCache$) {
-                        this.localDataCache$ = this.fetchFromServer({}).pipe(
-                            shareReplay(1),
-                            catchError((err) => {
-                                console.error('[Engine] Local Error:', err);
-                                return of([]);
-                            })
-                        );
-                    }
-
-                    return this.localDataCache$.pipe(
-                        map((allData) => this.processLocalData(allData, query))
-                    );
-                }
-            })
-        );
-    }
-    patchQuery(partialQuery: Partial<IQueryEngine>): void {
-        const current = this.queryState$.getValue();
-        const newQuery = { ...current, ...partialQuery };
-
-        Object.keys(newQuery).forEach(key => {
-            if (newQuery[key as keyof IQueryEngine] === undefined || newQuery[key as keyof IQueryEngine] === '') {
-                delete newQuery[key as keyof IQueryEngine];
-            }
-        });
-        this.queryState$.next(newQuery);
-    }
-
-    // الـ Core Logic: هنا الـ Engine بيعمل كل حاجة لوحده بناءً على الكونفيجريشن
-    private processLocalData(data: T[], query: IQueryEngine): T[] {
-        let result = [...data];
-
-        // 1. Generic Search Strategy
-        if (query.searchTerm && this.config.searchKeys?.length) {
-            const term = query.searchTerm.toLowerCase();
-            result = result.filter(item =>
-                this.config.searchKeys!.some(key =>
-                    String(item[key] ?? '').toLowerCase().includes(term)
-                )
-            );
+        if (this.mode === 'local' && this.source$) {
+            this.sourceSubscription = this.source$.subscribe({
+                next: (data) => {
+                    this.sourceData = [...data];
+                    this.sourceLoaded = true;
+                    this.refresh();
+                },
+            });
         }
+    }
 
-        // 2. Generic Sort Strategy
-        if (query._sort) {
-            result.sort((a, b) => {
-                const valA = String(a[query._sort as keyof T] ?? '').toLowerCase();
-                const valB = String(b[query._sort as keyof T] ?? '').toLowerCase();
-                const comparison = valA.localeCompare(valB);
-                return query._order === 'desc' ? -comparison : comparison;
+    private executeQuery(query: IQueryEngine): Observable<T[]> {
+        return this.mode === 'server' ? this.executeServerQuery(query) : this.executeLocalQuery(query);
+    }
+
+    private executeServerQuery(query: IQueryEngine): Observable<T[]> {
+        return this.fetchFromServer(query);
+    }
+
+    private executeLocalQuery(query: IQueryEngine): Observable<T[]> {
+        if (!this.sourceLoaded) {
+            this.resultSubject.next([]);
+            this.paginationSubject.next({
+                currentPage: 1, pageSize: query._limit ?? 10, totalItems: 0, totalPages: 0,
+            });
+            return new Observable<T[]>(subscriber => {
+                subscriber.next([]);
+                subscriber.complete();
             });
         }
 
-        // 3. Update Pagination State (عشان الـ UI يعرف احنا عندنا كام صفحة بعد الفلترة)
-        const totalItems = result.length;
-        const limit = query._limit || 10;
-        const totalPages = Math.ceil(totalItems / limit);
-
-        this.totalItems$.next(totalItems);
-        this.totalPages$.next(totalPages);
-
-        // 4. Pagination (Slicing) Strategy
-        const page = query._page || 1;
-        const startIndex = (page - 1) * limit;
-        return result.slice(startIndex, startIndex + limit);
+        return new Observable<T[]>(subscriber => {
+            const result = this.buildLocalResult(query);
+            subscriber.next(result);
+            subscriber.complete();
+        });
     }
-    // ضيف الميثود دي عشان تفرمت الكاش وتجبر السيرفر يبعت الداتا الجديدة
-    invalidateCache(): void {
-        if (this.config.mode === 'local') {
-            this.localDataCache$ = null;
+
+    private buildLocalResult(query: IQueryEngine): T[] {
+        const queriedData = this.localQueryStrategy([...this.sourceData], query);
+        return this.paginate(queriedData, query);
+    }
+
+    private paginate(data: T[], query: IQueryEngine): T[] {
+        const page = Math.max(query._page ?? 1, 1);
+        const pageSize = Math.max(query._limit ?? 10, 1);
+        const totalItems = data.length;
+        const totalPages = Math.ceil(totalItems / pageSize);
+
+        const safePage = totalPages > 0 ? Math.min(page, totalPages) : 1;
+        const startIndex = (safePage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const result = data.slice(startIndex, endIndex);
+
+        this.paginationSubject.next({
+            currentPage: safePage, pageSize, totalItems, totalPages,
+        });
+        this.resultSubject.next(result);
+
+        return result;
+    }
+
+    patchQuery(partialQuery: Partial<IQueryEngine>): void {
+        const currentQuery = this.queryState.value;
+        const nextQuery: IQueryEngine = { ...currentQuery, ...partialQuery };
+
+        const isPageChange = partialQuery._page !== undefined;
+        if (!isPageChange) {
+            nextQuery._page = 1;
         }
-        this.queryState$.next(this.queryState$.getValue());
+
+        this.queryState.next(this.cleanQuery(nextQuery));
+    }
+
+    reset(): void {
+        this.queryState.next({ _page: 1, _limit: 10 });
+    }
+
+    clearSearch(): void {
+        this.patchQuery({ searchTerm: undefined }); // تأكد إن الـ Interface بيسمح بـ searchTerm
+    }
+
+    refresh(): void {
+        this.queryState.next({ ...this.queryState.value });
+    }
+
+    refreshSource(): void {
+        if (this.mode === 'server') {
+            this.refresh();
+            return;
+        }
+
+        this.sourceLoaded = false;
+        this.resultSubject.next([]);
+        this.paginationSubject.next({
+            currentPage: 1, pageSize: this.queryState.value._limit ?? 10, totalItems: 0, totalPages: 0,
+        });
+    }
+
+    private cleanQuery(query: IQueryEngine): IQueryEngine {
+        return Object.fromEntries(
+            Object.entries(query).filter(
+                ([, value]) => value !== undefined && value !== null && value !== ''
+            )
+        ) as IQueryEngine;
+    }
+
+    destroy(): void {
+        this.querySubscription?.unsubscribe();
+        this.sourceSubscription?.unsubscribe();
     }
 }

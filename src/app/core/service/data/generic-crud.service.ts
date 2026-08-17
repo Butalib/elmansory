@@ -1,50 +1,56 @@
-import { tap, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ApiDataService } from './api.data.service';
-import { IQueryEngine } from '../../interface/IQueryEngine';
 
-export abstract class GenericCrudService<T extends { id: string | number }> {
-
-  protected queryCache = new Map<string, T[]>();
-
+export class GenericCrudService<T> {
+  private itemsSubject = new BehaviorSubject<T[]>([]);
+  public items$ = this.itemsSubject.asObservable();
   constructor(
     protected endpoint: string,
-    private apiService: ApiDataService
+    protected apiService: ApiDataService
   ) { }
 
-  loadByQuery(query: IQueryEngine): Observable<T[]> {
-    const queryKey = JSON.stringify(query);
-
-    if (this.queryCache.has(queryKey)) {
-      console.log(' Data loaded from Cache for query:', query);
-      return of(this.queryCache.get(queryKey)!);
-    }
-
-    return this.apiService.get<T[]>(this.endpoint, query).pipe(
-      tap((data: T[]) => {
-        this.queryCache.set(queryKey, data);
-        console.log(' Data loaded from Server and cached.');
+  loadAll(queryParams?: any): Observable<T[]> {
+    return this.apiService.get<T[]>(this.endpoint, queryParams).pipe(
+      tap((data) => {
+        this.itemsSubject.next(data);
       })
     );
   }
-
-  add(item: T | FormData): Observable<T> {
+  loadByQuery(query: any): Observable<T[]> {
+    return this.apiService.get<T[]>(this.endpoint, query);
+  }
+  add(item: T): Observable<T> {
     return this.apiService.post<T>(this.endpoint, item).pipe(
-      tap(() => this.invalidateCache())
+      tap((newItem) => {
+        // Optimistic Update: بنضيف العنصر الجديد للستيت مباشرة
+        const currentData = this.itemsSubject.getValue();
+        this.itemsSubject.next([newItem, ...currentData]);
+      })
     );
   }
-
-  update(id: string | number, item: T | FormData): Observable<T> {
+  update(id: string | number, item: Partial<T>): Observable<T> {
     return this.apiService.put<T>(`${this.endpoint}/${id}`, item).pipe(
-      tap(() => this.invalidateCache())
+      tap((updatedItem) => {
+        // بنعدل العنصر في الميموري عشان الـ UI يحس بالتغيير وقتي
+        const currentData = this.itemsSubject.getValue();
+        const index = currentData.findIndex((x: any) => x.id === id);
+
+        if (index !== -1) {
+          const newData = [...currentData];
+          // لو الباك إند بيرجع الأوبجيكت متعدل بناخده، لو لأ بندمج التعديل مع القديم
+          newData[index] = { ...newData[index], ...item, ...updatedItem };
+          this.itemsSubject.next(newData);
+        }
+      })
     );
   }
-  delete(id: string | number): Observable<void> {
-    return this.apiService.delete<void>(`${this.endpoint}/${id}`).pipe(
-      tap(() => this.invalidateCache())
+  delete(id: string | number): Observable<any> {
+    return this.apiService.delete<any>(`${this.endpoint}/${id}`).pipe(
+      tap(() => {
+        // بنفلتر الداتا ونشيل العنصر اللي اتمسح
+        const currentData = this.itemsSubject.getValue();
+        this.itemsSubject.next(currentData.filter((x: any) => x.id !== id));
+      })
     );
-  }
-  protected invalidateCache(): void {
-    console.log('Cache Invalidated due to data mutation.');
-    this.queryCache.clear();
   }
 }

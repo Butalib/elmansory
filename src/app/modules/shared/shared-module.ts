@@ -13,6 +13,8 @@ import { UiModalComponent } from './kit/model/ui-modal-component/ui-modal-compon
 import { UiSelectComponent } from './kit/model/ui-select-component/ui-select-component';
 import { UiImageUploadComponent } from './kit/model/ui-image-upload-component/ui-image-upload-component';
 import { GenericTableComponent } from './generic-table-component/generic-table-component';
+import { UiInput } from './kit/model/ui-input-component/ui-input';
+import { UiPopupSelect } from './kit/model/ui-popup-select/ui-popup-select';
 @NgModule({
   declarations: [
     InnerActionHeader,
@@ -24,6 +26,8 @@ import { GenericTableComponent } from './generic-table-component/generic-table-c
     UiSelectComponent,
     UiImageUploadComponent,
     GenericTableComponent,
+    UiInput,
+    UiPopupSelect,
   ],
   imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule],
   exports: [
@@ -36,6 +40,8 @@ import { GenericTableComponent } from './generic-table-component/generic-table-c
     UiImageUploadComponent,
     UiSelectComponent,
     GenericTableComponent,
+    UiInput,
+    UiPopupSelect,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
