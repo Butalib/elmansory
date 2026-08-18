@@ -1,0 +1,30 @@
+<app-inner-action-header [title]="'المواد'" [showActionButton]="true" [showDate]="true"
+    [btnIcon]="'assets/icon/main-header/add.svg'" [actionLabel]="'إضافة مادة جديدة'" [dateLabel]="'28 أبريل - 5 مايو'"
+    (actionClicked)="onAddSubject()" (search)="onSearch($event)"></app-inner-action-header>
+@if (subjects$ | async; as subjects) {
+<div class=" cards-grid">
+    @for (subject of subjects; track subject.id) {
+    <app-subject-card [subject]="subject" (toggleActive)="onToggleStatus(subject, $event)"
+        (edit)="onEditSubject($event)" (delete)="onDeleteSubject($event)">
+    </app-subject-card>
+    }
+    @if (subjects.length === 0) {
+    <div class="empty-state">
+        لا توجد مواد تطابق بحثك.
+    </div>
+    }
+</div>
+}
+<app-modal-container [isOpen]="isFormModalOpen" [title]="formMode === 'add' ? 'إضافة مادة جديدة' : 'تعديل المادة'"
+    [size]="'sm'" confirmLabel="حفظ" cancelLabel="إلغاء" [isConfirmDisabled]="subjectNameControl.invalid"
+    (closeModal)="closeFormModal()" (confirm)="saveSubject()">
+
+    <!-- المحتوى الداخلي للمودل -->
+    <div class="modal-form-content">
+        <!-- استخدمنا الـ UiInput بتاعك وربطناه بالـ FormControl -->
+        <app-ui-input [control]="subjectNameControl" placeholder="أدخل اسم المادة..."
+            icon="assets/icon/shared/edit.svg">
+        </app-ui-input>
+    </div>
+
+</app-modal-container>

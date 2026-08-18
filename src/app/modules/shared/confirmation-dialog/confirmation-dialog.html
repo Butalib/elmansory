@@ -1,5 +1,8 @@
 <app-modal-container [isOpen]="isOpen" [title]="title" [size]="size" [confirmLabel]="confirmLabel"
   [cancelLabel]="cancelLabel" [isConfirmDisabled]="isLoading" (closeModal)="cancel.emit()" (confirm)="confirm.emit()"
   [confirmTheme]="confirmTheme">
+  <p class="confirm-text" style="font-size: 1.1rem; color: #333; margin: 1rem 0;">
+    {{ message }}
+  </p>
 
 </app-modal-container>

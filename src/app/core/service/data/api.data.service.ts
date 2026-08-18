@@ -30,7 +30,7 @@ export class ApiDataService {
   }
 
   put<T = any>(endpoint: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body).pipe(take(1));
+    return this.http.patch<T>(`${this.baseUrl}/${endpoint}`, body).pipe(take(1));
   }
 
   delete<T = any>(endpoint: string): Observable<T> {

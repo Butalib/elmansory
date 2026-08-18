@@ -1,0 +1,99 @@
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 31.25rem;
+    margin: 1rem auto;
+    direction: rtl;
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            opacity: 0.5;
+        }
+
+        .custom-input {
+            width: 100%;
+            padding: 0.5rem;
+            padding-right: 3rem;
+            /* مساحة للأيقونة على اليمين */
+            border: none;
+            /* شيلنا البوردر زي التصميم المرفق */
+            border-radius: 12px;
+            /* حواف دائرية ناعمة */
+            background-color: #f3f4f6;
+            /* لون الخلفية الرمادي الفاتح */
+            font-family: inherit;
+            font-size: 0.9375rem;
+            color: #333;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+
+            &::placeholder {
+                color: #9ca3af;
+            }
+
+            /* تأثير لما المستخدم يضغط على الحقل */
+            &:focus {
+                box-shadow: 0 0 0 2px #00a8ff;
+                /* حافة زرقاء خفيفة تعبر عن التركيز */
+                background-color: #ffffff;
+            }
+        }
+
+        .textarea {
+            padding-right: 16px;
+            /* هنا مفيش أيقونة فبنرجع البادينج لطبيعته */
+            resize: vertical;
+            /* السماح بتكبير الطول فقط مش العرض */
+        }
+    }
+
+    .error-msg {
+        color: #e63946;
+        font-size: 0.8125rem;
+        padding-right: 0.5rem;
+        font-weight: 500;
+    }
+
+    .submit-action {
+        margin-top: 0.2rem;
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #00a8ff;
+            /* اللون الأزرق الخاص بالتصميم */
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+
+            &:hover:not(:disabled) {
+                background-color: darken(#00a8ff, 10%);
+                /* يغمق شوية لما تقف عليه */
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+    }
+}

@@ -26,10 +26,10 @@ export class LayoutServices {
       route: 'reservation'
     },
     {
-      id: 'materials',
+      id: 'subject',
       label: 'المواد',
       icon: 'assets/icon/sidebar/materials.svg',
-      route: 'materials'
+      route: 'subject'
     },
     {
       id: 'levels',
@@ -53,7 +53,7 @@ export class LayoutServices {
       id: 'orders',
       label: 'الطلبات',
       icon: 'assets/icon/sidebar/orders.svg',
-      route: '  orders'
+      route: 'orders'
     },
     {
       id: 'users',

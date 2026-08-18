@@ -1,0 +1,51 @@
+@if (subject) {
+<div class="subject-card" dir="rtl">
+
+    <div class="card-right">
+        <div class="icon-box">
+            <img src="assets/icon/subject/test-tube.svg" alt="Subject Icon">
+        </div>
+        <h3 class="subject-title">{{ subject.name }}</h3>
+    </div>
+
+    <div class="card-left">
+
+        <app-btn-switch [checked]="subject.isActive" (toggle)="onToggle($event)">
+        </app-btn-switch>
+
+        <div class="dropdown-container">
+            <button class="btn-more" (click)="toggleMenu()">
+                <img src="assets/icon/subject/more-vertical.svg" alt="Options">
+            </button>
+
+            @if (isMenuOpen) {
+            <!-- جوه الـ dropdown-menu -->
+            <div class="dropdown-menu">
+
+                <!-- زرار التعديل -->
+                <div class="menu-item" (click)="onEditAction()">
+                    <app-btn-edit></app-btn-edit>
+                    <span>تعديل</span>
+                </div>
+
+                <!-- زرار الحذف -->
+                <!-- ضفنا هنا (click)="isMenuOpen = false" عشان القائمة تقفل فوراً لما تدوس -->
+                <div class="menu-item">
+                    <button type="button" class="btn-delete-menu" (click)="onDeleteClick()">
+                        <img draggable="false" class="sidebar-icon" src="assets/icon/shared/delete-02.svg"
+                            alt="delete" />
+                        <span>حذف</span>
+                    </button>
+                </div>
+
+            </div>
+            }
+        </div>
+
+    </div>
+</div>
+}
+<app-confirmation-dialog [isOpen]="isConfirmOpen" [title]="'تأكيد الحذف'"
+    [message]="'هل أنت متأكد من حذف مادة ' + subject.name + '؟'" confirmLabel="حذف" cancelLabel="إلغاء"
+    confirmTheme="error" (cancel)="onCancelDelete()" (confirm)="onConfirmDelete()">
+</app-confirmation-dialog>

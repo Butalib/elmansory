@@ -42,6 +42,7 @@ import { UiPopupSelect } from './kit/model/ui-popup-select/ui-popup-select';
     GenericTableComponent,
     UiInput,
     UiPopupSelect,
+    ConfirmationDialog
   ],
 })
 export class SharedModule { }

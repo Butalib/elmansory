@@ -36,8 +36,8 @@ export class GenericTableComponent {
     this.activeDropdownIndex = null;
   }
 
-  onToggle(key: string, row: any, event: Event): void {
-    const value = (event.target as HTMLInputElement).checked;
+  onToggle(key: string, row: any, value: boolean): void {
+    // const value = (event.target as HTMLInputElement).checked;
     this.toggleChange.emit({ key, row, value });
   }
 

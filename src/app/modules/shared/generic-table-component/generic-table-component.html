@@ -20,10 +20,8 @@
             }
 
             @case ('toggle') {
-            <label class="toggle-control">
-              <input type="checkbox" [checked]="row[col.key]" (change)="onToggle(col.key, row, $event)" />
-              <span class="toggle-slider"></span>
-            </label>
+            <app-btn-switch [checked]="row[col.key]" (toggle)="onToggle(col.key, row, $event)">
+            </app-btn-switch>
             }
 
             @case ('actions') {

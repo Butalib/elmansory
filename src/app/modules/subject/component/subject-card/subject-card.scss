@@ -1,0 +1,127 @@
+.subject-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.card-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .icon-box {
+        width: 40px;
+        height: 40px;
+        background-color: #e6f4ff;
+        /* لون أزرق فاتح زي الديزاين */
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .subject-title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+    }
+}
+
+.card-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dropdown-container {
+    position: relative;
+
+    .btn-more {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        /* بيخليها تفتح من الشمال لليمين */
+        background: white;
+        min-width: 120px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid #eee;
+        z-index: 10;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+
+            &:hover {
+                background-color: #f9f9f9;
+            }
+
+            span {
+                font-size: 0.9rem;
+                color: #555;
+                font-weight: 500;
+            }
+        }
+
+        .btn-delete-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: #555;
+
+            .sidebar-icon {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+        }
+    }
+}
