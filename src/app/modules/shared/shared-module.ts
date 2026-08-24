@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedRoutingModule } from './shared-routing-module';
-import { InnerActionHeader } from './inner-action-header/inner-action-header';
+import { InnerActionHeader } from './kit/inner-action-header/inner-action-header';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BtnSwitch } from './kit/action/btn-switch/btn-switch';
 import { BtnEdit } from './kit/action/btn-edit/btn-edit';
 import { BtnDelete } from './kit/action/btn-delete/btn-delete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog';
+import { ConfirmationDialog } from './kit/confirmation-dialog/confirmation-dialog';
 import { UiModalComponent } from './kit/model/ui-modal-component/ui-modal-component';
 import { UiSelectComponent } from './kit/model/ui-select-component/ui-select-component';
 import { UiImageUploadComponent } from './kit/model/ui-image-upload-component/ui-image-upload-component';
-import { GenericTableComponent } from './generic-table-component/generic-table-component';
+import { GenericTableComponent } from './kit/generic-table-component/generic-table-component';
 import { UiInput } from './kit/model/ui-input-component/ui-input';
 import { UiPopupSelect } from './kit/model/ui-popup-select/ui-popup-select';
+import { Kpi } from './kpi/kpi';
 @NgModule({
   declarations: [
     InnerActionHeader,
@@ -28,6 +29,7 @@ import { UiPopupSelect } from './kit/model/ui-popup-select/ui-popup-select';
     GenericTableComponent,
     UiInput,
     UiPopupSelect,
+    Kpi,
   ],
   imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule],
   exports: [
@@ -42,7 +44,8 @@ import { UiPopupSelect } from './kit/model/ui-popup-select/ui-popup-select';
     GenericTableComponent,
     UiInput,
     UiPopupSelect,
-    ConfirmationDialog
+    ConfirmationDialog,
+    Kpi,
   ],
 })
 export class SharedModule { }

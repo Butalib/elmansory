@@ -69,9 +69,27 @@ export class HybridQueryEngine<T> {
             subscriber.complete();
         });
     }
-
     private buildLocalResult(query: IQueryEngine): T[] {
-        const queriedData = this.localQueryStrategy([...this.sourceData], query);
+        // 1. الفلترة المخصصة والبحث (عن طريق الاستراتيجية اللي الشاشة بتبعتها)
+        let queriedData = this.localQueryStrategy([...this.sourceData], query);
+
+        // 2. الترتيب العام (Generic Sorting)
+        if (query._sort) {
+            const sortKey = query._sort as keyof T;
+            const orderMultiplier = query._order === 'desc' ? -1 : 1; // الافتراضي تصاعدي، لو desc نعكس
+
+            queriedData.sort((a, b) => {
+                const valA = a[sortKey];
+                const valB = b[sortKey];
+
+                // التعامل مع التواريخ أو النصوص
+                if (valA < valB) return -1 * orderMultiplier;
+                if (valA > valB) return 1 * orderMultiplier;
+                return 0;
+            });
+        }
+
+        // 3. التقسيم لصفحات (Pagination)
         return this.paginate(queriedData, query);
     }
 

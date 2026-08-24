@@ -16,7 +16,6 @@ export class ConfirmationDialog {
   @Input() cancelLabel: string = 'إلغاء';
   @Input() size: ModalSize = 'vsm';
 
-  // تحديد ثيم زرار التأكيد (error للأحمر، primary للأزرق)
   @Input() confirmTheme: 'primary' | 'error' | 'success' = 'error';
   @Input() isLoading: boolean = false; // لحالة تحميل الزرار
 

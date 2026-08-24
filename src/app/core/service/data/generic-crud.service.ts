@@ -19,6 +19,9 @@ export class GenericCrudService<T> {
   loadByQuery(query: any): Observable<T[]> {
     return this.apiService.get<T[]>(this.endpoint, query);
   }
+  getById<TResult = T>(id: string | number): Observable<TResult> {
+    return this.apiService.get<TResult>(`${this.endpoint}/${id}`);
+  }
   add(item: T): Observable<T> {
     return this.apiService.post<T>(this.endpoint, item).pipe(
       tap((newItem) => {

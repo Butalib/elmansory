@@ -1,0 +1,107 @@
+<div class="generic-table">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          @for (col of columns; track col.key) {
+          <th>{{ col.label }}</th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (row of data || []; track $index; let i = $index) {
+        <tr>
+          @for (col of columns; track col.key) {
+          <td [class.actions-cell]="col.type === 'actions'">
+            @switch (col.type) {
+
+            @case ('text') {
+            {{ row[col.key] }}
+            }
+
+            @case ('user') {
+            <div class="user-cell">
+              @if (col.imageKey && row[col.imageKey]) {
+              <img [src]="row[col.imageKey]" alt="avatar" class="user-avatar">
+              }
+              <span class="user-name">{{ row[col.key] }}</span>
+            </div>
+            }
+
+            @case ('toggle') {
+            <app-btn-switch [checked]="row[col.key]" (toggle)="onToggle(col.key, row, $event)">
+            </app-btn-switch>
+            }
+
+            @case ('date') {
+            {{row[col.key] | date:'dd-MM-yyyy'}}
+            }
+
+            @case ('badge') {
+            @if (col.badgeConfig && col.badgeConfig[row[col.key]]) {
+            <!-- الديناميكية الوحيدة اللي بنسيبها كـ inline هي الألوان اللي جاية من الداتا -->
+            <span class="badge-label" [style.backgroundColor]="col.badgeConfig[row[col.key]].bgColor"
+              [style.color]="col.badgeConfig[row[col.key]].textColor">
+              {{ col.badgeConfig[row[col.key]].text }}
+            </span>
+            } @else {
+            <span>{{ row[col.key] }}</span>
+            }
+            }
+
+            @case ('actions') {
+            <div class="actions-wrapper">
+              @if (col.hasToggle && col.toggleKey) {
+              <app-btn-switch [checked]="row[col.toggleKey]" (toggle)="onToggle(col.toggleKey, row, $event)">
+              </app-btn-switch>
+              }
+
+              <button type="button" class="actions-trigger" aria-label="Open row actions"
+                (click)="toggleActionMenu(i, $event)">
+                &#8942;
+              </button>
+
+              @if (activeDropdownIndex === i) {
+              <div class="actions-dropdown" (click)="$event.stopPropagation()">
+                @for (action of col.actions || []; track action.id) {
+                <button type="button" class="dropdown-action" [style.color]="action.color || null"
+                  (click)="onActionClick(action.id, row)">
+                  @if (action.icon) {
+                  <img class="action-icon" draggable="false" [src]="action.icon" alt="{{ action.label }}" />
+                  }
+                  <span>{{ action.label }}</span>
+                </button>
+                }
+              </div>
+              }
+            </div>
+            }
+            }
+          </td>
+          }
+        </tr>
+        } @empty {
+        <tr>
+          <td class="empty-state" [attr.colspan]="columns.length || 1">لا توجد بيانات للعرض</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- جزء الـ Pagination زي ما هو -->
+  @if (totalPages > 1) {
+  <div class="pagination">
+    <button type="button" class="pagination-btn" [disabled]="currentPage <= 1" (click)="prevPage()">
+      <img dragable="false" src="assets/icon/table/next.svg" alt="Next" />
+    </button>
+
+    <span class="pagination-info"> {{ currentPage }} / {{ totalPages }} </span>
+
+    <button type="button" class="pagination-btn" [disabled]="currentPage >= totalPages" (click)="nextPage()">
+      <img dragable="false" src="assets/icon/table/prev.svg" alt="Previous" />
+    </button>
+  </div>
+  }
+</div>

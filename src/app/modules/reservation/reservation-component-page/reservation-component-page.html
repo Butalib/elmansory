@@ -1,6 +1,6 @@
 <app-inner-action-header [showSearch]="true" [showActionButton]="true" [actionLabel]="'إضافة حجز جديد'"
-  [btnIcon]="'assets/icon/main-header/add.svg'" [showDate]="true" [dateLabel]="'28 أبريل - 5 مايو'"
-  (search)="onSearch($event)" (actionClicked)="openModal()" [showFilterButton]="true">
+  [btnIcon]="'assets/icon/main-header/add.svg'" [showDate]="true" (search)="onSearch($event)"
+  (actionClicked)="openModal()" [showFilterButton]="true">
 </app-inner-action-header>
 
 <app-reservation-model [isOpen]="isModalOpen" [teachers]="teachersList" [subjects]="subjectsList"

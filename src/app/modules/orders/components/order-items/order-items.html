@@ -1,0 +1,54 @@
+<div class="order-items">
+
+    <!-- Items -->
+    <div class="items-list">
+
+        @for (item of order.items; track item.id) {
+        <div class="order-item">
+
+            <img [src]="item.image" [alt]="item.name">
+
+            <div class="item-info">
+                <p>{{ item.name }}</p>
+                <p>{{ item.type }}</p>
+            </div>
+
+            <div class="item-quantity">
+                <span>x{{ item.quantity }}</span>
+            </div>
+
+            <div class="item-price">
+                {{ item.price }} د.ع
+            </div>
+
+        </div>
+        }
+
+    </div>
+
+    <!-- Summary -->
+    <div class="order-summary">
+
+        <div class="summary-row">
+            <span>إجمالي المنتجات</span>
+            <span>{{ totalQuantity }} منتجات</span>
+        </div>
+
+        <div class="summary-row">
+            <span>إجمالي السعر</span>
+            <span>{{ subtotal }} د.ع</span>
+        </div>
+
+        <div class="summary-row">
+            <span>الخصم</span>
+            <span>{{ order.discount }} د.ع</span>
+        </div>
+
+        <div class="summary-row total">
+            <strong>الإجمالي</strong>
+            <strong>{{ total }} د.ع</strong>
+        </div>
+
+    </div>
+
+</div>

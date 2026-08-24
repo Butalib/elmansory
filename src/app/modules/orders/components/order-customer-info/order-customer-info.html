@@ -1,0 +1,46 @@
+<div class="customer-info">
+
+    <div class="customer-avatar">
+        <img [src]="order.customerAvatar" [alt]="order.customer.name">
+    </div>
+
+    <div class="customer-details">
+
+        <div class="info-row">
+            <span>الاسم</span>
+            <strong>{{ order.customer.name }}</strong>
+        </div>
+
+        <div class="info-row">
+            <span>رقم التليفون</span>
+            <strong>{{ order.customer.phone }}</strong>
+        </div>
+
+        <div class="info-row">
+            <span>الإيميل</span>
+            <strong>{{ order.customer.email }}</strong>
+        </div>
+
+        <div class="info-row">
+            <span>المحافظة</span>
+            <strong>{{ order.customer.governorate }}</strong>
+        </div>
+
+        <div class="info-row">
+            <span>المنطقة</span>
+            <strong>{{ order.customer.area }}</strong>
+        </div>
+
+        <div class="info-row">
+            <span>العنوان</span>
+            <strong>{{ order.customer.address }}</strong>
+        </div>
+
+        <div class="info-row">
+            <span>نوع الطلب</span>
+            <strong>{{ order.orderType }}</strong>
+        </div>
+
+    </div>
+
+</div>

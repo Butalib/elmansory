@@ -1,0 +1,39 @@
+<app-inner-action-header [title]="'الطلبات'" [showActionButton]="true" [showFilterButton]="true"
+    [actionLabel]="'قبول الطلبات المعلقة'" [btnIcon]="'assets/icon/main-header/accsept.svg'" [showDate]="true"
+    (sortChange)="onSortChange($event)" (search)="onSearch($event)" (sortChange)="onSortChange($event)"
+    (actionClicked)="onActionClicked()" (dateRangeChange)="onDateRangeChange($event)">
+</app-inner-action-header>
+
+<!-- كروت الـ KPI (زي ما عملناها) -->
+<app-kpi [stats]="(kpiStats$ | async) ?? []"></app-kpi>
+<div class="filters-tabs">
+    <button type="button" class="tab-btn" [class.active]="activeOrderType === 'الكل'"
+        (click)="onOrderTypeFilterChange('الكل')">
+        الكل
+    </button>
+
+    <button type="button" class="tab-btn" [class.active]="activeOrderType === 'ملازم'"
+        (click)="onOrderTypeFilterChange('ملازم')">
+        ملازم
+    </button>
+
+    <button type="button" class="tab-btn" [class.active]="activeOrderType === 'حجز الكترونى'"
+        (click)="onOrderTypeFilterChange('حجز الكترونى')">
+        حجز إلكتروني
+    </button>
+
+    <button type="button" class="tab-btn" [class.active]="activeOrderType === 'جهز نفسك للمدرسة'"
+        (click)="onOrderTypeFilterChange('جهز نفسك للمدرسة')">
+        جهز نفسك للمدرسة
+    </button>
+</div>
+<!-- الجدول -->
+<app-generic-table [columns]="tableColumns" [data]="(engine.result$ | async) ?? []"
+    [currentPage]="(engine.pagination$ | async)?.currentPage ?? 1"
+    [totalPages]="(engine.pagination$ | async)?.totalPages ?? 1" (pageChange)="onPageChange($event)"
+    (actionClick)="onActionClick($event)" (toggleChange)="onToggleStatus($event)">
+</app-generic-table>
+<app-confirmation-dialog [isOpen]="isAcceptAllModalOpen" title="هل ترغب في اعتماد كل الطلبات المعلقة؟"
+    confirmLabel="تأكيد" cancelLabel="إلغاء" confirmTheme="primary" [isLoading]="isSaving"
+    (cancel)="isAcceptAllModalOpen = false" (confirm)="confirmAcceptAll()">
+</app-confirmation-dialog>

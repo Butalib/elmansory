@@ -1,0 +1,75 @@
+<div class="inner-action-header">
+  @if (showSearch) {
+  <div class="search-box">
+    <img draggable="false" src="assets/icon/main-header/Frame.svg" alt="Search Icon" class="search-icon">
+    <input type="text" [placeholder]="searchPlaceholder" #searchInput [formControl]="searchControl">
+  </div>
+  }
+
+  <div class="header-actions">
+
+    <!-- 1. فلتر الترتيب -->
+    @if (showFilterButton) {
+    <div class="relative-container">
+      <button type="button" class="date-box" (click)="toggleFilterMenu($event)">
+        <img draggable="false" src="assets/icon/main-header/filter-horizontal.svg" alt="Filters Icon" class="date-icon">
+        <span>تصفية</span>
+      </button>
+
+      <!-- قايمة الترتيب -->
+      @if (isFilterMenuOpen) {
+      <div class="dropdown-menu" (click)="$event.stopPropagation()">
+        <button type="button" class="dropdown-item" (click)="applySort('desc')">الأحدث أولاً</button>
+        <button type="button" class="dropdown-item" (click)="applySort('asc')">الأقدم أولاً</button>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- 2. فلتر التاريخ -->
+    @if (showDate) {
+    <div class="relative-container">
+      <button type="button" class="date-box" (click)="toggleDateMenu($event)">
+        <img draggable="false" src="assets/icon/main-header/calendar-02.svg" alt="Date Icon" class="date-icon">
+        <span>{{ dateLabel }}</span>
+      </button>
+
+      <!-- قايمة التاريخ -->
+      @if (isDateMenuOpen) {
+      <div class="dropdown-menu date-picker-menu" (click)="$event.stopPropagation()">
+        <div class="date-inputs">
+          <div class="input-group">
+            <label>من:</label>
+            <input type="date" [formControl]="startDateControl">
+          </div>
+          <div class="input-group">
+            <label>إلى:</label>
+            <input type="date" [formControl]="endDateControl">
+          </div>
+        </div>
+
+        <!-- رسالة الخطأ تظهر بس لو التواريخ مليانة ومقلوبة -->
+        @if (startDateControl.value && endDateControl.value && !isDateRangeValid) {
+        <span class="error-msg">تاريخ البداية يجب أن يكون قبل تاريخ النهاية!</span>
+        }
+
+        <!-- أزرار التحكم -->
+        <div class="date-actions">
+          <button type="button" class="reset-btn" (click)="resetDateRange()">أعادة </button>
+          <button type="button" class="apply-btn" [disabled]="!isDateRangeValid"
+            (click)="applyDateRange()">تطبيق</button>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- زرار الأكشن الأساسي -->
+    @if (showActionButton) {
+    <button type="button" class="action-btn" (click)="onActionClicked()">
+      <img draggable="false" src="{{ btnIcon }}" class="action-icon">
+      <span>{{ actionLabel }}</span>
+    </button>
+    }
+  </div>
+</div>

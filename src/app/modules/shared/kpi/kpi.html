@@ -1,0 +1,14 @@
+<div class="kpi-container">
+    @for (stat of stats; track stat.id) {
+    <div class="kpi-card">
+        <div class="kpi-icon-wrapper" [style.backgroundColor]="stat.iconBgColor || '#e0f2fe'">
+            <img draggable="false" [src]="stat.icon" [alt]="stat.title" class="kpi-icon" />
+        </div>
+        <div class="kpi-content">
+            <h3 class="kpi-value">{{ stat.value }}</h3>
+            <p class="kpi-title">{{ stat.title }}</p>
+        </div>
+
+    </div>
+    }
+</div>

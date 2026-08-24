@@ -136,15 +136,22 @@ export class SlidersPage implements OnInit {
       _order: order,
     });
   }
-  private filterSlidersLocally(
-    data: ISlider[],
-    query: IQueryEngine
-  ): ISlider[] {
+  private filterSlidersLocally(data: ISlider[], query: IQueryEngine): ISlider[] {
     if (!query.searchTerm) {
       return data;
     }
-    const term =
-      query.searchTerm.toLowerCase();
+    const term = query.searchTerm.toLowerCase();
     return data.filter(slider => slider.title?.toLowerCase().includes(term) || slider.displayLocation?.toLowerCase().includes(term));
+    // if (query.startDate && query.endDate) {
+    //   return data.filter(slider => {
+    //     const sliderDate = slider.date.split('T')[0];
+    //     return sliderDate >= query.startDate && sliderDate <= query.endDate;
+    //   });
+    // }
+    // return data;
   }
+  onDateRangeChange(range: { startDate: string; endDate: string }): void {
+    this.engine.patchQuery({ startDate: range.startDate, endDate: range.endDate });
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { ITableColumn } from '../../../core/interface/IGenericTable';
+import { ITableColumn } from '../../../../core/interface/IGenericTable';
 
 @Component({
   selector: 'app-generic-table',

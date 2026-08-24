@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../../../../assets/styles/variables' as vars; // عدل المسار حسب مشروعك
+@use '../../../../../assets/styles/variables' as vars;
 
 .inner-action-header {
   display: flex;
@@ -120,6 +120,154 @@
 
       i {
         font-size: 1.125rem;
+      }
+    }
+  }
+}
+
+.relative-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0; // بيفتح ليمين الزرار
+  z-index: 1000;
+  min-width: 12rem;
+  padding: 0.5rem;
+  background: #ffffff;
+  border: 0.0625rem solid #e5e7eb;
+  border-radius: 0.875rem;
+  box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .dropdown-item {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.625rem;
+    background: transparent;
+    color: #334155;
+    font: inherit;
+    font-weight: 500;
+    text-align: right;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background: #f1f5f9;
+      color: #00a3de;
+    }
+  }
+}
+
+.date-picker-menu {
+  min-width: 16rem;
+
+  .date-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      label {
+        font-size: 0.875rem;
+        color: #64748b;
+        font-weight: 600;
+      }
+
+      input[type="date"] {
+        padding: 0.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-family: inherit;
+        color: #1e293b;
+        outline: none;
+
+        &:focus {
+          border-color: #00a3de;
+        }
+      }
+    }
+  }
+
+  .apply-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #00a3de;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: darken(#00a3de, 10%);
+    }
+  }
+
+  .error-msg {
+    display: block;
+    color: #dc2626;
+    /* أحمر */
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .date-actions {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+
+    .apply-btn {
+      flex: 2;
+      /* ياخد مساحة أكبر شوية */
+      padding: 0.625rem;
+      background-color: #00a3de;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+
+      &:hover:not(:disabled) {
+        background-color: darken(#00a3de, 10%);
+      }
+
+      &:disabled {
+        background-color: #cbd5e1;
+        cursor: not-allowed;
+      }
+    }
+
+    .reset-btn {
+      flex: 1;
+      padding: 0.625rem;
+      background-color: #f1f5f9;
+      color: #475569;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
       }
     }
   }
