@@ -1,1 +1,57 @@
-<p>students-modal works!</p>
+<app-modal-container [isOpen]="isOpen" [title]="mode === 'add' ? 'إضافة طالب جديد' : 'تعديل بيانات الطالب'" size="md"
+    (closeModal)="closeModal.emit()" (confirm)="onSubmit()" [isConfirmDisabled]="studentForm.invalid">
+
+    <form [formGroup]="studentForm" class="form-container">
+
+        <!-- رفع الصورة -->
+        <div class="form-group mb-3">
+            <app-ui-image-upload [isOpen]="isOpen" [existingImageUrl]="existingAvatarUrl"
+                (fileSelected)="onFileSelected($event)">
+            </app-ui-image-upload>
+        </div>
+
+        <!-- اسم الطالب -->
+        <div class="form-group mb-3">
+            <app-ui-input [control]="studentForm.get('name')" placeholder="اسم الطالب"
+                icon="assets/icon/model/user.svg">
+            </app-ui-input>
+        </div>
+
+        <!-- رقم الهاتف -->
+        <div class="form-group mb-3">
+            <app-ui-input [control]="studentForm.get('phone')" placeholder="رقم الهاتف" type="tel"
+                icon="assets/icon/model/phone.svg">
+            </app-ui-input>
+        </div>
+
+        <!-- المرحلة الدراسية -->
+        <div class="form-group mb-3">
+            <app-ui-popup-select [control]="studentForm.get('levelId')" [options]="levelsList"
+                placeholder="المرحلة الدراسية" icon="assets/icon/sidebar/levels.svg">
+            </app-ui-popup-select>
+        </div>
+
+        <!-- التواريخ متقسمين جنب بعض باستخدام Grid أو Row/Col -->
+        <div class="row">
+            <div class="col-6 form-group mb-3">
+                <app-ui-input [control]="studentForm.get('birthDate')" placeholder="تاريخ الميلاد" type="date"
+                    icon="assets/icon/main-header/calendar-02.svg">
+                </app-ui-input>
+            </div>
+            <div class="col-6 form-group mb-3">
+                <app-ui-input [control]="studentForm.get('joinDate')" placeholder="تاريخ الانضمام" type="date"
+                    icon="assets/icon/main-header/calendar-02.svg">
+                </app-ui-input>
+            </div>
+        </div>
+
+        <!-- سويتش التفعيل -->
+        <div class="form-group d-flex align-items-center justify-content-between mt-4">
+            <span class="toggle-label">حساب مفعل</span>
+            <app-btn-switch [checked]="studentForm.get('isActive')?.value"
+                (toggle)="studentForm.get('isActive')?.setValue($event)">
+            </app-btn-switch>
+        </div>
+
+    </form>
+</app-modal-container>

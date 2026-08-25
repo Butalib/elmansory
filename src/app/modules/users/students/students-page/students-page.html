@@ -1,1 +1,23 @@
-<p>students-page works!</p>
+<app-inner-action-header [showSearch]="true" [showActionButton]="true" [showDate]="true" actionLabel="إضافة طالب جديد"
+    btnIcon="assets/icon/main-header/add.svg" (search)="onSearch($event)" (actionClicked)="openModal('add')">
+    <!-- (dateChange)="onDateRangeChange()" -->
+</app-inner-action-header>
+<app-kpi [stats]="kpiStats"></app-kpi>
+<!-- الجدول Generic Table -->
+<app-generic-table [columns]="tableColumns" [data]="(engine.result$ | async) || []"
+    [currentPage]="(engine.pagination$ | async)?.currentPage || 1"
+    [totalPages]="(engine.pagination$ | async)?.totalPages || 1" (actionClick)="onTableActionClick($event)"
+    (toggleChange)="onToggleChange($event)" (pageChange)="onPageChange($event)">
+</app-generic-table>
+
+
+<app-students-modal [isOpen]="isModalOpen" [mode]="modalMode" [studentData]="selectedStudentForEdit"
+    [levelsList]="levelsList" (closeModal)="closeModal()" (save)="onSaveStudent($event)">
+</app-students-modal>
+
+
+<!-- مودال تأكيد الحذف -->
+<app-confirmation-dialog [isOpen]="isConfirmationDialogOpen" title="حذف طالب"
+    message="هل أنت متأكد من حذف هذا الطالب؟ لا يمكن التراجع عن هذا الإجراء." confirmLabel="حذف" cancelLabel="تراجع"
+    [isLoading]="isDeleting" (confirm)="confirmDelete()" (cancel)="closeConfirmDialog()">
+</app-confirmation-dialog>

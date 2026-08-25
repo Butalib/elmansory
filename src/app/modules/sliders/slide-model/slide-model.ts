@@ -45,7 +45,7 @@ export class SlideModelComponent implements OnInit, OnChanges {
 
   locations: ISelectOption[] = [];
 
-  selectedImageFile: File | null = null;
+  // selectedImageFile: File | null = null;
 
   imageBase64: string | null = null;
 
@@ -139,13 +139,11 @@ export class SlideModelComponent implements OnInit, OnChanges {
       imageUrl: this.sliderData.imageUrl,
     });
 
-    this.selectedImageFile = null;
+    // this.selectedImageFile = null;
     this.imageBase64 = null;
   }
 
-  // =========================
   // UI
-  // =========================
 
   get modalTitle(): string {
     return this.mode === 'add'
@@ -155,30 +153,12 @@ export class SlideModelComponent implements OnInit, OnChanges {
 
   // Image
 
-  onImageSelected(file: File | null): void {
-    this.selectedImageFile = file;
-
-    if (!file) {
-      this.sliderForm.patchValue({
-        imageUrl: '',
-      });
-
-      this.imageBase64 = null;
-
-      return;
-    }
+  onImageSelected(base64Url: string | null): void {
+    this.imageBase64 = base64Url;
 
     this.sliderForm.patchValue({
-      imageUrl: file.name,
+      imageUrl: base64Url || ''
     });
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      this.imageBase64 = reader.result as string;
-    };
-
-    reader.readAsDataURL(file);
   }
 
   // Submit
@@ -229,7 +209,6 @@ export class SlideModelComponent implements OnInit, OnChanges {
 
     this.sliderForm.reset();
 
-    this.selectedImageFile = null;
 
     this.imageBase64 = null;
   }
