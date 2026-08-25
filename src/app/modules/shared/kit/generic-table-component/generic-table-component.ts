@@ -20,15 +20,33 @@ export class GenericTableComponent {
   @Output() pageChange = new EventEmitter<number>();
 
   activeDropdownIndex: number | null = null;
+  dropdownPosition: 'top' | 'bottom' = 'bottom';
 
   @HostListener('document:click')
   closeDropdowns(): void {
     this.activeDropdownIndex = null;
   }
 
-  toggleActionMenu(index: number, event: Event): void {
+  toggleActionMenu(index: number, event: MouseEvent): void {
     event.stopPropagation();
-    this.activeDropdownIndex = this.activeDropdownIndex === index ? null : index;
+
+    if (this.activeDropdownIndex === index) {
+      this.activeDropdownIndex = null;
+      return;
+    }
+
+    const trigger = event.currentTarget as HTMLElement;
+    const rect = trigger.getBoundingClientRect();
+
+    const estimatedDropdownHeight = 120;
+    const spaceBelow = window.innerHeight - rect.bottom;
+
+    this.dropdownPosition =
+      spaceBelow < estimatedDropdownHeight
+        ? 'top'
+        : 'bottom';
+
+    this.activeDropdownIndex = index;
   }
 
   onActionClick(actionId: string, row: any): void {

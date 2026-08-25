@@ -1,0 +1,21 @@
+.form-container {
+    padding: 4px 0;
+
+    .form-group {
+        margin-bottom: .5rem !important;
+    }
+}
+
+.toggle-label {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-inline-end: auto;
+}
+
+.d-flex.align-items-center.justify-content-between {
+    width: 100%;
+    display: flex;
+    padding-right: 8px;
+
+}

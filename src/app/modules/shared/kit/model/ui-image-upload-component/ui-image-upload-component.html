@@ -1,30 +1,21 @@
 <div class="upload-container">
-
-    <!-- منطقة الرفع: نربطها بأحداث الـ Drag and Drop -->
     <div class="upload-area" [class.dragging]="isDragging" (dragover)="onDragOver($event)"
         (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" (click)="fileInput.click()">
-        <!-- لما ندوس على المربع، كأننا دوسنا على الانبوت المخفي -->
-
-        <!-- لو فيه صورة هنعرضها، لو مفيش هنعرض الأيقونة والنص -->
         @if (displayUrl) {
         <img [src]="displayUrl" class="preview-image" alt="Preview">
 
         <button type="button" class="clear-btn" (click)="clearImage($event)">
             <img src="assets/icon/slyders/cancel-01.svg" alt="Clear" class="clear-icon">
         </button>
-        <!-- غطاء أسود شفاف بيظهر لما تقف بالماوس لتغيير الصورة -->
         <div class="overlay">
             <span>تغيير الصورة</span>
         </div>
         } @else {
         <div class="upload-placeholder">
-            <!-- الأيقونة بتاعتك (عدل المسار لو مختلف) -->
             <img src="assets/icon/slyders/upload-icon.svg" alt="Upload" class="upload-icon">
-            <!-- <p class="upload-text">اضغط لرفع الصورة أو اسحبها هنا</p> -->
         </div>
         }
 
-        <!-- الانبوت الحقيقي (مخفي لأنه شكله وحش، إحنا بنستخدم المربع كواجهة ليه) -->
         <input #fileInput type="file" accept="image/*" class="hidden-input" (change)="onFileChange($event)">
     </div>
 </div>

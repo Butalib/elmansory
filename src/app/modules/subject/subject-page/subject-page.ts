@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ISubject } from '../../../../app/core/interface/ISubject';
 import { Observable } from 'rxjs';
 import { SubjectService } from '../../../core/service/subject.service';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';
 import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { LookupService } from '../../../core/service/lookup.service';
 @Component({
   selector: 'app-subject-page',
   standalone: false,
@@ -12,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './subject-page.scss',
 })
 export class SubjectPage implements OnInit, OnDestroy {
+  private readonly lookupService = inject(LookupService);
+
   queryEngine!: HybridQueryEngine<ISubject>;
   subjects$!: Observable<ISubject[]>;
 
@@ -71,6 +74,7 @@ export class SubjectPage implements OnInit, OnDestroy {
 
   onDeleteSubject(subject: ISubject): void {
     this.subjectService.delete(subject.id).subscribe();
+    this.lookupService.invalidateCache('subjects'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
   }
 
   // === دوال الإضافة والتعديل ===
@@ -110,6 +114,7 @@ export class SubjectPage implements OnInit, OnDestroy {
 
       this.subjectService.add(newSubject as ISubject).subscribe(() => {
         this.toastr.success('تم إضافة المادة بنجاح');
+        this.lookupService.invalidateCache('subjects'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
         this.closeFormModal();
       });
 
@@ -119,6 +124,7 @@ export class SubjectPage implements OnInit, OnDestroy {
 
       this.subjectService.update(this.selectedSubjectId, updatedData).subscribe(() => {
         this.toastr.success('تم تعديل المادة بنجاح');
+        this.lookupService.invalidateCache('subjects'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
         this.closeFormModal();
       });
     }

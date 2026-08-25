@@ -4,7 +4,7 @@
   height: 100vh;
   width: 100%;
 
-  grid-template-columns: 15.625rem 1fr;
+  grid-template-columns: max-content 1fr;
   transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

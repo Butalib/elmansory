@@ -5,7 +5,7 @@
             @if (item.children?.length) {
 
             <button type="button" class="sidebar-link" (click)="toggleMenu(item.id)"
-                [routerLink]="item.route || item.children![0]?.route" routerLinkActive="active">
+                [routerLink]="item.route || item.children![0]?.route" >
 
                 <span class="sidebar-content">
                     <img draggable="false" class="sidebar-icon" [src]="item.icon" [alt]="item.label">

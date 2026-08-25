@@ -15,7 +15,6 @@ export class LookupService {
 
   getOptions(endpoint: string, labelKey: string = 'name', valueKey: string = 'id'): Observable<ISelectOption[]> {
 
-    // لو الـ Observable موجود، رجعه فوراً. لو كان لسه بيجيب الداتا، أي حد هيشترك فيه هيستنى نفس النتيجة
     if (!this.lookupCache.has(endpoint)) {
       console.log(`[LookupService] Fetching and Caching ${endpoint}`);
 

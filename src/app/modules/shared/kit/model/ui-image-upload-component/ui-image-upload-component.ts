@@ -1,15 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
-  inject
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -24,21 +13,16 @@ export class UiImageUploadComponent implements OnChanges {
   private toaster = inject(ToastrService);
 
   @Input() isOpen = false;
-
-
   @Input() existingImageUrl: string | null = null;
 
-  @Output() fileSelected = new EventEmitter<File | null>();
+  // 1. التعديل الأول: غيرنا النوع لـ string | null عشان نبعت الـ Base64 أو نبعت فاضي
+  @Output() fileSelected = new EventEmitter<string | null>();
 
   previewUrl: string | null = null;
-
-
   isDragging = false;
-
 
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen'] && !this.isOpen) {
@@ -46,24 +30,18 @@ export class UiImageUploadComponent implements OnChanges {
     }
   }
 
-
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-
     if (file) {
       this.processFile(file);
     }
   }
 
-
   onDrop(event: DragEvent): void {
     event.preventDefault();
-
     this.isDragging = false;
-
     const file = event.dataTransfer?.files?.[0];
-
     if (file) {
       this.processFile(file);
     }
@@ -79,9 +57,7 @@ export class UiImageUploadComponent implements OnChanges {
     this.isDragging = false;
   }
 
-
   private processFile(file: File): void {
-
     if (!file.type.startsWith('image/')) {
       this.toaster.error('الرجاء اختيار صورة صالحة');
       return;
@@ -93,14 +69,14 @@ export class UiImageUploadComponent implements OnChanges {
       if (typeof reader.result === 'string') {
         this.previewUrl = reader.result;
         this.cdr.detectChanges();
+
+        // 2. التعديل التاني: بنبعت النتيجة (اللي هي الـ Base64 String) للأب مباشرة
+        this.fileSelected.emit(this.previewUrl);
       }
     };
 
     reader.readAsDataURL(file);
-
-    this.fileSelected.emit(file);
   }
-
 
   get displayUrl(): string | null {
     return this.previewUrl || this.existingImageUrl;
@@ -109,19 +85,19 @@ export class UiImageUploadComponent implements OnChanges {
   clearImage(event: Event): void {
     event.stopPropagation();
 
-
+    // 3. التعديل التالت: بنصفر الصورتين محلياً عشان الـ UI يتحدث فوراً
     this.previewUrl = null;
+    this.existingImageUrl = null;
 
     this.clearFileInput();
 
+    // بنبلغ الأب إن الصورة اتمسحت عشان يصفر الـ State عنده هو كمان
     this.fileSelected.emit(null);
   }
-
 
   private resetLocalState(): void {
     this.previewUrl = null;
     this.isDragging = false;
-
     this.clearFileInput();
   }
 

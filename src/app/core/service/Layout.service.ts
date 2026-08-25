@@ -63,12 +63,12 @@ export class LayoutServices {
         {
           id: 'teachers',
           label: 'المعلمين',
-          route: 'users/teachers'
+          route: 'teachers'
         },
         {
           id: 'students',
           label: 'الطلاب',
-          route: 'users/students'
+          route: 'students'
         }
       ]
     },
@@ -92,9 +92,17 @@ export class LayoutServices {
     }
   ];
   findTitleByRoute(routePath: string): string {
-
-    const matchedItem = this.menuItems.find(item => item.route === routePath);
-
-    return matchedItem ? matchedItem.label : 'الرئيسية';
+    for (const item of this.menuItems) {
+      if (item.route === routePath) {
+        return item.label;
+      }
+      if (item.children) {
+        const childMatch = item.children.find(child => child.route === routePath);
+        if (childMatch) {
+          return childMatch.label;
+        }
+      }
+    }
+    return 'الرئيسية';
   }
 }

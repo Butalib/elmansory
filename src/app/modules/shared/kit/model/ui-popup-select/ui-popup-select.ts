@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ISelectOption } from '../../../../../core/interface/ISelectOption';
 
@@ -12,7 +12,7 @@ import { ISelectOption } from '../../../../../core/interface/ISelectOption';
 export class UiPopupSelect implements OnInit, OnDestroy {
   // Configuration (Hybrid Inputs)
   // 1. Reactive Forms Approach
-  @Input() control?: FormControl;
+  @Input() control?: AbstractControl | null = null;
   // 2. Simple Binding Approach
   @Input() value: string | number | null = null;
   @Output() valueChange = new EventEmitter<string | number>();
