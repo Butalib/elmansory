@@ -1,0 +1,20 @@
+<div class="profits-page-container">
+
+    <!-- 1. Header (Search + Filters) -->
+    <app-inner-action-header [showSearch]="true" [showFilterButton]="true" [showDate]="true" [showActionButton]="false"
+        searchPlaceholder="ابحث هنا..." (search)="onSearch($event)" (dateRangeChange)="onDateRangeChange($event)"
+        (sortChange)="onSortChange($event)">
+    </app-inner-action-header>
+
+    <!-- 2. KPIs Section -->
+    <div class="mt-4 mb-4">
+        <app-kpi [stats]="kpiStats"></app-kpi>
+    </div>
+
+    <!-- 3. Generic Table -->
+    <app-generic-table [columns]="tableColumns" [data]="engine.result$ | async"
+        [totalPages]="(engine.pagination$ | async)?.totalPages || 1"
+        [currentPage]="(engine.pagination$ | async)?.currentPage || 1" (pageChange)="onPageChange($event)">
+    </app-generic-table>
+
+</div>

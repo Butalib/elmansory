@@ -50,7 +50,7 @@ export class StudentsModal implements OnInit, OnChanges {
 
   private handleModalOpen(): void {
     if (!this.studentForm) {
-      this.initForm(); // تأمين: لو الفورم مش موجودة، ابنيها الأول
+      this.initForm();
     }
 
     if (this.mode === 'edit' && this.studentData) {

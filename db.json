@@ -1780,5 +1780,115 @@
       "id": "CXLzgtBhsuM"
     }
   ],
+  "profits": [
+    {
+      "id": "1",
+      "productName": "شنطة مدرسية - ازرق",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "250 قطعة",
+      "originalPrice": "2500 د.ع",
+      "consumerPrice": "2500 د.ع",
+      "ordersCount": 30,
+      "totalProfit": "500.000 د.ع",
+      "netProfit": 750,
+      "date": "2024-05-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "productName": "شنطة مدرسية - احمر",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "150 قطعة",
+      "originalPrice": "2500 د.ع",
+      "consumerPrice": "2600 د.ع",
+      "ordersCount": 45,
+      "totalProfit": "750.000 د.ع",
+      "netProfit": 900,
+      "date": "2024-05-02T11:30:00Z"
+    },
+    {
+      "id": "3",
+      "productName": "زمزمية مياه - ستانلس",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "500 قطعة",
+      "originalPrice": "1500 د.ع",
+      "consumerPrice": "1750 د.ع",
+      "ordersCount": 120,
+      "totalProfit": "210.000 د.ع",
+      "netProfit": 500,
+      "date": "2024-04-28T09:15:00Z"
+    },
+    {
+      "id": "4",
+      "productName": "مقلمة جلد - اسود",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "100 قطعة",
+      "originalPrice": "500 د.ع",
+      "consumerPrice": "750 د.ع",
+      "ordersCount": 80,
+      "totalProfit": "60.000 د.ع",
+      "netProfit": 250,
+      "date": "2024-05-03T14:20:00Z"
+    },
+    {
+      "id": "5",
+      "productName": "كشكول سلك 100 ورقة",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "1000 قطعة",
+      "originalPrice": "1000 د.ع",
+      "consumerPrice": "1200 د.ع",
+      "ordersCount": 300,
+      "totalProfit": "360.000 د.ع",
+      "netProfit": 400,
+      "date": "2024-04-29T08:00:00Z"
+    },
+    {
+      "id": "6",
+      "productName": "طقم أقلام رصاص (12 قلم)",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "600 طقم",
+      "originalPrice": "800 د.ع",
+      "consumerPrice": "1000 د.ع",
+      "ordersCount": 150,
+      "totalProfit": "150.000 د.ع",
+      "netProfit": 300,
+      "date": "2024-05-04T16:45:00Z"
+    },
+    {
+      "id": "7",
+      "productName": "ممحاة فايبر كاستل",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "2000 قطعة",
+      "originalPrice": "200 د.ع",
+      "consumerPrice": "250 د.ع",
+      "ordersCount": 500,
+      "totalProfit": "125.000 د.ع",
+      "netProfit": 100,
+      "date": "2024-04-30T13:10:00Z"
+    },
+    {
+      "id": "8",
+      "productName": "شنطة مدرسية - اخضر",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "200 قطعة",
+      "originalPrice": "2500 د.ع",
+      "consumerPrice": "2500 د.ع",
+      "ordersCount": 20,
+      "totalProfit": "300.000 د.ع",
+      "netProfit": 600,
+      "date": "2024-05-05T10:00:00Z"
+    },
+    {
+      "id": "9",
+      "productName": "الوان خشب 24 لون",
+      "productImage": "assets/img/dashbourd/avatar.jpg",
+      "availableQuantity": "300 قطعة",
+      "originalPrice": "3000 د.ع",
+      "consumerPrice": "3500 د.ع",
+      "ordersCount": 90,
+      "totalProfit": "315.000 د.ع",
+      "netProfit": 850,
+      "date": "2024-05-01T09:30:00Z"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
