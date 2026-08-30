@@ -23,9 +23,11 @@
 .page-title h1 {
   margin: 0;
   font-size: 1.5rem;
-  font-weight: 800; /* خط تقيل زي التصميم */
+  font-weight: 800;
+  /* خط تقيل زي التصميم */
   color: var(--color-black-900, #1a1a1a);
-  font-family: inherit; /* لضمان وراثة خط المشروع */
+  font-family: inherit;
+  /* لضمان وراثة خط المشروع */
 }
 
 /* ==========================================================================
@@ -34,7 +36,8 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1.5rem; /* المسافة بين الكتل */
+  gap: 1.5rem;
+  /* المسافة بين الكتل */
 }
 
 /* ==========================================================================
@@ -59,12 +62,14 @@
 .user-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* محاذاة النص لليمين بجوار الصورة */
+  align-items: flex-end;
+  /* محاذاة النص لليمين بجوار الصورة */
 }
 
 .user-name {
   font-size: 1rem;
-  font-weight: 800; /* Bold جداً زي فيجما */
+  font-weight: 800;
+  /* Bold جداً زي فيجما */
   color: var(--color-black-900, #1a1a1a);
   text-transform: uppercase;
   line-height: 1.1;
@@ -73,14 +78,16 @@
 .user-handle {
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--color-black-400, #9e9e9e); /* رمادي فاتح */
+  color: var(--color-black-400, #9e9e9e);
+  /* رمادي فاتح */
   line-height: 1.1;
 }
 
 .user-role {
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--color-secondary-300, #0088cc); /* لون مميز للصلاحية */
+  color: var(--color-secondary-300, #0088cc);
+  /* لون مميز للصلاحية */
   margin-top: 0.125rem;
 }
 
@@ -88,9 +95,10 @@
 .user-avatar {
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 1rem; /* التطابق مع فيجما (Squircle) */
+  border-radius: 1rem;
+  /* التطابق مع فيجما (Squircle) */
   object-fit: cover;
-  border: 0.0625rem solid var(--color-black-100, #f0f0f0); 
+  border: 0.0625rem solid var(--color-black-100, #f0f0f0);
 }
 
 /* ==========================================================================
@@ -100,9 +108,11 @@
   position: relative;
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 1rem; /* مربع ناعم زي الصورة بالضبط */
+  border-radius: 1rem;
+  /* مربع ناعم زي الصورة بالضبط */
   background: transparent;
-  border: 0.0625rem solid var(--color-black-200, #e0e0e0); /* لون البوردر الخارجي */
+  border: 0.0625rem solid var(--color-black-200, #e0e0e0);
+  /* لون البوردر الخارجي */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,24 +134,31 @@
 /* الشارة الحمراء الديناميكية */
 .notification-badge {
   position: absolute;
-  top: -0.375rem;   /* مرفوعة لفوق شوية */
-  right: -0.375rem; /* مزاحة لليمين */
-  
+  top: -0.375rem;
+  /* مرفوعة لفوق شوية */
+  right: -0.375rem;
+  /* مزاحة لليمين */
+
   background-color: var(--color-states-error, #ff3b30);
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 800;
-  
+
   height: 1.5rem;
   min-width: 1.5rem;
-  border-radius: 0.75rem; /* كبسولة */
-  
+  border-radius: 0.75rem;
+  /* كبسولة */
+
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 0.375rem;
   box-sizing: border-box;
-  
+
   /* البوردر الأبيض لقطع تداخل الخطوط */
-  border: 0.1563rem solid #ffffff; 
+  border: 0.1563rem solid #ffffff;
+}
+
+* {
+  user-select: none;
 }

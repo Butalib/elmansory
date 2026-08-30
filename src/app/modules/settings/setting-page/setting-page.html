@@ -1,0 +1,28 @@
+@if (config$ | async; as config) {
+<app-inner-action-header [showSearch]="config.showSearch" [showActionButton]="config.showButton"
+    [actionLabel]="config.buttonText" [showFilterButton]="config.showFilterButton" [showDate]="config.showDate"
+    (actionClicked)="onActionClicked()" (search)="onSearch($event)" (sortChange)="onSortChange($event)"
+    (dateRangeChange)="onDateRangeChange($event)">
+</app-inner-action-header>
+}
+<div class="settings-layout">
+
+    <aside class="settings-sidebar">
+        <ul class="settings-nav">
+            <li>
+                <a routerLink="locations" routerLinkActive="active">المناطق والمحافظات</a>
+            </li>
+            <li>
+                <a routerLink="contact-methods" routerLinkActive="active">طرق التواصل</a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="settings-main-content">
+
+        <div class="settings-router-container">
+            <router-outlet></router-outlet>
+        </div>
+
+    </main>
+</div>

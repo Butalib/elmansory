@@ -1,0 +1,80 @@
+// بنفترض إن اتجاه الموقع RTL
+.settings-layout {
+    display: flex;
+    gap: 16px;
+    height: 100%; // بياخد طول الشاشة المتاح
+    background-color: #f9fafb; // لون رمادي فاتح جداً لخلفية الصفحة كلها
+
+    // تنسيق السايد بار
+    .settings-sidebar {
+        width: 180px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 24px 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        flex-shrink: 0; // عشان ميكشش لما الشاشة تصغر
+        border: 1px solid #f3f4f6;
+
+        .settings-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            li {
+                a {
+                    display: block;
+                    padding: 12px 16px;
+                    text-decoration: none;
+                    color: #4b5563;
+                    border-radius: 8px;
+                    font-weight: 500;
+                    transition: all 0.2s ease;
+                    border: 1px solid transparent;
+
+                    &:hover {
+                        background-color: #f3f4f6;
+                    }
+
+                    // الستايل لما التاب تكون نشطة (زي التصميم)
+                    &.active {
+                        background-color: #f0f9ff; // أزرق فاتح جداً
+                        color: #0ea5e9; // أزرق أساسي
+                        border-color: #bae6fd;
+                    }
+                }
+            }
+        }
+    }
+
+    // تنسيق الجزء الأيسر (الهيدر والمحتوى)
+    .settings-main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        min-width: 0; // مهم جداً عشان الـ flexbox ميضربش مع الجداول العريضة
+
+        // غلاف الهيدر
+        .settings-header-wrapper {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 16px 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f3f4f6;
+        }
+
+        // غلاف الراوتر (اللي جواه التابات والجداول)
+        .settings-router-container {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f3f4f6;
+            overflow-y: auto; // عشان لو الجدول طويل يعمل سكرول داخلي
+        }
+    }
+}

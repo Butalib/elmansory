@@ -5,26 +5,29 @@ import { ApiDataService } from './data/api.data.service';
 import { ISelectOption } from '../interface/ISelectOption';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LookupService {
-  // التعديل هنا: بنخزن الـ Observable نفسه مش الداتا النهائية
   private lookupCache = new Map<string, Observable<ISelectOption[]>>();
 
-  constructor(private apiService: ApiDataService) { }
+  constructor(private apiService: ApiDataService) {}
 
-  getOptions(endpoint: string, labelKey: string = 'name', valueKey: string = 'id'): Observable<ISelectOption[]> {
-
+  getOptions(
+    endpoint: string,
+    labelKey: string = 'name',
+    valueKey: string = 'id',
+  ): Observable<ISelectOption[]> {
     if (!this.lookupCache.has(endpoint)) {
       console.log(`[LookupService] Fetching and Caching ${endpoint}`);
 
       const request$ = this.apiService.get<any[]>(endpoint, {}).pipe(
-        map((rawData: any[]) => rawData.map(item => ({
-          id: item[valueKey],
-          option: item[labelKey] || 'بدون اسم'
-        }))),
-        // السحر كله هنا: بيحتفظ بآخر نسخة من الداتا ويوزعها على أي حد يعمل subscribe جديد
-        shareReplay(1)
+        map((rawData: any[]) =>
+          rawData.map((item) => ({
+            id: item[valueKey],
+            option: item[labelKey] || 'بدون اسم',
+          })),
+        ),
+        shareReplay(1),
       );
 
       this.lookupCache.set(endpoint, request$);
@@ -32,7 +35,6 @@ export class LookupService {
       console.log(`[LookupService] Returning ${endpoint} from cache`);
     }
 
-    // هنا إحنا متأكدين بنسبة 100% إننا بنرجع الـ Observable، سواء كان متكيش أو لسه جديد
     return this.lookupCache.get(endpoint)!;
   }
 

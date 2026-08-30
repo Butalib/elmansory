@@ -3,7 +3,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { IQueryEngine } from '../../../core/interface/IQueryEngine';
 import { ISlider } from '../../../core/interface/ISlider';
 
-import { SliderService } from '../../../core/service/slider/slider.service';
+import { SliderService } from '../../../core/service/slider.service';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';
 
 import { ToastrService } from 'ngx-toastr';

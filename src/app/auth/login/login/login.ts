@@ -7,7 +7,7 @@ import {
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
-import { AuthService } from '../../../core/service/auth-service/authservice';
+import { AuthService } from '../../../core/service/auth-service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -23,9 +23,9 @@ export class Login {
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) {}
+  ) { }
   isLoading = false;
-  loginForm!:FormGroup;
+  loginForm!: FormGroup;
   createForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

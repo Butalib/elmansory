@@ -202,3 +202,7 @@ button.sidebar-link {
 .sidebar-menu::-webkit-scrollbar {
   display: none;
 }
+
+* {
+  user-select: none;
+}
