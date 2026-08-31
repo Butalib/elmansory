@@ -12,8 +12,8 @@ import { LoadingService } from '../../core/service/loading.service';
 export class LayoutComponant implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly loadingService = inject(LoadingService);
-  private readonly compactBreakpoint = 668;
-  private readonly minimumPageLoadingTime = 460;
+  private readonly compactBreakpoint = 450;
+  private readonly minimumPageLoadingTime = 250;
   private routerEventsSubscription?: Subscription;
   private pageLoadingStopTimer?: ReturnType<typeof setTimeout>;
   private pageLoadingStartedAt = 0;
