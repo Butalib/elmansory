@@ -22,7 +22,7 @@ export class AuthService {
       }),
     );
   }
-  // logout
+
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');

@@ -63,11 +63,10 @@
   gap: 1.5rem;
   margin-bottom: 2rem;
   align-items: center;
-  
 
-  
+
   background-color: var(--c-primary-soft);
-  
+
   border-radius: 1rem;
   padding: 1rem 1.25rem;
 }
@@ -76,7 +75,7 @@
 .profile-section {
   display: flex;
   flex-direction: row-reverse;
-  
+
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
@@ -88,7 +87,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--c-white);
-  
+
   box-shadow: 0 2px 8px rgb(var(--c-black-rgb) / 0.05);
   flex-shrink: 0;
 }
@@ -109,7 +108,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  
+
   color: var(--c-muted);
   font-size: 0.8125rem;
 
@@ -140,18 +139,18 @@
 
     .kpi-card {
       background: var(--c-white);
-      
+
       border-radius: 1rem;
       padding: 1rem 1.25rem;
       display: flex;
       flex-direction: row;
-      
+
       align-items: center;
       justify-content: space-between;
       border: none;
-      
+
       box-shadow: 0 2px 6px rgb(var(--c-black-rgb) / 0.02);
-      
+
     }
 
     .kpi-icon-wrapper {

@@ -13,15 +13,15 @@ import { ISelectOption } from '../../../../../core/interface/ISelectOption';
 export class UiPopupSelect implements OnInit, OnDestroy {
 
   @Input() control?: AbstractControl | null = null;
-  // 2. Simple Binding Approach
+
   @Input() value: string | number | null = null;
   @Output() valueChange = new EventEmitter<string | number>();
-  // UI Props
+
   @Input() placeholder = 'اختر...';
   @Input() icon = '';
   @Input() options: ISelectOption[] = [];
   @Input() isDisabled = false;
-  // Local UI State
+
   isOpen = false;
   searchTerm = '';
   searchControl = new FormControl('');
@@ -48,7 +48,7 @@ export class UiPopupSelect implements OnInit, OnDestroy {
 
   private searchSubscription?: Subscription;
   constructor(private readonly elementRef: ElementRef) { }
-  // Lifecycle
+
   ngOnInit(): void {
     this.searchSubscription = this.searchControl.valueChanges.subscribe((value) => {
       this.searchTerm = value || '';
@@ -57,7 +57,7 @@ export class UiPopupSelect implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.searchSubscription?.unsubscribe();
   }
-  // Derived State (Getters)
+
   get currentValue(): any {
     return this.control ? this.control.value : this.value;
   }
@@ -77,7 +77,7 @@ export class UiPopupSelect implements OnInit, OnDestroy {
       option.option.toLowerCase().includes(term)
     );
   }
-  // Actions
+
   toggle(): void {
     if (this.currentDisabledState) {
       return;
@@ -89,7 +89,7 @@ export class UiPopupSelect implements OnInit, OnDestroy {
     }
   }
   selectOption(option: ISelectOption): void {
-    // Hybrid Emit Logic
+
     if (this.control) {
       this.control.setValue(option.id);
       this.control.markAsTouched();
@@ -113,7 +113,7 @@ export class UiPopupSelect implements OnInit, OnDestroy {
   private updateTriggerWidth(): void {
     this.triggerWidth = this.triggerElement?.nativeElement.getBoundingClientRect().width ?? 0;
   }
-  // Events
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {

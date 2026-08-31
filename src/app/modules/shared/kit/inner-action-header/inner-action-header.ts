@@ -12,7 +12,7 @@ import { LoadingService } from '../../../../core/service/loading.service';
 export class InnerActionHeader implements OnInit, OnChanges, OnDestroy {
   private readonly loadingService = inject(LoadingService);
 
-  // ui element render 
+
   @Input() showSearch: boolean = true;
   @Input() showActionButton: boolean = false;
   @Input() showFilterButton: boolean = false;
@@ -24,20 +24,20 @@ export class InnerActionHeader implements OnInit, OnChanges, OnDestroy {
   @Input() btnIcon: string = '';
   @Input() searchResetKey: string | number = '';
 
-  // ui event 
+
   @Output() search = new EventEmitter<string>();
   @Output() actionClicked = new EventEmitter<void>();
 
-  // الـ Outputs الجديدة بتاعة الفلترة
+
   @Output() sortChange = new EventEmitter<'asc' | 'desc'>();
   @Output() dateRangeChange = new EventEmitter<{ startDate: string; endDate: string }>();
 
-  // UI States للقوايم
+
   isFilterMenuOpen = false;
   isDateMenuOpen = false;
   activeSortDirection: 'asc' | 'desc' = 'desc';
 
-  // Form Controls لتواريخ البداية والنهاية
+
   startDateControl = new FormControl('');
   endDateControl = new FormControl('');
 
@@ -50,18 +50,18 @@ export class InnerActionHeader implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  // قفل القوايم لو اليوزر داس في أي مكان فاضي في الشاشة
+
   @HostListener('document:click')
   closeDropdowns(): void {
     this.isFilterMenuOpen = false;
     this.isDateMenuOpen = false;
   }
 
-  // دوال التحكم في القوايم
+
   toggleFilterMenu(event: Event): void {
-    event.stopPropagation(); // عشان الـ HostListener ميقفلهاش فوراً
+    event.stopPropagation();
     this.isFilterMenuOpen = !this.isFilterMenuOpen;
-    this.isDateMenuOpen = false; // نقفل التانية لو مفتوحة
+    this.isDateMenuOpen = false;
   }
 
   toggleDateMenu(event: Event): void {
@@ -70,19 +70,19 @@ export class InnerActionHeader implements OnInit, OnChanges, OnDestroy {
     this.isFilterMenuOpen = false;
   }
 
-  // تطبيق الترتيب
+
   applySort(direction: 'asc' | 'desc'): void {
     this.activeSortDirection = direction;
     this.loadingService.flashPageLoading();
     this.sortChange.emit(direction);
-    this.isFilterMenuOpen = false; // نقفل القايمة بعد الاختيار
+    this.isFilterMenuOpen = false;
   }
 
-  // تطبيق نطاق التاريخ
+
   applyDateRange(): void {
     if (this.isDateRangeValid) {
       this.loadingService.flashPageLoading();
-      // الـ ! هنا لأننا اتأكدنا في الـ Valid إنهم مش null
+
       this.dateRangeChange.emit({
         startDate: this.startDateControl.value!,
         endDate: this.endDateControl.value!
@@ -94,7 +94,7 @@ export class InnerActionHeader implements OnInit, OnChanges, OnDestroy {
   resetDateRange(): void {
     this.startDateControl.reset();
     this.endDateControl.reset();
-    this.dateLabel = 'من - إلى'; // نرجع الكلمة الافتراضية
+    this.dateLabel = 'من - إلى';
 
     this.loadingService.flashPageLoading();
     this.dateRangeChange.emit({ startDate: '', endDate: '' });

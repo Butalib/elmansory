@@ -1,31 +1,30 @@
 <header class="main-header">
-  
-  <!-- العنوان الديناميك (أقصى اليمين) -->
+
+
   <div class="page-title">
     <h1>{{ layoutServices.pageTitle() }}</h1>
   </div>
 
-  <!-- الأكشنز وبيانات المستخدم (أقصى اليسار) -->
+
   <div class="header-actions">
 
-      
-      <!-- 3. زرار الإشعارات الديناميكي -->
+
       <button type="button" class="action-btn">
           <img src="assets/icon/sidebar/notifications.svg" alt="إشعارات" class="action-icon">
-          
-          <!-- الشارة هتظهر بس لو فيه إشعارات فعلاً -->
+
+
           @if (notificationsCount() > 0) {
               <span class="notification-badge">
-                  <!-- لو الإشعارات معدية الـ 99، هنكتب +99 عشان الشكل ميبوظش -->
+
                   {{ notificationsCount() > 99 ? '+99' : notificationsCount() }}
                 </span>
             }
         </button>
-        
-            <!-- 2. الخط الفاصل العمودي -->
+
+
             <div class="divider"></div>
 
-        <!-- 1. بيانات المستخدم -->
+
     <div class="user-profile">
         <img [src]="userData().avatar" alt="صورة المستخدم" class="user-avatar">
       <div class="user-info">

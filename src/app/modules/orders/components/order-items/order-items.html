@@ -3,7 +3,7 @@
     @for (item of order.items; track item.id) {
     <article class="order-item">
 
-      <!-- 1. الهوية (الصورة والتفاصيل) هتبقى الأول عشان في الـ RTL تظهر على اليمين -->
+
       <div class="item-identity">
         @if (hasRenderableImage(item.image)) {
         <img class="product-image" [src]="item.image" [alt]="item.name" />
@@ -25,7 +25,7 @@
     }
   </div>
 
-  <!-- Summary -->
+
   <div class="order-summary">
     <div class="summary-row">
       <span>إجمالي المنتجات</span>

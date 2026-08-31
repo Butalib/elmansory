@@ -16,8 +16,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userData = signal({
     name: 'Butalib',
     handle: '@butallib',
-    role: 'Software Engineer', // ضفنا الـ Role زي ما طلبت
-    avatar: 'assets/img/dashbourd/avatar.jpg' // مسار صورتك
+    role: 'Software Engineer',
+    avatar: 'assets/img/dashbourd/avatar.jpg'
   });
   constructor(
     private router: Router,

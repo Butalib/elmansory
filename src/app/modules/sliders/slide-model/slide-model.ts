@@ -45,17 +45,14 @@ export class SlideModelComponent implements OnInit, OnChanges {
 
   locations: ISelectOption[] = [];
 
-  // selectedImageFile: File | null = null;
 
   imageBase64: string | null = null;
 
-  // Dependencies
 
   private readonly lookupService = inject(LookupService);
 
   private readonly fb = inject(FormBuilder);
 
-  // Lifecycle
 
   ngOnInit(): void {
     this.initForm();
@@ -75,7 +72,6 @@ export class SlideModelComponent implements OnInit, OnChanges {
     this.resetFormState();
   }
 
-  // Form
 
   private initForm(): void {
     this.sliderForm = this.fb.group({
@@ -88,14 +84,13 @@ export class SlideModelComponent implements OnInit, OnChanges {
     return this.sliderForm.get(controlName) as FormControl;
   }
 
-  // Locations
 
   private loadLocations(): void {
     this.lookupService.getOptions('locations').subscribe({
       next: (data: ISelectOption[]) => {
         this.locations = data;
 
-        // لو المودال اتفتح قبل ما الـ locations تخلص تحميل
+
         if (this.isOpen && this.mode === 'edit') {
           this.patchEditForm();
         }
@@ -107,10 +102,9 @@ export class SlideModelComponent implements OnInit, OnChanges {
     });
   }
 
-  // Modal
 
   private handleModalOpen(): void {
-    // حماية من إن ngOnChanges يشتغل قبل ngOnInit
+
     if (!this.sliderForm) {
       return;
     }
@@ -139,11 +133,10 @@ export class SlideModelComponent implements OnInit, OnChanges {
       imageUrl: this.sliderData.imageUrl,
     });
 
-    // this.selectedImageFile = null;
+
     this.imageBase64 = null;
   }
 
-  // UI
 
   get modalTitle(): string {
     return this.mode === 'add'
@@ -151,7 +144,6 @@ export class SlideModelComponent implements OnInit, OnChanges {
       : 'تعديل بيانات الإعلان';
   }
 
-  // Image
 
   onImageSelected(base64Url: string | null): void {
     this.imageBase64 = base64Url;
@@ -161,7 +153,6 @@ export class SlideModelComponent implements OnInit, OnChanges {
     });
   }
 
-  // Submit
 
   onSubmit(): void {
     if (this.sliderForm.invalid) {
@@ -200,7 +191,6 @@ export class SlideModelComponent implements OnInit, OnChanges {
     this.save.emit(payload);
   }
 
-  // Reset
 
   private resetFormState(): void {
     if (!this.sliderForm) {
@@ -212,7 +202,7 @@ export class SlideModelComponent implements OnInit, OnChanges {
 
     this.imageBase64 = null;
   }
-  // Cancel
+
 
   onCancel(): void {
     this.resetFormState();

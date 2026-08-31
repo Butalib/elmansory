@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 })
 export class UiInput {
 
-  // Configuration || ui 
+
   @Input() control?: FormControl | any;
 
   @Input() type: 'text' | 'tel' | 'email' | 'number' | 'url' | 'password' | string = 'text';
@@ -28,7 +28,6 @@ export class UiInput {
 
   @Input() disabled = false;
 
-  // Events
 
   @Output() valueChange = new EventEmitter<string>();
 
@@ -40,7 +39,7 @@ export class UiInput {
     return this.control ? this.control.disabled : this.disabled;
   }
 
-  // User Interaction
+
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
 

@@ -21,9 +21,8 @@ export class ApiDataService {
     }
     return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { params }).pipe(take(1));
   }
-  // getAll<T[] >(endpoint: string): Observable<T[]>   {
-  //   return this.http.get<T[]>(`${this.baseUrl}/${endpoint}`).pipe(take(1));
-  // }
+
+
   post<T = any>(endpoint: string, body: any): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body).pipe(first());
   }

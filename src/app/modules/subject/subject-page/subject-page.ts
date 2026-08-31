@@ -45,7 +45,7 @@ export class SubjectPage implements OnInit, OnDestroy {
           return dateB - dateA;
         });
 
-        // 2. الفلترة (البحث)
+
         if (query['searchTerm']) {
           const term = query['searchTerm'].toString().toLowerCase();
           filteredData = filteredData.filter(s =>

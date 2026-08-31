@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators'; // ضفنا shareReplay
+import { map, shareReplay } from 'rxjs/operators';
 import { ApiDataService } from './data/api.data.service';
 import { ISelectOption } from '../interface/ISelectOption';
 

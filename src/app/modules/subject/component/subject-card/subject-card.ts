@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './subject-card.scss',
 })
 export class SubjectCard {
-  //inject toast service to show error message when delete failed or change toggle failed
+
   private toastr = inject(ToastrService);
   @Input() subject!: ISubject;
 
@@ -17,7 +17,7 @@ export class SubjectCard {
   @Output() delete = new EventEmitter<ISubject>();
 
   isMenuOpen = false;
-  isConfirmOpen = false; // ضفنا State جديدة للديالوج في الكارت
+  isConfirmOpen = false;
 
   constructor(private eRef: ElementRef) { }
 
@@ -42,21 +42,20 @@ export class SubjectCard {
     this.edit.emit(this.subject);
   }
 
-  // --- دوال الحذف الجديدة ---
 
   onDeleteClick(): void {
-    this.isMenuOpen = false; // 1. اقفل المنيو فوراً
-    this.isConfirmOpen = true; // 2. افتح الديالوج اللي بره المنيو
+    this.isMenuOpen = false;
+    this.isConfirmOpen = true;
 
   }
 
   onCancelDelete(): void {
-    this.isConfirmOpen = false; // لو داس إلغاء نقفل الديالوج بس
+    this.isConfirmOpen = false;
   }
 
   onConfirmDelete(): void {
-    this.isConfirmOpen = false; // نقفل الديالوج
-    this.delete.emit(this.subject); // نبعت للـ Page تنفذ الحذف في الـ API
+    this.isConfirmOpen = false;
+    this.delete.emit(this.subject);
     this.toastr.success(`تم حذف المادة بنجاح`);
   }
 }

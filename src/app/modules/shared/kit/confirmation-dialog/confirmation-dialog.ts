@@ -17,7 +17,7 @@ export class ConfirmationDialog {
   @Input() size: ModalSize = 'vsm';
 
   @Input() confirmTheme: 'primary' | 'error' | 'success' = 'error';
-  @Input() isLoading: boolean = false; // لحالة تحميل الزرار
+  @Input() isLoading: boolean = false;
 
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();

@@ -24,12 +24,12 @@ export class StudentDetails implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
 
-  // Unified State
+
   student: IStudent | null = null;
   orders: IOrder[] = [];
   selectedOrder: IOrderDetails | null = null;
 
-  // Simplified UI Flags
+
   isLoading = true;
   hasError = false;
   isOrdersLoading = false;
@@ -148,7 +148,6 @@ export class StudentDetails implements OnInit {
   }
 
 
-
   onImageError(e: Event): void {
     const img = e.target as HTMLImageElement;
     if (!img || img.dataset['failed']) return;
@@ -159,7 +158,7 @@ export class StudentDetails implements OnInit {
   goBackToStudents(): void { this.router.navigate(['../..'], { relativeTo: this.route }); }
   trackById(_: number, item: any): string { return item.id; }
 
-  // --- Private Helpers ---
+
   private handleError() {
     this.isLoading = false;
     this.hasError = true;

@@ -1,13 +1,13 @@
 <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()" class="custom-form">
 
-    <!-- حقل العنوان -->
+
     <div class="input-group">
         <div class="input-wrapper">
             <img draggable="false" src="assets/icon/sidebar/notifications.svg" alt="notifications Icon"
                 class="search-icon">
             <input type="text" id="title" formControlName="title" placeholder="عنوان الاشعار" class="custom-input">
         </div>
-        <!-- استخدام @if بدلاً من *ngIf -->
+
         @if (notificationForm.get('title')?.invalid && notificationForm.get('title')?.touched) {
         <span class="error-msg">
             هذا الحقل مطلوب.
@@ -15,13 +15,13 @@
         }
     </div>
 
-    <!-- حقل السبب -->
+
     <div class="input-group">
         <div class="input-wrapper">
             <textarea id="reason" formControlName="reason" placeholder="السبب" class="custom-input textarea"
                 rows="4"></textarea>
         </div>
-        <!-- استخدام @if بدلاً من *ngIf -->
+
         @if (notificationForm.get('reason')?.invalid && notificationForm.get('reason')?.touched) {
         <span class="error-msg">
             هذا الحقل مطلوب.
@@ -29,7 +29,7 @@
         }
     </div>
 
-    <!-- زر الإرسال -->
+
     <div class="submit-action">
         <button type="submit" class="submit-btn" [disabled]="notificationForm.invalid">
             ارسال

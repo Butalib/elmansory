@@ -14,7 +14,7 @@
 
   <div class="header-actions">
 
-    <!-- 1. فلتر الترتيب -->
+
     @if (showFilterButton) {
     <div class="relative-container">
       <button type="button" class="date-box" (click)="toggleFilterMenu($event)">
@@ -22,7 +22,7 @@
         <span>تصفية</span>
       </button>
 
-      <!-- قايمة الترتيب -->
+
       @if (isFilterMenuOpen) {
       <div class="dropdown-menu" (click)="$event.stopPropagation()">
         <button type="button" class="dropdown-item" [class.active]="activeSortDirection === 'desc'"
@@ -34,7 +34,7 @@
     </div>
     }
 
-    <!-- 2. فلتر التاريخ -->
+
     @if (showDate) {
     <div class="relative-container date-container" [class.date-container--edge-safe]="!showActionButton">
       <button type="button" class="date-box" (click)="toggleDateMenu($event)">
@@ -42,7 +42,7 @@
         <span>{{ dateLabel }}</span>
       </button>
 
-      <!-- قايمة التاريخ -->
+
       @if (isDateMenuOpen) {
       <div class="dropdown-menu date-picker-menu" (click)="$event.stopPropagation()">
         <div class="date-inputs">
@@ -56,12 +56,12 @@
           </div>
         </div>
 
-        <!-- رسالة الخطأ تظهر بس لو التواريخ مليانة ومقلوبة -->
+
         @if (startDateControl.value && endDateControl.value && !isDateRangeValid) {
         <span class="error-msg">تاريخ البداية يجب أن يكون قبل تاريخ النهاية!</span>
         }
 
-        <!-- أزرار التحكم -->
+
         <div class="date-actions">
           <button type="button" class="reset-btn" (click)="resetDateRange()">أعادة </button>
           <button type="button" class="apply-btn" [disabled]="!isDateRangeValid"
@@ -74,7 +74,7 @@
     </div>
     }
 
-    <!-- زرار الأكشن الأساسي -->
+
     @if (showActionButton) {
     <button type="button" class="action-btn" (click)="onActionClicked()">
       <img draggable="false" src="{{ btnIcon }}" class="action-icon">

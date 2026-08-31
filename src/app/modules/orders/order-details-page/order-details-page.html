@@ -27,10 +27,10 @@
     </div>
   </header>
 
-  <!-- منطقة المحتوى (الكروت فقط بدون أزرار) -->
+
   <main class="details-grid">
 
-    <!-- 1. العمود الأيمن في الـ RTL (بيانات العميل) -->
+
     <div class="grid-column customer-column">
       <aside class="customer-card" aria-label="معلومات العميل">
         <div class="customer-identity">
@@ -78,7 +78,7 @@
       </aside>
     </div>
 
-    <!-- 2. العمود الأيسر في الـ RTL (المنتجات والفاتورة) -->
+
     <div class="grid-column products-column">
       <section class="items-section" aria-label="المنتجات المطلوبة">
         <app-order-items [order]="order" [editMode]="mode === 'edit'"
@@ -88,10 +88,10 @@
 
   </main>
 
-  <!-- منطقة الأزرار مفصولة تماماً (نفس تقسيم الجريد عشان العرض يطابق الكروت) -->
+
   <footer class="details-actions-grid">
 
-    <!-- زرار العميل (اليمين) -->
+
     <div class="action-wrapper">
       @if (mode === 'edit') {
       <button type="button" class="action-btn secondary-button" [disabled]="isSaving"
@@ -102,7 +102,7 @@
       }
     </div>
 
-    <!-- زرار المنتجات (الشمال) -->
+
     <div class="action-wrapper">
       @if (mode === 'edit') {
       <button type="button" class="action-btn primary-button" [disabled]="isSaving || discountControl.invalid"

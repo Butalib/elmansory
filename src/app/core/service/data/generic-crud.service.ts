@@ -25,7 +25,7 @@ export class GenericCrudService<T> {
   add(item: T): Observable<T> {
     return this.apiService.post<T>(this.endpoint, item).pipe(
       tap((newItem) => {
-        // Optimistic Update: بنضيف العنصر الجديد للستيت مباشرة
+
         const currentData = this.itemsSubject.getValue();
         this.itemsSubject.next([newItem, ...currentData]);
       })
@@ -34,13 +34,13 @@ export class GenericCrudService<T> {
   update(id: string | number, item: Partial<T>): Observable<T> {
     return this.apiService.put<T>(`${this.endpoint}/${id}`, item).pipe(
       tap((updatedItem) => {
-        // بنعدل العنصر في الميموري عشان الـ UI يحس بالتغيير وقتي
+
         const currentData = this.itemsSubject.getValue();
         const index = currentData.findIndex((x: any) => x.id === id);
 
         if (index !== -1) {
           const newData = [...currentData];
-          // لو الباك إند بيرجع الأوبجيكت متعدل بناخده، لو لأ بندمج التعديل مع القديم
+
           newData[index] = { ...newData[index], ...item, ...updatedItem };
           this.itemsSubject.next(newData);
         }
@@ -50,7 +50,7 @@ export class GenericCrudService<T> {
   delete(id: string | number): Observable<any> {
     return this.apiService.delete<any>(`${this.endpoint}/${id}`).pipe(
       tap(() => {
-        // بنفلتر الداتا ونشيل العنصر اللي اتمسح
+
         const currentData = this.itemsSubject.getValue();
         this.itemsSubject.next(currentData.filter((x: any) => x.id !== id));
       })

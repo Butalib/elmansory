@@ -3,35 +3,35 @@
 
     <form [formGroup]="studentForm" class="form-container">
 
-        <!-- رفع الصورة -->
+
         <div class="form-group mb-3">
             <app-ui-image-upload [isOpen]="isOpen" [existingImageUrl]="existingAvatarUrl"
                 (fileSelected)="onFileSelected($event)">
             </app-ui-image-upload>
         </div>
 
-        <!-- اسم الطالب -->
+
         <div class="form-group mb-3">
             <app-ui-input [control]="studentForm.get('name')" placeholder="اسم الطالب"
                 icon="assets/icon/model/user.svg">
             </app-ui-input>
         </div>
 
-        <!-- رقم الهاتف -->
+
         <div class="form-group mb-3">
             <app-ui-input [control]="studentForm.get('phone')" placeholder="رقم الهاتف" type="tel"
                 icon="assets/icon/model/phone.svg">
             </app-ui-input>
         </div>
 
-        <!-- المرحلة الدراسية -->
+
         <div class="form-group mb-3">
             <app-ui-popup-select [control]="studentForm.get('levelId')" [options]="levelsList"
                 placeholder="المرحلة الدراسية" icon="assets/icon/sidebar/levels.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- التواريخ (تم إضافة Labels) -->
+
         <div class="row">
             <div class="col-6 form-group mb-3">
                 <label class="field-label">تاريخ الميلاد</label>
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <!-- سويتش التفعيل (تم وضعه داخل حاوية تطابق تصميم الـ Inputs) -->
+
         <div class="form-group mb-2 mt-2">
             <div class="toggle-field-container">
                 <span class="toggle-label">حساب مفعل</span>

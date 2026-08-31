@@ -3,55 +3,55 @@
 
     <form [formGroup]="reservationForm" class="form-content">
 
-        <!-- اسم الطالب -->
+
         <div class="form-group">
             <app-ui-input [control]="getControl('studentName')" placeholder="الاسم كامل..."
                 icon="assets/icon/model/user.svg">
             </app-ui-input>
         </div>
 
-        <!-- اسم المعلم -->
+
         <div class="form-group">
             <app-ui-popup-select [control]="getControl('teacherId')" placeholder="اسم المعلم" [options]="teachers"
                 icon="assets/icon/model/user.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- المادة -->
+
         <div class="form-group">
             <app-ui-popup-select [control]="getControl('subjectId')" placeholder="المادة" [options]="subjects"
                 icon="assets/icon/model/subj.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- المحافظة -->
+
         <div class="form-group">
             <app-ui-popup-select [control]="getControl('governorateId')" placeholder="اختر محافظتك"
                 [options]="governorates" icon="assets/icon/model/loction.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- المنطقة (بتتقفل وتتفتح برمجياً بناءً على المحافظة) -->
+
         <div class="form-group">
             <app-ui-popup-select [control]="getControl('regionId')" placeholder="اختر المنطقة" [options]="regions"
                 [isDisabled]="getControl('regionId').disabled" icon="assets/icon/model/loction.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- العنوان -->
+
         <div class="form-group">
             <app-ui-input [control]="getControl('address')" placeholder="العنوان" icon="assets/icon/model/loction.svg">
             </app-ui-input>
         </div>
 
-        <!-- رقم الهاتف -->
+
         <div class="form-group">
             <app-ui-input type="number" restrictMode="numbersOnly" [control]="getControl('phoneNumber')"
                 placeholder="أدخل رقم الهاتف" icon="assets/icon/model/phone.svg">
             </app-ui-input>
         </div>
 
-        <!-- رابط التليجرام -->
+
         <div class="form-group">
             <app-ui-input type="url" [control]="getControl('telegramLink')" placeholder="أضف رابط التليجرام الخاص بك"
                 icon="assets/icon/model/tele.svg">

@@ -1,11 +1,10 @@
-<!-- الهيدر الخاص بالبحث والإضافة -->
+
 <app-inner-action-header [showSearch]="true" [showActionButton]="true" [showDate]="true" actionLabel="إضافة معلم جديدة"
     btnIcon="assets/icon/main-header/add.svg" (search)="onSearch($event)"
     (dateRangeChange)="onDateRangeChange($event)" (actionClicked)="openModal('add')">
 </app-inner-action-header>
 
-<!-- الجدول -->
-<!-- بنستخدم الـ async pipe مع الـ engine عشان الداتا تتحدث أوتوماتيك -->
+
 <app-generic-table [columns]="tableColumns" [data]="(engine.result$ | async) || []"
     [currentPage]="(engine.pagination$ | async)?.currentPage || 1"
     [totalPages]="(engine.pagination$ | async)?.totalPages || 1" (actionClick)="onTableActionClick($event)"
@@ -15,7 +14,7 @@
     [levelsList]="levelsList" [subjectsList]="subjectsList" (closeModal)="closeModal()" (save)="onSaveTeacher($event)">
 </app-teachers-modal>
 
-<!-- مودال تأكيد الحذف -->
+
 <app-confirmation-dialog [isOpen]="isConfirmationDialogOpen" title="حذف معلم"
     message="هل أنت متأكد من حذف هذا المعلم؟ لا يمكن التراجع عن هذا الإجراء." confirmLabel="حذف" cancelLabel="تراجع"
     [isLoading]="isDeleting" (confirm)="confirmDelete()" (cancel)="closeConfirmDialog()">

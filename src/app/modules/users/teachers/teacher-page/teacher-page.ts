@@ -20,7 +20,7 @@ export class TeacherPage implements OnInit {
   private readonly toaster = inject(ToastrService);
   private readonly fb = inject(FormBuilder);
 
-  // 1. Table Configuration
+
   tableColumns: ITableColumn[] = [
     { key: 'name', label: 'اسم المعلم', type: 'user', imageKey: 'avatar' },
     { key: 'levelName', label: 'الفصل الدراسي', type: 'text' },
@@ -39,7 +39,7 @@ export class TeacherPage implements OnInit {
     }
   ];
 
-  // 2. Query Engine Setup
+
   readonly engine = new HybridQueryEngine<ITeacher>(
     (query) => this.teachersService.loadByQuery(query),
     (data, query) => this.filterLocally(data, query),
@@ -47,11 +47,11 @@ export class TeacherPage implements OnInit {
     'local'
   );
 
-  // 3. UI & Form State
+
   isModalOpen = false;
   modalMode: 'add' | 'edit' = 'add';
   selectedTeacherForEdit: ITeacher | null = null;
-  // 4. Lookups
+
   levelsList: ISelectOption[] = [];
   subjectsList: ISelectOption[] = [];
   isConfirmationDialogOpen = false;
@@ -65,11 +65,11 @@ export class TeacherPage implements OnInit {
   }
 
   private loadInitialLookups(): void {
-    // افترض إن الـ endpoints دي موجودة في الـ db.json
+
     this.lookupService.getOptions('levels', 'subLevel').subscribe(res => this.levelsList = res); this.lookupService.getOptions('subjects').subscribe(res => this.subjectsList = res);
   }
 
-  // === Modal Actions ===
+
   openModal(mode: 'add' | 'edit', teacher?: ITeacher): void {
     this.modalMode = mode;
     this.selectedTeacherForEdit = teacher || null;
@@ -81,13 +81,12 @@ export class TeacherPage implements OnInit {
   }
 
 
-  // === Save Logic (Data Mapping) ===
   onSaveTeacher(payload: Partial<ITeacher>): void {
     if (this.modalMode === 'add') {
       this.teachersService.add(payload as ITeacher).subscribe({
         next: () => {
           this.toaster.success('تمت إضافة المعلم بنجاح');
-          this.lookupService.invalidateCache('teachers'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
+          this.lookupService.invalidateCache('teachers');
           this.closeModal();
         },
         error: (err) => {
@@ -99,7 +98,7 @@ export class TeacherPage implements OnInit {
       this.teachersService.update(payload.id as string, payload).subscribe({
         next: () => {
           this.toaster.success('تم تعديل بيانات المعلم بنجاح');
-          this.lookupService.invalidateCache('teachers'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
+          this.lookupService.invalidateCache('teachers');
           this.closeModal();
         },
         error: (err) => {
@@ -121,23 +120,23 @@ export class TeacherPage implements OnInit {
   confirmDelete(): void {
     if (!this.teacherIdToDelete) return;
 
-    this.isDeleting = true; // تشغيل الـ Spinner
+    this.isDeleting = true;
 
     this.teachersService.delete(this.teacherIdToDelete).subscribe({
       next: () => {
         this.toaster.success('تم الحذف بنجاح');
-        this.lookupService.invalidateCache('teachers'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
+        this.lookupService.invalidateCache('teachers');
         this.closeConfirmDialog();
       },
       error: (err) => {
         console.error('Delete Error:', err);
         this.toaster.error('حدث خطأ أثناء الحذف');
-        this.isDeleting = false; // بنقفل الـ Spinner بس وممكن نسيب المودال مفتوح
+        this.isDeleting = false;
       }
     });
   }
 
-  // 3. دالة إغلاق المودال وتفريغ الحالة
+
   closeConfirmDialog(): void {
     this.isConfirmationDialogOpen = false;
     this.teacherIdToDelete = null;
@@ -152,7 +151,7 @@ export class TeacherPage implements OnInit {
     }
   }
 
-  // === Header Actions ===
+
   onSearch(searchTerm: string): void {
     this.engine.patchQuery({ searchTerm });
   }

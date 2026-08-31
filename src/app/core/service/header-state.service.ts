@@ -25,11 +25,11 @@ const DEFAULT_HEADER_CONFIG: HeaderConfig = {
   providedIn: 'root',
 })
 export class HeaderStateService {
-  //header state management
+
   private configSource = new BehaviorSubject<HeaderConfig>(DEFAULT_HEADER_CONFIG);
   config$ = this.configSource.asObservable();
 
-  // state management for actions, search, sort, and date range
+
   private actionSource = new Subject<void>();
   action$ = this.actionSource.asObservable();
 
@@ -42,7 +42,7 @@ export class HeaderStateService {
   private dateRangeSource = new Subject<{ startDate: string; endDate: string }>();
   dateRange$ = this.dateRangeSource.asObservable();
 
-  // methods to update the state
+
   setConfig(config: Partial<HeaderConfig>) {
     this.configSource.next({ ...DEFAULT_HEADER_CONFIG, ...config });
   }

@@ -4,7 +4,7 @@
   @if (order) {
 
   <div class="details-subheader">
-    <!-- Back arrow — edit mode only -->
+
     @if (mode === 'edit') {
     <button type="button" class="back-btn" (click)="backToView.emit()">
       <span class="back-arrow">&#8594;</span>
@@ -16,7 +16,7 @@
       <p class="order-number-value">رقم الطلب &nbsp;#{{ order.orderCode }}</p>
     </div>
 
-    <!-- Action buttons — view mode only -->
+
     @if (mode === 'view') {
     <div class="details-actions">
       <app-btn-switch [checked]="order.isActive"
@@ -31,12 +31,12 @@
     }
   </div>
 
-  <!-- Main two-column layout -->
+
   <div class="details-body">
-    <!-- LEFT COLUMN: Customer information -->
+
     <div class="details-col">
       <div class="customer-card">
-        <!-- Avatar + name identity area -->
+
         <div class="customer-avatar-area">
           <img class="customer-avatar-img" [src]="order.customerAvatar || 'assets/img/dashbourd/avatar.jpg'"
             [alt]="order.customer.name" />
@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <!-- Info rows -->
+
         <div class="info-rows">
           <div class="info-row">
             <span class="info-label">الاسم</span>
@@ -78,7 +78,7 @@
             <span class="info-value">{{ order.customer.address }}</span>
           </div>
 
-          <!-- Status badge -->
+
           <div class="info-row">
             <span class="info-label">حالة الطلب</span>
             <span class="status-badge" [style.backgroundColor]="statusConfig[order.status]?.bgColor"
@@ -90,7 +90,7 @@
       </div>
     </div>
 
-    <!-- RIGHT COLUMN: Order items + summary -->
+
     <div class="details-col">
       <app-order-items [order]="order" [editMode]="mode === 'edit'"
         [discountControl]="discountControl"></app-order-items>

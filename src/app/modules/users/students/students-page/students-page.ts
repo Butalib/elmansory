@@ -22,7 +22,7 @@ export class StudentsPage implements OnInit {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  // 1. KPI Configuration
+
   kpiStats: IKpi[] = [
     {
       id: '1',
@@ -47,7 +47,7 @@ export class StudentsPage implements OnInit {
     },
   ];
 
-  // 2. Table Configuration
+
   tableColumns: ITableColumn[] = [
     { key: 'name', label: 'اسم العميل', type: 'user', imageKey: 'avatar' },
     { key: 'phone', label: 'رقم الهاتف', type: 'text' },
@@ -69,7 +69,7 @@ export class StudentsPage implements OnInit {
     },
   ];
 
-  // 3. Query Engine Setup
+
   readonly engine = new HybridQueryEngine<IStudent>(
     (query) => this.studentsService.loadByQuery(query),
     (data, query) => this.filterLocally(data, query),
@@ -77,7 +77,7 @@ export class StudentsPage implements OnInit {
     'local',
   );
 
-  // 4. UI & State
+
   isModalOpen = false;
   modalMode: 'add' | 'edit' = 'add';
   selectedStudentForEdit: IStudent | null = null;
@@ -170,7 +170,7 @@ export class StudentsPage implements OnInit {
     }
   }
 
-  // === Delete Logic ===
+
   confirmDelete(): void {
     if (!this.studentIdToDelete) return;
     this.isDeleting = true;

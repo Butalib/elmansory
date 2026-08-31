@@ -1,7 +1,7 @@
 export interface IGovernorate {
-    id: string; // أو number حسب الباك إند
+    id: string;
     name: string;
-    regionsCount: number; // عدد المناطق
+    regionsCount: number;
     addedAt: string;
-    isActive: boolean; // للزرار بتاع التفعيل/التعطيل (Toggle)
+    isActive: boolean;
 }

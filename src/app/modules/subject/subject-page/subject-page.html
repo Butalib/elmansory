@@ -36,9 +36,9 @@
     [size]="'sm'" confirmLabel="حفظ" cancelLabel="إلغاء" [isConfirmDisabled]="subjectNameControl.invalid"
     (closeModal)="closeFormModal()" (confirm)="saveSubject()">
 
-    <!-- المحتوى الداخلي للمودل -->
+
     <div class="modal-form-content">
-        <!-- استخدمنا الـ UiInput بتاعك وربطناه بالـ FormControl -->
+
         <app-ui-input [control]="subjectNameControl" placeholder="أدخل اسم المادة..."
             icon="assets/icon/shared/edit.svg">
         </app-ui-input>

@@ -57,7 +57,7 @@
 
             @case ('badge') {
             @if (col.badgeConfig && col.badgeConfig[row[col.key]]) {
-            <!-- الديناميكية الوحيدة اللي بنسيبها كـ inline هي الألوان اللي جاية من الداتا -->
+
             <span class="badge-label" [style.backgroundColor]="col.badgeConfig[row[col.key]].bgColor"
               [style.color]="col.badgeConfig[row[col.key]].textColor">
               {{ col.badgeConfig[row[col.key]].text }}
@@ -110,7 +110,7 @@
     }
   </div>
 
-  <!-- جزء الـ Pagination زي ما هو -->
+
   @if (totalPages > 1) {
   <div class="pagination">
     <button type="button" class="pagination-btn" [disabled]="currentPage <= 1" (click)="prevPage()">

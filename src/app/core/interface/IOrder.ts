@@ -1,6 +1,6 @@
 export interface IOrder {
   id: string;
-  /** Optional explicit relationship returned by student-aware order APIs. */
+
   studentId?: string;
   orderCode: string;
   customerName: string;
@@ -10,7 +10,7 @@ export interface IOrder {
   status: 'pending' | 'accepted' | 'rejected';
   customerAvatar: string;
   orderType: 'ملازم' | 'حجز الكترونى' | 'جهز نفسك للمدرسة';
-  discount: number; // Assuming discount is a number, you can adjust the type as needed
+  discount: number;
 }
 export interface IOrderItem {
   id: string;

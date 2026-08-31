@@ -4,35 +4,35 @@
 
     <form [formGroup]="teacherForm" class="form-container">
 
-        <!-- رفع الصورة -->
+
         <div class="form-group mb-3">
             <app-ui-image-upload [isOpen]="isOpen" [existingImageUrl]="existingAvatarUrl"
                 (fileSelected)="onFileSelected($event)">
             </app-ui-image-upload>
         </div>
 
-        <!-- اسم المعلم -->
+
         <div class="form-group mb-3">
             <app-ui-input [control]="teacherForm.get('name')" placeholder="اسم المعلم"
                 icon="assets/icon/model/user.svg">
             </app-ui-input>
         </div>
 
-        <!-- الفصل الدراسي -->
+
         <div class="form-group mb-3">
             <app-ui-popup-select [control]="teacherForm.get('levelId')" [options]="levelsList"
                 placeholder="الفصل الدراسي" icon="assets/icon/sidebar/levels.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- المادة -->
+
         <div class="form-group mb-3">
             <app-ui-popup-select [control]="teacherForm.get('subjectId')" [options]="subjectsList" placeholder="المادة"
                 icon="assets/icon/model/subj.svg">
             </app-ui-popup-select>
         </div>
 
-        <!-- سويتش التفعيل -->
+
         <div class="form-group d-flex align-items-center justify-content-between mt-4">
             <span class="toggle-label">ضمن الحجوزات الالكترونية</span>
             <app-btn-switch [checked]="teacherForm.get('isActive')?.value"

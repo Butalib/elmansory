@@ -19,17 +19,16 @@
             </button>
 
             @if (isMenuOpen) {
-            <!-- جوه الـ dropdown-menu -->
+
             <div class="dropdown-menu">
 
-                <!-- زرار التعديل -->
+
                 <div class="menu-item" (click)="onEditAction()">
                     <app-btn-edit></app-btn-edit>
                     <span>تعديل</span>
                 </div>
 
-                <!-- زرار الحذف -->
-                <!-- ضفنا هنا (click)="isMenuOpen = false" عشان القائمة تقفل فوراً لما تدوس -->
+
                 <div class="menu-item">
                     <button type="button" class="btn-delete-menu" (click)="onDeleteClick()">
                         <img draggable="false" class="sidebar-icon" src="assets/icon/shared/delete-02.svg"

@@ -56,7 +56,6 @@ export class UiSelectComponent {
     private readonly eRef: ElementRef
   ) { }
 
-  // Selected Option
 
   get selectedText(): string {
     const value = this.control.value;
@@ -76,7 +75,6 @@ export class UiSelectComponent {
     return selectedOption?.option ?? '';
   }
 
-  // Dropdown
 
   toggleDropdown(event: Event): void {
     event.stopPropagation();
@@ -100,7 +98,6 @@ export class UiSelectComponent {
     this.triggerWidth = this.triggerElement?.nativeElement.getBoundingClientRect().width ?? 0;
   }
 
-  // Outside Click
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {

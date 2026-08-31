@@ -20,7 +20,7 @@ export class OrdersPage implements OnInit {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  //  Table configuration
+
   tableColumns: ITableColumn[] = [
     { key: 'orderCode', label: 'كود الطلب', type: 'text' },
     { key: 'customerName', label: 'اسم العميل', type: 'user', imageKey: 'customerAvatar' },
@@ -50,7 +50,7 @@ export class OrdersPage implements OnInit {
     },
   ];
 
-  //  Query engine
+
   readonly engine = new HybridQueryEngine<IOrder>(
     (query) => this.ordersService.loadByQuery(query),
     (data, query) => this.filterLocally(data, query),
@@ -60,21 +60,21 @@ export class OrdersPage implements OnInit {
 
   kpiStats$!: Observable<IKpi[]>;
 
-  //  Bulk accept all modal
+
   isAcceptAllModalOpen = false;
 
-  //  Shared saving flag for bulk acceptance
+
   isSaving = false;
 
-  //  Delete confirmation state
+
   isDeleteConfirmOpen = false;
   isDeleting = false;
   orderIdToDelete: string | null = null;
 
-  //  Filter tab state
+
   activeOrderType: string = 'الكل';
 
-  //  Lifecycle
+
   ngOnInit(): void {
     this.ordersService.loadAll().subscribe();
     this.kpiStats$ = this.ordersService.items$.pipe(
@@ -114,7 +114,6 @@ export class OrdersPage implements OnInit {
     );
   }
 
-  // TABLE INTERACTIONS
 
   onActionClick(event: { actionId: string; row: any }): void {
     switch (event.actionId) {
@@ -128,14 +127,13 @@ export class OrdersPage implements OnInit {
         });
         break;
       case 'delete':
-        // Open confirmation dialog directly from row data — no full fetch needed for delete
         this.orderIdToDelete = event.row.id;
         this.isDeleteConfirmOpen = true;
         break;
     }
   }
 
-  /** Toggle from the GenericTable (not from inside the modal) */
+
   onToggleStatus(event: { key: string; row: any; value: boolean }): void {
     const orderId = event.row.id;
     const newValue = event.value;
@@ -144,8 +142,8 @@ export class OrdersPage implements OnInit {
     this.ordersService.update(orderId, { [targetProperty]: newValue }).subscribe({
       next: () => {
         this.toaster.success('تم التحديث بنجاح');
-        // GenericCrudService optimistic update already handles items$
-        // Mutate the row ref so the table cell reflects change immediately
+
+
         event.row[targetProperty] = newValue;
       },
       error: () => {
@@ -155,7 +153,6 @@ export class OrdersPage implements OnInit {
     });
   }
 
-  // DELETE CONFIRMATION
 
   confirmDelete(): void {
     if (!this.orderIdToDelete) return;
@@ -179,7 +176,7 @@ export class OrdersPage implements OnInit {
     this.isDeleting = false;
   }
 
-  // BULK ACCEPT ALL
+
   onActionClicked(): void {
     this.isAcceptAllModalOpen = true;
   }
@@ -194,7 +191,6 @@ export class OrdersPage implements OnInit {
     }, 1000);
   }
 
-  // QUERY HANDLERS
 
   onPageChange(newPage: number): void {
     this.engine.patchQuery({ _page: newPage });
@@ -217,7 +213,7 @@ export class OrdersPage implements OnInit {
     this.engine.patchQuery({ orderType: type });
   }
 
-  // Local filter strategy
+
   private filterLocally(data: IOrder[], query: any): IOrder[] {
     let filteredData = data;
 

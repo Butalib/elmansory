@@ -134,7 +134,7 @@ export class ConversationsPage implements OnInit {
         this.selectedConversation.set(updatedConversation);
         this.upsertConversation(updatedConversation);
         this.scrollMessagesToBottom();
-        // this.toastr.success('تم إرسال الرسالة');
+
         this.isUploading.set(false);
       },
       error: () => {

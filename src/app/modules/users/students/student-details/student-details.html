@@ -1,8 +1,8 @@
 <section class="student-details-page" dir="rtl">
 
-  <!-- Header -->
+
   <header class="page-header">
-    <!-- <h1>الطلاب</h1> -->
+
     <button type="button" class="outline-button" (click)="goBackToStudents()">
       <span aria-hidden="true">→</span> العودة إلى الطلاب
     </button>
@@ -17,21 +17,21 @@
   </div>
   } @else {
 
-  <!-- 1. Top Section (Profile & KPIs) -->
+
  <section class="top-stats-wrapper" aria-label="ملخص الطالب">
-    
-    <!-- Profile Section (بدون خلفية بيضاء، مجرد محتوى) -->
+
+
     <div class="profile-section">
       <div class="profile-info">
         <h2>{{ student.name }}</h2>
-        <!-- الحاوية دي هتاخد Flex Row عشان ترصهم جنب بعض -->
+
         <div class="profile-meta">
           <span class="meta-item">
-            <img src="assets/icon/main-header/calendar-02.svg" alt=""> 
+            <img src="assets/icon/main-header/calendar-02.svg" alt="">
             {{ student.joinDate || 'غير محدد' }}
           </span>
           <span class="meta-item" dir="ltr">
-            <img src="assets/icon/model/phone.svg" alt=""> 
+            <img src="assets/icon/model/phone.svg" alt="">
             {{ student.phone }}
           </span>
         </div>
@@ -39,17 +39,17 @@
       <img class="student-avatar" [src]="student.avatar || imageFallback" (error)="onImageError($event)" />
     </div>
 
-    <!-- KPI Generic Component (الكروت البيضاء) -->
+
     <div class="kpis-wrapper">
       <app-kpi [stats]="studentKpis"></app-kpi>
     </div>
-    
+
   </section>
 
-  <!-- 2. Bottom Section (Orders & Invoice) -->
+
   <main class="details-layout-grid">
 
-    <!-- Right: Orders List -->
+
     <aside class="panel">
       <div class="panel-heading">
         <h2>طلبات الطالب</h2>
@@ -81,7 +81,7 @@
       }
     </aside>
 
-    <!-- Left: Invoice Details -->
+
     <section class="panel">
       <div class="panel-heading">
         <h2>@if (selectedOrder) { طلب <span dir="ltr">#{{ selectedOrder.orderCode }}</span> } @else { تفاصيل الطلب }

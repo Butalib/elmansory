@@ -1,6 +1,5 @@
 <div class="popup-select">
 
-    <!-- Trigger -->
 
     <button #triggerElement #popupOrigin="cdkOverlayOrigin" cdkOverlayOrigin type="button"
         class="popup-select__trigger" [disabled]="currentDisabledState" (click)="toggle()">
@@ -22,8 +21,6 @@
     </button>
 
 
-    <!-- Popup -->
-
     <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="popupOrigin"
         [cdkConnectedOverlayOpen]="isOpen" [cdkConnectedOverlayPositions]="panelPositions"
         [cdkConnectedOverlayWidth]="triggerWidth" [cdkConnectedOverlayHasBackdrop]="true"
@@ -32,7 +29,6 @@
 
     <div class="popup-select__panel" (click)="$event.stopPropagation()">
 
-        <!-- Search -->
 
         <div class="popup-select__search">
 
@@ -41,8 +37,6 @@
 
         </div>
 
-
-        <!-- Options -->
 
         <div class="popup-select__options">
 

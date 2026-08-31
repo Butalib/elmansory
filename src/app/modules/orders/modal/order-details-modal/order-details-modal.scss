@@ -1,8 +1,6 @@
-/* ==========================================
-   Order Details Modal — Full-screen layout
-   ========================================== */
 
-/* Force the modal container to use maximum available width */
+
+
 :host ::ng-deep .modal-container.xl {
   max-width: 90vw;
   width: 90vw;
@@ -32,7 +30,7 @@
   text-align: center;
 }
 
-/* Single-line order number: "رقم الطلب #ME.10234" */
+
 .order-number-value {
   margin: 0;
   font-size: 1.375rem;
@@ -43,9 +41,6 @@
   display: flex;
 }
 
-/* ==========================================
-   Back button (edit mode)
-   ========================================== */
 
 .back-btn {
   display: inline-flex;
@@ -72,9 +67,6 @@
   line-height: 1;
 }
 
-/* ==========================================
-   Icon action buttons
-   ========================================== */
 
 .details-actions {
   display: flex;
@@ -112,9 +104,6 @@
   }
 }
 
-/* ==========================================
-   Main two-column body
-   ========================================== */
 
 .details-body {
   display: grid;
@@ -129,9 +118,6 @@
   gap: 16px;
 }
 
-/* ==========================================
-   Customer card
-   ========================================== */
 
 .customer-card {
   background: var(--color-white);
@@ -178,9 +164,6 @@
   color: var(--color-black-400);
 }
 
-/* ==========================================
-   Info rows
-   ========================================== */
 
 .info-rows {
   display: flex;
@@ -208,9 +191,6 @@
   color: var(--color-black-900);
 }
 
-/* ==========================================
-   Status badge
-   ========================================== */
 
 .status-badge {
   display: inline-block;
@@ -220,9 +200,6 @@
   font-weight: 600;
 }
 
-/* ==========================================
-   Loading state
-   ========================================== */
 
 .details-loading {
   display: flex;
@@ -233,9 +210,6 @@
   font-size: 0.9375rem;
 }
 
-/* ==========================================
-   Responsive — narrow screens
-   ========================================== */
 
 @media (max-width: 768px) {
   .details-body {

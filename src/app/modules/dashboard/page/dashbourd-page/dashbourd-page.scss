@@ -31,7 +31,7 @@
     flex: 1;
     min-height: 0;
     min-width: 0;
-    
+
 }
 
 .top-grid > *,
@@ -41,25 +41,25 @@
 
 .top-grid {
     grid-template-columns: minmax(9.5rem, 0.35fr) minmax(0, 0.65fr);
-    
+
 }
 
 .bottom-grid {
     grid-template-columns: minmax(0, 0.55fr) minmax(18rem, 0.45fr);
-    
+
 }
 
 .chart-card,
 .wheel-card {
     border: 0.0625rem solid var(--c-border);
     border-radius: 1rem;
-    
+
     background: var(--c-white);
     box-shadow: 0 0.0625rem 0.1875rem 0 rgb(var(--c-black-rgb) / 0.05);
     padding: 1rem;
     min-width: 0;
     overflow: hidden;
-    
+
 }
 
 .chart-card h2,
@@ -67,7 +67,7 @@
 .wheel-card h2 {
     margin: 0;
     font-size: 1rem;
-    
+
     font-weight: 700;
     line-height: 1;
     color: var(--c-text);
@@ -82,7 +82,7 @@
     width: 100%;
     min-width: 0;
     margin-top: 0.5rem;
-    
+
 }
 
 .chart-card ::ng-deep .apexcharts-canvas,
@@ -93,7 +93,7 @@
 .stats-column {
     display: grid;
     gap: 0.5rem;
-    
+
     grid-template-rows: repeat(3, 1fr);
 }
 
@@ -104,7 +104,7 @@
     gap: 0.75rem;
     padding: 0.75rem;
     min-width: 0;
-    
+
     border-radius: 1rem;
     background: var(--c-white);
     border: 1px solid var(--c-border);
@@ -118,12 +118,12 @@
     flex-direction: column;
     gap: 0.25rem;
     text-align: start;
-    
+
 }
 
 .stat-card strong {
     font-size: 1.5rem;
-    
+
     font-weight: 700;
     line-height: 1;
     color: var(--c-text);
@@ -132,7 +132,7 @@
 .stat-card div span {
     color: var(--c-muted);
     font-size: 0.875rem;
-    
+
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -141,7 +141,7 @@
 .stat-icon {
     display: grid;
     width: 2.5rem;
-    
+
     height: 2.5rem;
     flex: 0 0 2.5rem;
     place-items: center;
@@ -151,7 +151,7 @@
 
 .stat-icon img {
     width: 1.25rem;
-    
+
     height: 1.25rem;
     object-fit: contain;
 }
@@ -250,7 +250,7 @@
 }
 
 .wheel-card {
-    
+
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -290,7 +290,7 @@
     position: relative;
     display: grid;
     width: clamp(12rem, 25vh, 16rem);
-    
+
     height: clamp(12rem, 25vh, 16rem);
     place-items: center;
     border-radius: 50%;
@@ -311,7 +311,7 @@
     z-index: 1;
     display: grid;
     width: clamp(8rem, 16vh, 11rem);
-    
+
     height: clamp(8rem, 16vh, 11rem);
     place-content: center;
     border-radius: 50%;
@@ -327,7 +327,7 @@
 
 .donut-hole strong {
     font-size: 1.5rem;
-    
+
     line-height: 1.2;
     color: var(--c-text);
 }

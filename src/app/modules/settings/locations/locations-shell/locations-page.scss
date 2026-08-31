@@ -11,7 +11,7 @@
         display: flex;
         justify-content: space-around;
         gap: 32px;
-        border-bottom: 2px solid var(--color-black-100); // الخط الرمادي اللي شايل التابات
+        border-bottom: 2px solid var(--color-black-100);
         padding-bottom: 0;
 
         a {
@@ -23,11 +23,11 @@
             position: relative;
             transition: color 0.2s ease;
 
-            // الخط الأزرق اللي بيظهر تحت التابة النشطة
+
             &::after {
                 content: '';
                 position: absolute;
-                bottom: -2px; // عشان يغطي على الخط الرمادي
+                bottom: -2px;
                 left: 0;
                 width: 100%;
                 height: 2px;
@@ -39,9 +39,9 @@
                 color: var(--color-black-900);
             }
 
-            // أداة routerLinkActive هتحط الكلاس ده تلقائي
+
             &.active-tab {
-                color: var(--color-primary-400); // لون أزرق
+                color: var(--color-primary-400);
 
                 &::after {
                     background-color: var(--color-primary-400);
@@ -51,7 +51,7 @@
     }
 
     .locations-table-container {
-        // تنسيقات مساحة الجدول
+
         min-height: 300px;
     }
 }

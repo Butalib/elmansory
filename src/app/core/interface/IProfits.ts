@@ -8,5 +8,5 @@ export interface IProfits {
     ordersCount: number;
     totalProfit: string;
     netProfit: number;
-    date: string; // Assuming you have a date field for sorting
+    date: string;
 }

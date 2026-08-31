@@ -8,36 +8,36 @@
 
     .tab-btn {
         padding: 0.625rem 1.5rem;
-        /* مساحة داخلية مريحة للعين */
+
         background-color: var(--color-white);
         color: var(--color-black-500);
-        /* لون رمادي هادي للنص غير النشط */
+
         border: 0.0625rem solid var(--color-black-200);
-        /* إطار خفيف */
+
         border-radius: 0.5rem;
-        /* حواف دائرية زي الجدول */
+
         font-family: inherit;
         font-size: 0.875rem;
         font-weight: 600;
         cursor: pointer;
 
-        /* أنيميشن ناعم لما اللون يتغير */
+
         transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
-        /* تأثير الـ Hover للزراير غير النشطة */
+
         &:hover:not(.active) {
             background-color: var(--color-black-50);
             color: var(--color-black-900);
         }
 
-        /* حالة الزرار النشط (Active State) */
+
         &.active {
             background-color: var(--color-primary-500);
-            /* اللون الأزرق بتاع قمة المنصور */
+
             color: var(--color-white);
             border-color: var(--color-primary-500);
             box-shadow: 0 0.25rem 0.5rem rgb(var(--color-primary-500-rgb) / 0.2);
-            /* ضل خفيف بيدي إحساس إنه مضغوط */
+
         }
     }
 }

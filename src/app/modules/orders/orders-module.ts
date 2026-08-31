@@ -6,7 +6,7 @@ import { OrdersPage } from './orders-page/orders-page';
 import { SharedModule } from '../shared/shared-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OrderConfermation } from './modal/order-confermation/order-confermation';
-// import { OrderCustomerInfo } from './components/order-customer-info/order-customer-info';
+
 import { OrderItems } from './components/order-items/order-items';
 import { OrderDetailsModal } from './modal/order-details-modal/order-details-modal';
 import { OrderDetailsPage } from './order-details-page/order-details-page';

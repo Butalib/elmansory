@@ -11,7 +11,7 @@ export class HybridQueryEngine<T> {
     private sourceSubscription?: Subscription;
     private querySubscription?: Subscription;
 
-    private readonly queryState = new BehaviorSubject<IQueryEngine>({ _page: 1, _limit: 7 });
+    private readonly queryState = new BehaviorSubject<IQueryEngine>({ _page: 1, _limit: 10 });
     readonly query$ = this.queryState.asObservable();
 
     private readonly resultSubject = new BehaviorSubject<T[]>([]);
@@ -70,26 +70,23 @@ export class HybridQueryEngine<T> {
         });
     }
     private buildLocalResult(query: IQueryEngine): T[] {
-        // 1. الفلترة المخصصة والبحث (عن طريق الاستراتيجية اللي الشاشة بتبعتها)
         let queriedData = this.localQueryStrategy([...this.sourceData], query);
 
-        // 2. الترتيب العام (Generic Sorting)
+
         if (query._sort) {
             const sortKey = query._sort as keyof T;
-            const orderMultiplier = query._order === 'desc' ? -1 : 1; // الافتراضي تصاعدي، لو desc نعكس
+            const orderMultiplier = query._order === 'desc' ? -1 : 1;
 
             queriedData.sort((a, b) => {
                 const valA = a[sortKey];
                 const valB = b[sortKey];
 
-                // التعامل مع التواريخ أو النصوص
                 if (valA < valB) return -1 * orderMultiplier;
                 if (valA > valB) return 1 * orderMultiplier;
                 return 0;
             });
         }
 
-        // 3. التقسيم لصفحات (Pagination)
         return this.paginate(queriedData, query);
     }
 
@@ -129,7 +126,7 @@ export class HybridQueryEngine<T> {
     }
 
     clearSearch(): void {
-        this.patchQuery({ searchTerm: undefined }); // تأكد إن الـ Interface بيسمح بـ searchTerm
+        this.patchQuery({ searchTerm: undefined });
     }
 
     refresh(): void {

@@ -27,11 +27,9 @@ export class ReservationModel implements OnInit, OnChanges {
   @Input() regions: ISelectOption[] = [];
 
 
-
-
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<any>();
-  @Output() governorateChanged = new EventEmitter<string | number>(); // الحدث اللي بيبلغ الأب بتغيير المحافظة
+  @Output() governorateChanged = new EventEmitter<string | number>();
   reservationForm!: FormGroup;
 
   ngOnInit(): void {
@@ -40,8 +38,8 @@ export class ReservationModel implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen'] && !this.isOpen && this.reservationForm) {
-      this.reservationForm.reset(); // تصفير الفورم لما المودال يقفل
-      this.getControl('regionId').disable(); // قفل المنطقة تاني
+      this.reservationForm.reset();
+      this.getControl('regionId').disable();
     }
   }
   private initForm(): void {
@@ -50,7 +48,7 @@ export class ReservationModel implements OnInit, OnChanges {
       teacherId: [null, Validators.required],
       subjectId: [null, Validators.required],
       governorateId: [null, Validators.required],
-      regionId: [{ value: null, disabled: true }, Validators.required], // مقفول ديفولت
+      regionId: [{ value: null, disabled: true }, Validators.required],
       address: ['', Validators.required],
       phoneNumber: ['', [
         Validators.required,
@@ -59,17 +57,17 @@ export class ReservationModel implements OnInit, OnChanges {
     });
   }
   private setupDependencies(): void {
-    // نراقب حقل المحافظة
+
     this.getControl('governorateId').valueChanges.subscribe(govId => {
       const regionControl = this.getControl('regionId');
-      // دايماً بنفضي المنطقة القديمة لو المحافظة اتغيرت
+
       regionControl.setValue(null);
       regionControl.markAsUntouched();
       if (govId) {
-        regionControl.enable(); // نفتح الحقل للمستخدم
-        this.governorateChanged.emit(govId); // ننده على الأب يروح يجيب الداتا
+        regionControl.enable();
+        this.governorateChanged.emit(govId);
       } else {
-        regionControl.disable(); // نقفل الحقل لو مسح المحافظة
+        regionControl.disable();
       }
     });
   }

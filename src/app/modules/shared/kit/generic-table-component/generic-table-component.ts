@@ -13,10 +13,10 @@ export class GenericTableComponent {
   readonly isTableLoading = computed(() => this.loadingService.isPageLoading());
   readonly tableSkeletonRows = Array.from({ length: 5 });
 
-  //table inputs
+
   @Input() columns: ITableColumn[] = [];
   @Input() data: any[] | null = [];
-  //pagination inputs
+
   @Input() currentPage = 1;
   @Input() totalPages = 1;
 
@@ -73,7 +73,7 @@ export class GenericTableComponent {
   }
 
   onToggle(key: string, row: any, value: boolean): void {
-    // const value = (event.target as HTMLInputElement).checked;
+
     this.toggleChange.emit({ key, row, value });
   }
 

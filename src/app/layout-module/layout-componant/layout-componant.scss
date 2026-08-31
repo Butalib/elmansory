@@ -1,4 +1,4 @@
-/* الغلاف الأب اللي بيشيل السايدبار والمحتوى */
+
 :host {
   display: grid;
   height: 100vh;
@@ -10,7 +10,7 @@
   transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* في حالة إن السايدبار اتعمله تصغير (Collapsed) */
+
 :host(.sidebar-collapsed) {
   grid-template-columns: 4rem minmax(0, 1fr);
 }
@@ -19,7 +19,7 @@
   grid-template-columns: 4rem minmax(0, 1fr);
 }
 
-/* المنطقة اللي هتشيل الهيدر والـ Router Outlet */
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -27,15 +27,15 @@
   overflow: hidden;
   background: var(--color-white);
 
-  /* لون خلفية رمادي فاتح مريح للعين عشان يفصل عن السايدبار الأبيض */
+
   transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 }
 
-/* تنسيق الهيدر اللي فوق */
+
 .header-area {
   flex: 0 0 4.375rem;
-  /* ارتفاع الهيدر ثابت */
+
   background: var(--color-white);
   border-bottom: 0.0625rem solid var(--color-black-100, var(--color-black-200));
 
@@ -43,7 +43,7 @@
 
 }
 
-/* مساحة عرض الصفحات المتغيرة (المهام، الطلاب، الخ) */
+
 .page-content {
   position: relative;
   flex: 1;

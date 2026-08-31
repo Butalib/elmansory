@@ -12,18 +12,18 @@ import { ISelectOption } from '../../../../core/interface/ISelectOption';
 export class TeachersModal implements OnInit, OnChanges {
   private readonly fb = inject(FormBuilder);
 
-  // === Inputs (Data from Parent) ===
+
   @Input() isOpen = false;
   @Input() mode: 'add' | 'edit' = 'add';
   @Input() teacherData: ITeacher | null = null;
   @Input() levelsList: ISelectOption[] = [];
   @Input() subjectsList: ISelectOption[] = [];
 
-  // === Outputs (Events to Parent) ===
+
   @Output() closeModal = new EventEmitter<void>();
   @Output() save = new EventEmitter<Partial<ITeacher>>();
 
-  // === Local State ===
+
   teacherForm!: FormGroup;
   selectedFile: string | null = null;
   existingAvatarUrl: string | null = null;

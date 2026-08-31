@@ -17,7 +17,7 @@ import { IRegion } from '../../../core/interface/IRegion';
 })
 export class ReservationComponentPage implements OnInit {
   private readonly reservationsService = inject(Reservations);
-  private readonly lookupService = inject(LookupService); // حقن السيرفيس
+  private readonly lookupService = inject(LookupService);
   private readonly regionService = inject(RegionService);
   private toaster = inject(ToastrService);
   tableColumns: ITableColumn[] = [
@@ -32,9 +32,9 @@ export class ReservationComponentPage implements OnInit {
   readonly engine = new HybridQueryEngine<ReservationTableRow>(
     (query) => this.reservationsService.loadByQuery(query),
     (data, query) => this.filterLocally(data, query),
-    // 3. Source of Truth
+
     this.reservationsService.items$,
-    // 4. Mode
+
     'local'
   );
   isModalOpen = false;

@@ -14,32 +14,32 @@
   height: 100%;
 }
 
-/* ==========================================================================
-   العنوان
-   ========================================================================== */
+
+
+
 .page-title h1 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 800;
-  /* خط تقيل زي التصميم */
+
   color: var(--color-black-900, var(--color-black-900));
   font-family: inherit;
-  /* لضمان وراثة خط المشروع */
+
 }
 
-/* ==========================================================================
-   اليسار: حاوية الأكشنز
-   ========================================================================== */
+
+
+
 .header-actions {
   display: flex;
   align-items: center;
   gap: clamp(0.5rem, 1.5vw, 1.5rem);
-  /* المسافة بين الكتل */
+
 }
 
-/* ==========================================================================
-   الخط الفاصل (Divider)
-   ========================================================================== */
+
+
+
 .divider {
   width: 0.0625rem;
   height: 3rem;
@@ -47,9 +47,9 @@
   border-radius: 0.125rem;
 }
 
-/* ==========================================================================
-   البروفايل
-   ========================================================================== */
+
+
+
 .user-profile {
   display: flex;
   align-items: center;
@@ -60,13 +60,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  /* محاذاة النص لليمين بجوار الصورة */
+
 }
 
 .user-name {
   font-size: 1rem;
   font-weight: 800;
-  /* Bold جداً زي فيجما */
+
   color: var(--color-black-900, var(--color-black-900));
   text-transform: uppercase;
   line-height: 1.1;
@@ -76,7 +76,7 @@
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-black-400, var(--color-black-400));
-  /* رمادي فاتح */
+
   line-height: 1.1;
 }
 
@@ -84,32 +84,32 @@
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-secondary-300, var(--color-primary-600));
-  /* لون مميز للصلاحية */
+
   margin-top: 0.125rem;
 }
 
-/* الصورة: مربع بحواف ناعمة */
+
 .user-avatar {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 1rem;
-  /* التطابق مع فيجما (Squircle) */
+
   object-fit: cover;
   border: 0.0625rem solid var(--color-black-100, var(--color-black-100));
 }
 
-/* ==========================================================================
-   الأزرار (الإشعارات) - مربعة بحواف ناعمة
-   ========================================================================== */
+
+
+
 .action-btn {
   position: relative;
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 1rem;
-  /* مربع ناعم زي الصورة بالضبط */
+
   background: transparent;
   border: 0.0625rem solid var(--color-black-200, var(--color-black-200));
-  /* لون البوردر الخارجي */
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,13 +128,13 @@
   }
 }
 
-/* الشارة الحمراء الديناميكية */
+
 .notification-badge {
   position: absolute;
   top: -0.375rem;
-  /* مرفوعة لفوق شوية */
+
   right: -0.375rem;
-  /* مزاحة لليمين */
+
 
   background-color: var(--color-error);
   color: var(--color-white);
@@ -144,7 +144,7 @@
   height: 1.5rem;
   min-width: 1.5rem;
   border-radius: 0.75rem;
-  /* كبسولة */
+
 
   display: flex;
   justify-content: center;
@@ -152,7 +152,7 @@
   padding: 0 0.375rem;
   box-sizing: border-box;
 
-  /* البوردر الأبيض لقطع تداخل الخطوط */
+
   border: 0.1563rem solid var(--color-white);
 }
 

@@ -5,7 +5,7 @@
   direction: rtl;
   container-type: inline-size;
 
-  /* --- Table Container --- */
+
   .table-wrapper {
     position: relative;
     width: 100%;
@@ -131,7 +131,7 @@
     animation: skeletonSweep 1.15s ease-in-out infinite;
   }
 
-  /* --- User Cell --- */
+
   .user-cell {
     display: flex;
     align-items: center;
@@ -150,7 +150,7 @@
     }
   }
 
-  /* --- Badge --- */
+
   .badge-label {
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
@@ -158,7 +158,7 @@
     font-weight: 600;
   }
 
-  /* --- Actions Wrapper --- */
+
   .actions-wrapper {
     position: relative;
     display: flex;
@@ -173,7 +173,7 @@
     object-fit: contain;
   }
 
-  /* --- Actions Cell --- */
+
   .actions-cell {
     position: relative;
     width: 1%;
@@ -181,7 +181,7 @@
     overflow: visible;
   }
 
-  /* --- Actions Trigger --- */
+
   .actions-trigger {
     width: 2.25rem;
     height: 2.25rem;
@@ -211,7 +211,7 @@
     }
   }
 
-  /* --- Actions Dropdown --- */
+
   .actions-dropdown {
     position: fixed;
 
@@ -230,17 +230,17 @@
     transform-origin: top left;
   }
 
-  /* Open Below */
+
   .actions-dropdown.open-bottom {
     bottom: auto;
   }
 
-  /* Open Above */
+
   .actions-dropdown.open-top {
     transform-origin: bottom left;
   }
 
-  /* --- Dropdown Action --- */
+
   .dropdown-action {
     width: 100%;
 
@@ -268,14 +268,14 @@
     }
   }
 
-  /* --- Empty State --- */
+
   .empty-state {
     padding: 2.5rem 1rem;
     color: var(--color-black-400);
     text-align: center;
   }
 
-  /* --- Pagination --- */
+
   .pagination {
     display: flex;
     align-items: center;

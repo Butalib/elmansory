@@ -29,13 +29,13 @@
             width: 100%;
             padding: 0.5rem;
             padding-right: 3rem;
-            /* مساحة للأيقونة على اليمين */
+
             border: none;
-            /* شيلنا البوردر زي التصميم المرفق */
+
             border-radius: 12px;
-            /* حواف دائرية ناعمة */
+
             background-color: var(--color-black-100);
-            /* لون الخلفية الرمادي الفاتح */
+
             font-family: inherit;
             font-size: 0.9375rem;
             color: var(--color-black-700);
@@ -46,19 +46,19 @@
                 color: var(--color-black-400);
             }
 
-            /* تأثير لما المستخدم يضغط على الحقل */
+
             &:focus {
                 box-shadow: 0 0 0 2px var(--color-primary-500);
-                /* حافة زرقاء خفيفة تعبر عن التركيز */
+
                 background-color: var(--color-white);
             }
         }
 
         .textarea {
             padding-right: 16px;
-            /* هنا مفيش أيقونة فبنرجع البادينج لطبيعته */
+
             resize: vertical;
-            /* السماح بتكبير الطول فقط مش العرض */
+
         }
     }
 
@@ -76,7 +76,7 @@
             width: 100%;
             padding: 1rem;
             background-color: var(--color-primary-500);
-            /* اللون الأزرق الخاص بالتصميم */
+
             color: white;
             border: none;
             border-radius: 12px;
@@ -87,7 +87,7 @@
 
             &:hover:not(:disabled) {
                 background-color: var(--color-primary-600);
-                /* يغمق شوية لما تقف عليه */
+
             }
 
             &:disabled {

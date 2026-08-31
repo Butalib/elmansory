@@ -24,18 +24,18 @@ export class OrderDetailsModal implements OnChanges {
   @Input() mode: 'view' | 'edit' = 'view';
   @Input() isSaving = false;
 
-  // ── Core navigation outputs ───────────────────────────────────────────────
+
   @Output() closed = new EventEmitter<void>();
   @Output() switchToEdit = new EventEmitter<void>();
   @Output() backToView = new EventEmitter<void>();
 
-  // ── Action outputs (page owns all service calls) ──────────────────────────
+
   @Output() saveDiscount = new EventEmitter<{ orderId: string; discount: number }>();
   @Output() acceptOrder = new EventEmitter<string>();
   @Output() requestDelete = new EventEmitter<string>();
   @Output() toggleActive = new EventEmitter<{ orderId: string; value: boolean }>();
 
-  // ── Local form state (discount edit) ─────────────────────────────────────
+
   readonly discountControl: FormControl<number | null> = this.fb.control<number | null>(0, [
     Validators.required,
     Validators.min(0),
@@ -47,7 +47,7 @@ export class OrderDetailsModal implements OnChanges {
     rejected: { text: 'مرفوض', bgColor: 'var(--color-error-100)', textColor: 'var(--color-error-600)' },
   };
 
-  // ── Derived labels (mode-dependent) ──────────────────────────────────────
+
   get modalTitle(): string {
     return this.mode === 'view' ? 'تفاصيل الطلب' : 'تعديل الطلب';
   }
@@ -72,7 +72,7 @@ export class OrderDetailsModal implements OnChanges {
     return false;
   }
 
-  // ── Lifecycle ─────────────────────────────────────────────────────────────
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['order'] && this.order != null) {
       this.discountControl.setValue(this.order.discount);
@@ -86,20 +86,18 @@ export class OrderDetailsModal implements OnChanges {
     }
   }
 
-  // ── Modal shell event handlers ────────────────────────────────────────────
 
-  /** X button or رجوع/رفض (cancel) button */
   handleClose(): void {
     if (this.mode === 'edit') {
-      // Back to view mode — do NOT close the entire modal
+
       this.backToView.emit();
     } else {
-      // رفض in view mode — just close the modal (no reject API call per scope)
+
       this.closed.emit();
     }
   }
 
-  /** قبول (view) or حفظ (edit) button */
+
   handleConfirm(): void {
     if (this.mode === 'edit') {
       if (!this.order || this.discountControl.invalid) return;
@@ -108,7 +106,7 @@ export class OrderDetailsModal implements OnChanges {
         discount: this.discountControl.value ?? 0,
       });
     } else {
-      // قبول — emit to page; page checks status and calls service
+
       if (!this.order) return;
       this.acceptOrder.emit(this.order.id);
     }
