@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostListener, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IStationery, IStationeryVariant } from '../../../../../core/interface/IStationery';
 
@@ -26,6 +26,13 @@ export class StationeryFormComponent implements OnInit, OnChanges {
   selectedImageIndex = 0;
   isVariantModalOpen = false;
   selectedVariant: IStationeryVariant | null = null;
+  activeVariantActionsId: string | number | null = null;
+  variantActionsMenuPosition = { top: 0, left: 0 };
+
+  @HostListener('document:click')
+  closeVariantActions(): void {
+    this.activeVariantActionsId = null;
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -108,6 +115,7 @@ export class StationeryFormComponent implements OnInit, OnChanges {
   }
 
   openEditVariant(variant: IStationeryVariant): void {
+    this.activeVariantActionsId = null;
     this.selectedVariant = variant;
     this.isVariantModalOpen = true;
   }
@@ -129,7 +137,36 @@ export class StationeryFormComponent implements OnInit, OnChanges {
   }
 
   removeVariant(variant: IStationeryVariant): void {
+    this.activeVariantActionsId = null;
     this.variants = this.variants.filter((item) => item.id !== variant.id);
+  }
+
+  toggleVariantActions(variant: IStationeryVariant, event: MouseEvent): void {
+    event.stopPropagation();
+
+    if (this.activeVariantActionsId === variant.id) {
+      this.activeVariantActionsId = null;
+      return;
+    }
+
+    const trigger = event.currentTarget as HTMLElement;
+    const rect = trigger.getBoundingClientRect();
+    const menuWidth = 136;
+    const menuHeight = 92;
+    const gap = 6;
+    const viewportMargin = 8;
+
+    const preferredTop = rect.top - menuHeight - gap;
+    const fallbackTop = rect.bottom + gap;
+    const top = preferredTop >= viewportMargin ? preferredTop : fallbackTop;
+    const left = rect.left + rect.width / 2 - menuWidth / 2;
+
+    this.variantActionsMenuPosition = {
+      top: Math.min(Math.max(top, viewportMargin), window.innerHeight - menuHeight - viewportMargin),
+      left: Math.min(Math.max(left, viewportMargin), window.innerWidth - menuWidth - viewportMargin),
+    };
+
+    this.activeVariantActionsId = variant.id;
   }
 
   toggleVariant(variant: IStationeryVariant, isActive: boolean): void {

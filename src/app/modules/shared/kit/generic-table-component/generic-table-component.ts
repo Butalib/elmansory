@@ -1,5 +1,6 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, computed, inject } from '@angular/core';
 import { ITableColumn } from '../../../../core/interface/IGenericTable';
+import { LoadingService } from '../../../../core/service/loading.service';
 
 @Component({
   selector: 'app-generic-table',
@@ -8,6 +9,10 @@ import { ITableColumn } from '../../../../core/interface/IGenericTable';
   styleUrl: './generic-table-component.scss',
 })
 export class GenericTableComponent {
+  private readonly loadingService = inject(LoadingService);
+  readonly isTableLoading = computed(() => this.loadingService.isPageLoading());
+  readonly tableSkeletonRows = Array.from({ length: 5 });
+
   //table inputs
   @Input() columns: ITableColumn[] = [];
   @Input() data: any[] | null = [];
@@ -21,6 +26,10 @@ export class GenericTableComponent {
 
   activeDropdownIndex: number | null = null;
   dropdownPosition: 'top' | 'bottom' = 'bottom';
+
+  get skeletonGridColumns(): string {
+    return `repeat(${Math.max(this.columns.length, 1)}, minmax(6rem, 1fr))`;
+  }
 
   @HostListener('document:click')
   closeDropdowns(): void {
@@ -61,16 +70,15 @@ export class GenericTableComponent {
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
+      this.loadingService.flashPageLoading();
       this.pageChange.emit(this.currentPage + 1);
-      console.log(this.currentPage + 1);
-
     }
   }
 
   prevPage(): void {
     if (this.currentPage > 1) {
+      this.loadingService.flashPageLoading();
       this.pageChange.emit(this.currentPage - 1);
-      console.log(this.currentPage - 1);
     }
   }
 }

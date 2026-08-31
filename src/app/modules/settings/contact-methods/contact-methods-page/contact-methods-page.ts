@@ -72,6 +72,18 @@ export class ContactMethodsPage implements OnInit, OnDestroy {
     return labels[type];
   }
 
+  getContactIcon(type: ContactMethodType): string {
+    const icons: Record<ContactMethodType, string> = {
+      phone: 'assets/icon/contact/Component 6 (8).svg',
+      instagram: 'assets/icon/contact/skill-icons_instagram.svg',
+      tiktok: 'assets/icon/contact/tiktok.svg',
+      facebook: 'assets/icon/contact/Facebook.svg',
+      telegram: 'assets/icon/contact/telegram.svg',
+    };
+
+    return icons[type];
+  }
+
   private filterContactMethods(term: string): void {
     const normalizedTerm = term.trim().toLowerCase();
 

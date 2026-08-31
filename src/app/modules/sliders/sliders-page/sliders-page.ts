@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 
 import { IQueryEngine } from '../../../core/interface/IQueryEngine';
 import { ISlider } from '../../../core/interface/ISlider';
@@ -7,6 +7,7 @@ import { SliderService } from '../../../core/service/slider.service';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from '../../../core/service/loading.service';
 
 @Component({
   selector: 'app-sliders-page',
@@ -17,6 +18,9 @@ import { ToastrService } from 'ngx-toastr';
 export class SlidersPage implements OnInit {
   private readonly sliderService = inject(SliderService);
   private readonly toastr = inject(ToastrService);
+  private readonly loadingService = inject(LoadingService);
+  readonly isLoading = computed(() => this.loadingService.isPageLoading());
+  readonly sliderSkeletonItems = Array.from({ length: 6 });
   readonly engine = new HybridQueryEngine<ISlider>(
     (query: IQueryEngine) =>
       this.sliderService.loadByQuery(query),

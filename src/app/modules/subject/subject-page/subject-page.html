@@ -1,6 +1,22 @@
 <app-inner-action-header [title]="'المواد'" [showActionButton]="true" [showDate]="true"
     [btnIcon]="'assets/icon/main-header/add.svg'" [actionLabel]="'إضافة مادة جديدة'" (actionClicked)="onAddSubject()"
     (search)="onSearch($event)" (dateRangeChange)="onDateRangeChange($event)"></app-inner-action-header>
+@if (isLoading()) {
+<div class="cards-grid subject-skeleton-grid" aria-live="polite" aria-label="جاري تحميل المواد">
+    @for (item of subjectSkeletonItems; track $index) {
+    <div class="subject-card-skeleton">
+        <div class="subject-skeleton-right">
+            <span class="skeleton-icon"></span>
+            <span class="skeleton-line"></span>
+        </div>
+        <div class="subject-skeleton-left">
+            <span class="skeleton-pill"></span>
+            <span class="skeleton-dot"></span>
+        </div>
+    </div>
+    }
+</div>
+} @else {
 @if (subjects$ | async; as subjects) {
 <div class=" cards-grid">
     @for (subject of subjects; track subject.id) {
@@ -14,6 +30,7 @@
     </div>
     }
 </div>
+}
 }
 <app-modal-container [isOpen]="isFormModalOpen" [title]="formMode === 'add' ? 'إضافة مادة جديدة' : 'تعديل المادة'"
     [size]="'sm'" confirmLabel="حفظ" cancelLabel="إلغاء" [isConfirmDisabled]="subjectNameControl.invalid"

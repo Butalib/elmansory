@@ -1,5 +1,22 @@
 <div class="generic-table">
   <div class="table-wrapper">
+    @if (isTableLoading()) {
+    <div class="table-skeleton" aria-live="polite" aria-label="جاري تحميل الجدول">
+      <div class="table-skeleton-row table-skeleton-head" [style.grid-template-columns]="skeletonGridColumns">
+        @for (col of columns; track col.key) {
+        <span class="skeleton-block"></span>
+        }
+      </div>
+
+      @for (row of tableSkeletonRows; track $index) {
+      <div class="table-skeleton-row" [style.grid-template-columns]="skeletonGridColumns">
+        @for (col of columns; track col.key) {
+        <span class="skeleton-block"></span>
+        }
+      </div>
+      }
+    </div>
+    } @else {
     <table>
       <thead>
         <tr>
@@ -89,6 +106,7 @@
         }
       </tbody>
     </table>
+    }
   </div>
 
   <!-- جزء الـ Pagination زي ما هو -->

@@ -3,6 +3,23 @@
   (actionClicked)="openModalForAdd()" (dateRangeChange)="onDateRangeChange($event)">
 </app-inner-action-header>
 
+@if (isLoading()) {
+<div class="sliders-grid sliders-grid--skeleton" aria-live="polite" aria-label="جاري تحميل الإعلانات">
+  @for (item of sliderSkeletonItems; track $index) {
+  <div class="slider-card-skeleton">
+    <div class="skeleton-actions">
+      <span class="skeleton-pill"></span>
+      <span class="skeleton-icon"></span>
+    </div>
+    <span class="skeleton-image"></span>
+    <div class="skeleton-fields">
+      <span class="skeleton-line"></span>
+      <span class="skeleton-line skeleton-line--short"></span>
+    </div>
+  </div>
+  }
+</div>
+} @else {
 <div class="sliders-grid">
   @for (slider of engine.result$ | async; track slider.id) {
   <app-slide-cards [slider]="slider" (edit)="openModalForEdit(slider)" (delete)="onDelete(slider)"
@@ -14,6 +31,7 @@
   </div>
   }
 </div>
+}
 
 <app-slide-model [isOpen]="isModalOpen()" [mode]="modalMode()" [sliderData]="selectedSlider()" (close)="closeModal()"
   (save)="onSaveSlider($event)">

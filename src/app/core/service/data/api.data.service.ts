@@ -19,7 +19,6 @@ export class ApiDataService {
         }
       });
     }
-    console.log('Making GET request to:', `${this.baseUrl}/${endpoint}`, 'with params:', params.toString());
     return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { params }).pipe(take(1));
   }
   // getAll<T[] >(endpoint: string): Observable<T[]>   {

@@ -12,19 +12,22 @@
       }
     </section>
     <article class="chart-card">
-      <h2>{{ dashboardData()?.bookingChart?.title || 'المعلمين الأكثر حجزاً خلال هذا الشهر' }}</h2>
+      @if (dashboardData(); as dashboard) {
+      @let options = chartOptions();
+      <h2>{{ dashboard.bookingChart.title || 'المعلمين الأكثر حجزاً خلال هذا الشهر' }}</h2>
       <apx-chart
-        [series]="chartOptions().series!"
-        [chart]="chartOptions().chart!"
-        [plotOptions]="chartOptions().plotOptions!"
-        [dataLabels]="chartOptions().dataLabels!"
-        [xaxis]="chartOptions().xaxis!"
-        [yaxis]="chartOptions().yaxis!"
-        [grid]="chartOptions().grid!"
-        [colors]="chartOptions().colors!"
-        [legend]="chartOptions().legend!"
-        [tooltip]="chartOptions().tooltip!"
+        [series]="options.series!"
+        [chart]="options.chart!"
+        [plotOptions]="options.plotOptions!"
+        [dataLabels]="options.dataLabels!"
+        [xaxis]="options.xaxis!"
+        [yaxis]="options.yaxis!"
+        [grid]="options.grid!"
+        [colors]="options.colors!"
+        [legend]="options.legend!"
+        [tooltip]="options.tooltip!"
       ></apx-chart>
+      }
     </article>
   </section>
   <section class="bottom-grid">
@@ -56,7 +59,7 @@
       <div class="products-list">
         @for (product of products(); track product.id) {
           <div class="product-row">
-            <span [class]="'product-thumb ' + product.theme"></span>
+            <img class="product-thumb" [src]="topProductImage" [alt]="product.name" draggable="false" />
             <div class="product-info">
               <strong>{{ product.name }}</strong>
               <b>{{ product.price }}</b>

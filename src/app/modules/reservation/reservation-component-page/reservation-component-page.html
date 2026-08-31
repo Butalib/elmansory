@@ -4,10 +4,12 @@
   (actionClicked)="openModal()" [showFilterButton]="true">
 </app-inner-action-header>
 
+@if (isModalOpen) {
 <app-reservation-model [isOpen]="isModalOpen" [teachers]="teachersList" [subjects]="subjectsList"
   [governorates]="governoratesList" [regions]="regionsList" (close)="closeModal()" (save)="onSave($event)"
   (governorateChanged)="handleGovernorateChange($event)">
 </app-reservation-model>
+}
 <app-generic-table [columns]="tableColumns" [data]="engine.result$ | async"
   [totalPages]="(engine.pagination$ | async)?.totalPages || 1"
   [currentPage]="(engine.pagination$ | async)?.currentPage || 1" (pageChange)="onPageChange($event)">

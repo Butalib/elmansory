@@ -4,17 +4,7 @@
 
     <div class="contact-value">
       <span class="contact-icon" [class]="method.type" [attr.aria-label]="getContactLabel(method.type)">
-        @if (method.type === 'phone') {
-        <img src="assets/icon/model/phone.svg" alt="" draggable="false" />
-        } @else if (method.type === 'instagram') {
-        ◎
-        } @else if (method.type === 'tiktok') {
-        ♪
-        } @else if (method.type === 'facebook') {
-        f
-        } @else {
-        ➤
-        }
+        <img [src]="getContactIcon(method.type)" alt="" draggable="false" />
       </span>
       <span>{{ method.value }}</span>
 

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounce, distinctUntilChanged, map, Subject, takeUntil, timer } from 'rxjs';
+import { LoadingService } from '../../../../core/service/loading.service';
 
 @Component({
   selector: 'app-inner-action-header',
@@ -9,6 +10,8 @@ import { debounce, distinctUntilChanged, map, Subject, takeUntil, timer } from '
   styleUrl: './inner-action-header.scss',
 })
 export class InnerActionHeader implements OnInit, OnDestroy {
+  private readonly loadingService = inject(LoadingService);
+
   // ui element render 
   @Input() showSearch: boolean = true;
   @Input() showActionButton: boolean = false;
@@ -61,6 +64,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
 
   // تطبيق الترتيب
   applySort(direction: 'asc' | 'desc'): void {
+    this.loadingService.flashPageLoading();
     this.sortChange.emit(direction);
     this.isFilterMenuOpen = false; // نقفل القايمة بعد الاختيار
   }
@@ -68,6 +72,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   // تطبيق نطاق التاريخ
   applyDateRange(): void {
     if (this.isDateRangeValid) {
+      this.loadingService.flashPageLoading();
       // الـ ! هنا لأننا اتأكدنا في الـ Valid إنهم مش null
       this.dateRangeChange.emit({
         startDate: this.startDateControl.value!,
@@ -82,7 +87,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
     this.endDateControl.reset();
     this.dateLabel = 'من - إلى'; // نرجع الكلمة الافتراضية
 
-    // نبعت قيم فاضية للـ Engine عشان يشيل الفلتر
+    this.loadingService.flashPageLoading();
     this.dateRangeChange.emit({ startDate: '', endDate: '' });
     this.isDateMenuOpen = false;
   }
@@ -94,15 +99,12 @@ export class InnerActionHeader implements OnInit, OnDestroy {
     const start = this.startDateControl.value;
     const end = this.endDateControl.value;
 
-    // لو مفيش تواريخ خالص، مفيش داعي نطبق
     if (!start || !end) return false;
 
-    // التأكد إن تاريخ البداية مش بعد تاريخ النهاية
     return new Date(start) <= new Date(end);
   }
 
   ngOnInit() {
-    // ... كود السيرش بتاعك زي ما هو ...
     this.searchControl.valueChanges.pipe(
       debounce((value: string | null) => {
         const shouldFireImmediately = value && value.endsWith(' ');
@@ -112,6 +114,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
       distinctUntilChanged(),
       takeUntil(this.destroy$)
     ).subscribe(value => {
+      this.loadingService.flashPageLoading();
       this.search.emit(value);
     });
   }

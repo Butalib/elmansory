@@ -119,7 +119,6 @@ export class TeacherPage implements OnInit {
     }
   }
   confirmDelete(): void {
-    console.log('Confirm Delete Clicked' + ' ' + this.teacherIdToDelete);
     if (!this.teacherIdToDelete) return;
 
     this.isDeleting = true; // تشغيل الـ Spinner

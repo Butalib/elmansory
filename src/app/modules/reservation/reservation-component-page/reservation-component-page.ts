@@ -6,6 +6,8 @@ import { Reservations } from '../../../core/service/reservations.service';
 import { LookupService } from '../../../core/service/lookup.service';
 import { ISelectOption } from '../../../core/interface/ISelectOption';
 import { ToastrService } from 'ngx-toastr';
+import { RegionService } from '../../../core/service/region.service';
+import { IRegion } from '../../../core/interface/IRegion';
 
 @Component({
   selector: 'app-reservation-component-page',
@@ -16,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ReservationComponentPage implements OnInit {
   private readonly reservationsService = inject(Reservations);
   private readonly lookupService = inject(LookupService); // حقن السيرفيس
+  private readonly regionService = inject(RegionService);
   private toaster = inject(ToastrService);
   tableColumns: ITableColumn[] = [
     { key: 'code', label: 'كود الطالب', type: 'text' },
@@ -38,7 +41,9 @@ export class ReservationComponentPage implements OnInit {
   teachersList: ISelectOption[] = [];
   subjectsList: ISelectOption[] = [];
   governoratesList: ISelectOption[] = [];
-  regionsList: ISelectOption[] = []; // دي هتتغير حسب المحافظة
+  regionsList: ISelectOption[] = [];
+  private allRegions: IRegion[] = [];
+  private areRegionsLoaded = false;
 
   closeModal(): void {
     this.isModalOpen = false;
@@ -55,47 +60,52 @@ export class ReservationComponentPage implements OnInit {
     this.lookupService.getOptions('teachers').subscribe(res => this.teachersList = res);
     this.lookupService.getOptions('subjects').subscribe(res => this.subjectsList = res);
     this.lookupService.getOptions('governorates').subscribe(res => this.governoratesList = res);
-    console.log('Initial lookups loaded:', {
-      teachers: this.teachersList.find(t => t.id === '1'), // Example check
-      subjects: this.subjectsList,
-      governorates: this.governoratesList
+    this.regionService.loadAll().subscribe({
+      next: (regions) => {
+        this.allRegions = regions;
+        this.areRegionsLoaded = true;
+      },
+      error: (err) => console.error('Failed to load regions', err)
     });
   }
   handleGovernorateChange(govId: string | number): void {
-    // اللوجيك السحري: لما المحافظة تتغير، بنجيب المناطق الخاصة بيها بس
-    const endpoint = `regions?governorateId=${govId}`;
-    this.lookupService.getOptions(endpoint).subscribe({
-      next: (res) => {
-        this.regionsList = res;
+    this.regionsList = [];
+
+    if (!govId) {
+      return;
+    }
+
+    if (this.areRegionsLoaded) {
+      this.regionsList = this.getRegionOptions(govId);
+      return;
+    }
+
+    this.regionService.loadAll().subscribe({
+      next: (regions) => {
+        this.allRegions = regions;
+        this.areRegionsLoaded = true;
+        this.regionsList = this.getRegionOptions(govId);
       },
       error: (err) => console.error('Failed to load regions', err)
     });
   }
   onSave(data: ReservationTableRow): void {
-    // 1. الداتا اللي جاية هنا هي قيم الفورم (تحتوي على IDs وليس أسماء)
-    // لاحظ إننا غيرنا data.teacherName لـ data.teacherId عشان تطابق الفورم
     const selectedTeacher = this.teachersList.find(t => String(t.id) === String(data.teacherId));
     const selectedSubject = this.subjectsList.find(s => String(s.id) === String(data.subjectId));
     const selectedGovernorate = this.governoratesList.find(g => String(g.id) === String(data.governorateId));
     const selectedRegion = this.regionsList.find(r => String(r.id) === String(data.regionId));
 
-    // 2. بناء الـ DTO (Data Transfer Object) النهائي
     const payload = {
-      ...data, // بيفك كل الداتا الأساسية زي اسم الطالب والتليفون
-
-      // 3. بنزرع الأسماء الجديدة اللي الجدول منتظرها عشان يعرضها
+      ...data,
       teacherName: selectedTeacher?.option ?? 'غير محدد',
       subject: selectedSubject?.option ?? 'غير محدد',
       governorate: selectedGovernorate?.option ?? 'غير محدد',
       region: selectedRegion?.option ?? 'غير محدد',
 
-      // إضافة كود عشوائي لو الداتا بيز مش بتعمله أوتوماتيك (عشان الجدول ميبقاش فاضي)
       code: data.code || 'REQ' + Math.floor(Math.random() * 1000000)
     };
 
-    console.log('Mapped Payload ready for backend:', payload);
 
-    // 4. الإرسال للسيرفيس
     this.reservationsService.add(payload).subscribe({
       next: (res) => {
         this.toaster.success('تمت إضافة الحجز بنجاح');
@@ -146,5 +156,14 @@ export class ReservationComponentPage implements OnInit {
     }
 
     return filteredData;
+  }
+
+  private getRegionOptions(govId: string | number): ISelectOption[] {
+    return this.allRegions
+      .filter((region) => String(region.governorateId) === String(govId))
+      .map((region) => ({
+        id: String(region.id),
+        option: region.name || 'بدون اسم',
+      }));
   }
 }

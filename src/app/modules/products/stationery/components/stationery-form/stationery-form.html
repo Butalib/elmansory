@@ -116,12 +116,18 @@
             <td>{{ variant.quantity }}</td>
             <td>
               <div class="variant-actions">
-                <button type="button" class="dots" aria-label="تعديل المتغير"
-                  (click)="openEditVariant(variant)">⋮</button>
                 <app-btn-switch [checked]="variant.isActive" (toggle)="toggleVariant(variant, $event)"></app-btn-switch>
-                <button type="button" class="remove-variant" aria-label="حذف المتغير" (click)="removeVariant(variant)">
-                  ×
-                </button>
+
+                <button type="button" class="dots" aria-label="فتح إجراءات المتغير"
+                  (click)="toggleVariantActions(variant, $event)">⋮</button>
+
+                @if (activeVariantActionsId === variant.id) {
+                <div class="variant-actions-menu" [style.top.px]="variantActionsMenuPosition.top"
+                  [style.left.px]="variantActionsMenuPosition.left" (click)="$event.stopPropagation()">
+                  <button type="button" (click)="openEditVariant(variant)">تعديل</button>
+                  <button type="button" class="danger" (click)="removeVariant(variant)">حذف</button>
+                </div>
+                }
               </div>
             </td>
           </tr>

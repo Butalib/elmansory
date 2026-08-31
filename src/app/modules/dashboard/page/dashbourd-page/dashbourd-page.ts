@@ -34,6 +34,7 @@ type DashboardChartOptions = {
 })
 export class DashbourdPage implements OnInit {
   private readonly dashboardService = inject(DashboardService);
+  readonly topProductImage = 'assets/img/slidres/slidadd.png';
 
   readonly dashboardData = signal<IDashboard | null>(null);
   readonly statsCards = computed(() => this.dashboardData()?.statsCards ?? []);
@@ -64,6 +65,12 @@ export class DashbourdPage implements OnInit {
         width: '100%',
         toolbar: { show: false },
         fontFamily: 'inherit',
+        animations: {
+          enabled: false,
+          dynamicAnimation: {
+            enabled: false,
+          },
+        },
         redrawOnParentResize: true,
         redrawOnWindowResize: true,
       },

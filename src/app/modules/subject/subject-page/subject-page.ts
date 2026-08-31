@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, computed, inject } from '@angular/core';
 import { ISubject } from '../../../../app/core/interface/ISubject';
 import { Observable } from 'rxjs';
 import { SubjectService } from '../../../core/service/subject.service';
@@ -6,6 +6,7 @@ import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engin
 import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from '../../../core/service/lookup.service';
+import { LoadingService } from '../../../core/service/loading.service';
 @Component({
   selector: 'app-subject-page',
   standalone: false,
@@ -14,6 +15,9 @@ import { LookupService } from '../../../core/service/lookup.service';
 })
 export class SubjectPage implements OnInit, OnDestroy {
   private readonly lookupService = inject(LookupService);
+  private readonly loadingService = inject(LoadingService);
+  readonly isLoading = computed(() => this.loadingService.isPageLoading());
+  readonly subjectSkeletonItems = Array.from({ length: 6 });
 
   queryEngine!: HybridQueryEngine<ISubject>;
   subjects$!: Observable<ISubject[]>;
