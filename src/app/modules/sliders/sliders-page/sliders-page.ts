@@ -20,7 +20,7 @@ export class SlidersPage implements OnInit {
   private readonly toastr = inject(ToastrService);
   private readonly loadingService = inject(LoadingService);
   readonly isLoading = computed(() => this.loadingService.isPageLoading());
-  readonly sliderSkeletonItems = Array.from({ length: 6 });
+  readonly sliderSkeletonItems = Array.from({ length: 4 });
   readonly engine = new HybridQueryEngine<ISlider>(
     (query: IQueryEngine) =>
       this.sliderService.loadByQuery(query),
@@ -146,13 +146,6 @@ export class SlidersPage implements OnInit {
     }
     const term = query.searchTerm.toLowerCase();
     return data.filter(slider => slider.title?.toLowerCase().includes(term) || slider.displayLocation?.toLowerCase().includes(term));
-    // if (query.startDate && query.endDate) {
-    //   return data.filter(slider => {
-    //     const sliderDate = slider.date.split('T')[0];
-    //     return sliderDate >= query.startDate && sliderDate <= query.endDate;
-    //   });
-    // }
-    // return data;
   }
   onDateRangeChange(range: { startDate: string; endDate: string }): void {
     this.engine.patchQuery({ startDate: range.startDate, endDate: range.endDate });

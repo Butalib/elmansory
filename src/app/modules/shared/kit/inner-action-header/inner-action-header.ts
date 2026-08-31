@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounce, distinctUntilChanged, map, Subject, takeUntil, timer } from 'rxjs';
 import { LoadingService } from '../../../../core/service/loading.service';
@@ -9,7 +9,7 @@ import { LoadingService } from '../../../../core/service/loading.service';
   templateUrl: './inner-action-header.html',
   styleUrl: './inner-action-header.scss',
 })
-export class InnerActionHeader implements OnInit, OnDestroy {
+export class InnerActionHeader implements OnInit, OnChanges, OnDestroy {
   private readonly loadingService = inject(LoadingService);
 
   // ui element render 
@@ -22,6 +22,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   @Input() dateLabel: string = 'من - إلى';
   @Input() searchPlaceholder: string = 'ابحث هنا...';
   @Input() btnIcon: string = '';
+  @Input() searchResetKey: string | number = '';
 
   // ui event 
   @Output() search = new EventEmitter<string>();
@@ -34,6 +35,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   // UI States للقوايم
   isFilterMenuOpen = false;
   isDateMenuOpen = false;
+  activeSortDirection: 'asc' | 'desc' = 'desc';
 
   // Form Controls لتواريخ البداية والنهاية
   startDateControl = new FormControl('');
@@ -41,6 +43,12 @@ export class InnerActionHeader implements OnInit, OnDestroy {
 
   searchControl = new FormControl('');
   private destroy$ = new Subject<void>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchResetKey'] && !changes['searchResetKey'].firstChange) {
+      this.searchControl.setValue('', { emitEvent: false });
+    }
+  }
 
   // قفل القوايم لو اليوزر داس في أي مكان فاضي في الشاشة
   @HostListener('document:click')
@@ -64,6 +72,7 @@ export class InnerActionHeader implements OnInit, OnDestroy {
 
   // تطبيق الترتيب
   applySort(direction: 'asc' | 'desc'): void {
+    this.activeSortDirection = direction;
     this.loadingService.flashPageLoading();
     this.sortChange.emit(direction);
     this.isFilterMenuOpen = false; // نقفل القايمة بعد الاختيار
@@ -95,6 +104,21 @@ export class InnerActionHeader implements OnInit, OnDestroy {
   onActionClicked() {
     this.actionClicked.emit();
   }
+
+  get hasSearchValue(): boolean {
+    return Boolean(this.searchControl.value);
+  }
+
+  clearSearch(event: MouseEvent): void {
+    event.stopPropagation();
+
+    if (!this.searchControl.value) return;
+
+    this.searchControl.setValue('', { emitEvent: false });
+    this.loadingService.flashPageLoading();
+    this.search.emit('');
+  }
+
   get isDateRangeValid(): boolean {
     const start = this.startDateControl.value;
     const end = this.endDateControl.value;

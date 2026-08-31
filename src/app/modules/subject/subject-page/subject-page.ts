@@ -17,18 +17,14 @@ export class SubjectPage implements OnInit, OnDestroy {
   private readonly lookupService = inject(LookupService);
   private readonly loadingService = inject(LoadingService);
   readonly isLoading = computed(() => this.loadingService.isPageLoading());
-  readonly subjectSkeletonItems = Array.from({ length: 6 });
+  readonly subjectSkeletonItems = Array.from({ length: 4 });
 
   queryEngine!: HybridQueryEngine<ISubject>;
   subjects$!: Observable<ISubject[]>;
 
-  // === States الخاصة بالمودل ===
   isFormModalOpen = false;
   formMode: 'add' | 'edit' = 'add';
-  selectedSubjectId: string | number | null = null; // عشان نحتفظ بالـ ID وقت التعديل
-
-  // === FormControl لإدارة حقل الإدخال ===
-  // حطينا Validators.required عشان نمنع المستخدم يسيف مادة ملهاش اسم
+  selectedSubjectId: string | number | null = null;
   subjectNameControl = new FormControl('', [Validators.required]);
 
   constructor(private subjectService: SubjectService,
@@ -43,12 +39,10 @@ export class SubjectPage implements OnInit, OnDestroy {
       (data, query) => {
         let filteredData = [...data];
 
-        // 1. الترتيب: دايماً نعرض الأحدث فوق عشان بعد الريفرش المادة الجديدة متستخباش تحت
         filteredData.sort((a, b) => {
-          // بنتأكد إن الـ createdAt موجود عشان ميحصلش إيرور
           const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
           const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-          return dateB - dateA; // ترتيب تنازلي (الأحدث أولاً)
+          return dateB - dateA;
         });
 
         // 2. الفلترة (البحث)
@@ -93,22 +87,21 @@ export class SubjectPage implements OnInit, OnDestroy {
 
   onDeleteSubject(subject: ISubject): void {
     this.subjectService.delete(subject.id).subscribe();
-    this.lookupService.invalidateCache('subjects'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
+    this.lookupService.invalidateCache('subjects');
   }
 
-  // === دوال الإضافة والتعديل ===
 
   onAddSubject(): void {
     this.formMode = 'add';
     this.selectedSubjectId = null;
-    this.subjectNameControl.reset(); // بنفضي الحقل قبل ما نفتح المودل
+    this.subjectNameControl.reset();
     this.isFormModalOpen = true;
   }
 
   onEditSubject(subject: ISubject): void {
     this.formMode = 'edit';
-    this.selectedSubjectId = subject.id; // بنحتفظ بالـ ID عشان هنحتاجه وقت الـ Update
-    this.subjectNameControl.setValue(subject.name); // بنحط اسم المادة الحالي في الحقل
+    this.selectedSubjectId = subject.id;
+    this.subjectNameControl.setValue(subject.name);
     this.isFormModalOpen = true;
   }
 
@@ -118,32 +111,29 @@ export class SubjectPage implements OnInit, OnDestroy {
   }
 
   saveSubject(): void {
-    // لو الحقل فاضي أو غير صالح، بنوقف التنفيذ (حماية إضافية)
     if (this.subjectNameControl.invalid) return;
 
     const subjectName = this.subjectNameControl.value as string;
 
     if (this.formMode === 'add') {
-      // بناء أوبجيكت المادة الجديدة
       const newSubject = {
         name: subjectName,
-        isActive: true, // افتراضياً المادة الجديدة بتكون مفعلة
+        isActive: true,
         createdAt: new Date().toISOString()
       };
 
       this.subjectService.add(newSubject as ISubject).subscribe(() => {
         this.toastr.success('تم إضافة المادة بنجاح');
-        this.lookupService.invalidateCache('subjects'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
+        this.lookupService.invalidateCache('subjects');
         this.closeFormModal();
       });
 
     } else if (this.formMode === 'edit' && this.selectedSubjectId) {
-      // بناء أوبجيكت التعديل (بنبعت الخاصية اللي اتغيرت بس)
       const updatedData = { name: subjectName };
 
       this.subjectService.update(this.selectedSubjectId, updatedData).subscribe(() => {
         this.toastr.success('تم تعديل المادة بنجاح');
-        this.lookupService.invalidateCache('subjects'); // بنمسح الكاش عشان لو فيه أي مودال تاني يجيب أحدث داتا
+        this.lookupService.invalidateCache('subjects');
         this.closeFormModal();
       });
     }

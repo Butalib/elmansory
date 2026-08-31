@@ -12,12 +12,13 @@ import { LoadingService } from '../../core/service/loading.service';
 export class LayoutComponant implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly loadingService = inject(LoadingService);
-  private readonly compactBreakpoint = 450;
-  private readonly minimumPageLoadingTime = 250;
+  private readonly compactBreakpoint = 700;
+  private readonly minimumPageLoadingTime = 100;
   private routerEventsSubscription?: Subscription;
   private pageLoadingStopTimer?: ReturnType<typeof setTimeout>;
   private pageLoadingStartedAt = 0;
   private isPageTransitionActive = false;
+  private isSidebarManuallyCollapsed = false;
 
   readonly isSidebarCollapsed = signal(false);
   readonly isCompactViewport = signal(false);
@@ -48,7 +49,8 @@ export class LayoutComponant implements OnInit, OnDestroy {
       return;
     }
 
-    this.isSidebarCollapsed.update((isCollapsed) => !isCollapsed);
+    this.isSidebarManuallyCollapsed = !this.isSidebarManuallyCollapsed;
+    this.isSidebarCollapsed.set(this.isSidebarManuallyCollapsed);
   }
 
   ngOnDestroy(): void {
@@ -67,9 +69,7 @@ export class LayoutComponant implements OnInit, OnDestroy {
     const isCompact = window.innerWidth <= this.compactBreakpoint;
     this.isCompactViewport.set(isCompact);
 
-    if (isCompact) {
-      this.isSidebarCollapsed.set(true);
-    }
+    this.isSidebarCollapsed.set(isCompact || this.isSidebarManuallyCollapsed);
   }
 
   private trackPageTransitions(): void {

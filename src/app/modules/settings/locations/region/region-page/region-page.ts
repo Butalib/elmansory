@@ -188,11 +188,7 @@ export class RegionPage implements OnInit, OnDestroy {
 
     if (query.searchTerm) {
       const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter((region) =>
-        region.name.toLowerCase().includes(term) ||
-        region.governorateName.toLowerCase().includes(term) ||
-        String(region.deliveryPrice).includes(term),
-      );
+      filteredData = filteredData.filter((region) => region.name.toLowerCase().includes(term));
     }
 
     if (query.startDate && query.endDate) {

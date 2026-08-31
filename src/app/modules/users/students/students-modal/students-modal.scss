@@ -1,54 +1,24 @@
 .form-container {
-    padding: 0.5rem 0;
+    padding: 0.25rem 0 0;
 
     .form-group {
-        margin-bottom: 1.25rem;
+        margin-bottom: 0.625rem !important;
     }
 
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 1.25rem;
-
-        .col-6 {
-            flex: 1;
-            min-width: 200px;
-            margin-bottom: 0;
-        }
-    }
-
-    .toggle-label {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: var(--mat-sys-on-surface, var(--color-black-700));
-    }
-}
-
-.form-container {
-    padding: 0.5rem 0;
-
-    .form-group {
-        margin-bottom: 1.25rem;
-    }
-
-    /* 1. ستايل الـ Labels الخاص بالتواريخ */
     .field-label {
         display: block;
         font-size: 0.875rem;
         font-weight: 600;
         color: var(--color-black-500);
-        /* لون رمادي عشان ميسرقش العين من الداتا */
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.35rem;
         padding-right: 0.25rem;
-        /* مسافة بسيطة من اليمين لتناسق الـ RTL */
     }
 
     .row {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 1.25rem;
+        gap: 0.625rem;
+        margin-bottom: 0.625rem;
 
         .col-6 {
             flex: 1;
@@ -57,26 +27,19 @@
         }
     }
 
-    /* 2. ستايل الحاوية بتاعة السويتش عشان تطابق الـ Inputs زي الفيجما */
     .toggle-field-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        /* بتضمن إن النص يمين والسويتش شمال */
-        min-height: 3.5rem;
-        /* نفس ارتفاع حقول الإدخال */
-        padding: 0 1.25rem;
+        min-height: 2.75rem;
+        padding: 0 0.875rem;
         background-color: var(--color-black-50);
-        /* لون الخلفية الرمادي الفاتح بتاع الـ Inputs */
         border: 1px solid var(--color-black-200);
-        /* الإطار الخفيف */
         border-radius: 0.75rem;
-        /* الحواف الدائرية */
         transition: all 0.2s ease;
 
         &:hover {
             border-color: var(--color-black-300);
-            /* تأثير بسيط للـ UX */
         }
 
         .toggle-label {
@@ -84,5 +47,58 @@
             font-weight: 600;
             color: var(--mat-sys-on-surface, var(--color-black-900));
         }
+    }
+}
+
+:host ::ng-deep {
+    .modal-container.md {
+        max-width: 35rem;
+        padding: 1.25rem;
+    }
+
+    .modal-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.875rem;
+    }
+
+    .modal-actions {
+        gap: 0.625rem;
+        padding-top: 0.875rem;
+    }
+
+    .btn {
+        padding: 0.625rem 1rem;
+    }
+
+    app-ui-image-upload .upload-container {
+        margin-bottom: 0;
+    }
+
+    app-ui-image-upload .upload-area {
+        width: 98%;
+        height: 10rem;
+        border-radius: 0.75rem;
+    }
+
+    app-ui-image-upload .upload-placeholder {
+        gap: 0.5rem;
+    }
+
+    app-ui-image-upload .upload-icon {
+        width: 12.5rem;
+        height: 6.5rem;
+    }
+
+    .ui-input,
+    .popup-select__trigger {
+        height: 2.75rem;
+        padding-inline: 0.875rem;
+    }
+
+    .ui-input__icon,
+    .popup-select__icon {
+        width: 1.125rem;
+        height: 1.125rem;
+        margin-left: 0.625rem;
     }
 }

@@ -3,6 +3,12 @@
   <div class="search-box">
     <img draggable="false" src="assets/icon/main-header/Frame.svg" alt="Search Icon" class="search-icon">
     <input type="text" [placeholder]="searchPlaceholder" #searchInput [formControl]="searchControl">
+    @if (hasSearchValue) {
+    <button type="button" class="clear-search-btn" aria-label="مسح البحث" title="مسح البحث"
+      (click)="clearSearch($event)">
+      &times;
+    </button>
+    }
   </div>
   }
 
@@ -19,8 +25,10 @@
       <!-- قايمة الترتيب -->
       @if (isFilterMenuOpen) {
       <div class="dropdown-menu" (click)="$event.stopPropagation()">
-        <button type="button" class="dropdown-item" (click)="applySort('desc')">الأحدث أولاً</button>
-        <button type="button" class="dropdown-item" (click)="applySort('asc')">الأقدم أولاً</button>
+        <button type="button" class="dropdown-item" [class.active]="activeSortDirection === 'desc'"
+          [attr.aria-pressed]="activeSortDirection === 'desc'" (click)="applySort('desc')">الأحدث أولاً</button>
+        <button type="button" class="dropdown-item" [class.active]="activeSortDirection === 'asc'"
+          [attr.aria-pressed]="activeSortDirection === 'asc'" (click)="applySort('asc')">الأقدم أولاً</button>
       </div>
       }
     </div>

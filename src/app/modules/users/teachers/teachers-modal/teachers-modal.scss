@@ -1,8 +1,8 @@
 .form-container {
-    padding: 4px 0;
+    padding: 0.25rem 0 0;
 
     .form-group {
-        margin-bottom: .5rem !important;
+        margin-bottom: 0.625rem !important;
     }
 }
 
@@ -16,6 +16,65 @@
 .d-flex.align-items-center.justify-content-between {
     width: 100%;
     display: flex;
-    padding-right: 8px;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 2.75rem;
+    margin-top: 0.625rem !important;
+    padding-inline: 0.875rem;
+    border: 1px solid var(--color-black-200);
+    border-radius: 0.75rem;
+    background: var(--color-black-50);
+}
 
+:host ::ng-deep {
+    .modal-container.md {
+        max-width: 35rem;
+        padding: 1.25rem;
+    }
+
+    .modal-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.875rem;
+    }
+
+    .modal-actions {
+        gap: 0.625rem;
+        padding-top: 0.875rem;
+    }
+
+    .btn {
+        padding: 0.625rem 1rem;
+    }
+
+    app-ui-image-upload .upload-container {
+        margin-bottom: 0;
+    }
+
+    app-ui-image-upload .upload-area {
+        width: 98%;
+        height: 10rem;
+        border-radius: 0.75rem;
+    }
+
+    app-ui-image-upload .upload-placeholder {
+        gap: 0.5rem;
+    }
+
+    app-ui-image-upload .upload-icon {
+        width: 12.5rem;
+        height: 6.5rem;
+    }
+
+    .ui-input,
+    .popup-select__trigger {
+        height: 2.75rem;
+        padding-inline: 0.875rem;
+    }
+
+    .ui-input__icon,
+    .popup-select__icon {
+        width: 1.125rem;
+        height: 1.125rem;
+        margin-left: 0.625rem;
+    }
 }

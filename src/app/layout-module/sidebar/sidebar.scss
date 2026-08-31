@@ -23,11 +23,11 @@
   flex: 0 0 6.25rem;
   width: 100%;
   border: 0;
-  background: url('../../../assets/img/login/logo.png') center center / 8.125rem no-repeat;
+  background: url('../../../assets/img/login/logo.svg') center center / 12rem no-repeat;
   margin-bottom: 1rem;
   cursor: pointer;
   appearance: none;
-  transition: background-size 0.2s ease;
+  transition: background-size 0.3s ease;
 
   &:focus-visible {
     outline: 0.125rem solid var(--color-primary-500);
@@ -61,6 +61,8 @@ button.sidebar-link {
 .sidebar-link,
 .submenu-link {
   width: 90%;
+  max-width: 90%;
+  box-sizing: border-box;
   min-height: 2.375rem;
   display: flex;
   align-items: center;
@@ -71,7 +73,7 @@ button.sidebar-link {
   color: var(--sidebar-text);
   cursor: pointer;
   text-decoration: none;
-  border-radius: 0.75rem 0 0 0.75rem;
+  border-radius: 0;
   border-inline-start: 0.25rem solid transparent;
   transition: all 0.2s ease;
 }
@@ -117,6 +119,7 @@ button.sidebar-link {
   background-color: var(--color-primary-50);
   color: var(--color-primary-500);
   font-weight: 600;
+  border-radius: 0.75rem 0 0 0.75rem;
 
   border-inline-start: 0.25rem solid var(--color-primary-500);
 
@@ -126,8 +129,10 @@ button.sidebar-link {
   }
 }
 
-.sidebar-link:hover:not(.active) {
+.sidebar-link:hover:not(.active),
+.submenu-link:hover:not(.active) {
   background-color: var(--color-black-50);
+  border-radius: 0;
 }
 
 .submenu {
@@ -143,20 +148,21 @@ button.sidebar-link {
     min-height: 2.1875rem;
     padding: 0.5rem;
     font-size: 0.9375rem;
-    border-radius: 1.25rem 0 0 1.25rem;
+    border-radius: 0;
 
     &.active {
+      border-radius: 1.25rem 0 0 1.25rem;
       border-inline-start: 0.1875rem solid var(--color-primary-500);
     }
   }
 }
 
 .sidebar.collapsed {
-  width: 5rem;
+  width: 4rem;
 
   .sidebar-logo {
-    flex-basis: 5rem;
-    background-size: 3.75rem;
+    flex-basis: 4rem;
+    background-size: 3rem;
     margin-bottom: 0.5rem;
   }
 
@@ -181,14 +187,14 @@ button.sidebar-link {
   }
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 43.75rem) {
   :host {
-    width: 5rem;
-    min-width: 5rem;
+    width: 4rem;
+    min-width: 4rem;
   }
 
   .sidebar {
-    width: 5rem;
+    width: 4rem;
   }
 }
 

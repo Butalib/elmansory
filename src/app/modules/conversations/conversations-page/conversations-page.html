@@ -57,9 +57,9 @@
             @if (attachment.type === 'image') {
             <img [src]="attachment.url" [alt]="attachment.name" />
             } @else if (attachment.type === 'video') {
-            <video [src]="attachment.url" controls></video>
+            <video [src]="attachment.url" controls preload="metadata" controlsList="nodownload noplaybackrate"></video>
             } @else {
-            <audio [src]="attachment.url" controls></audio>
+            <audio [src]="attachment.url" controls preload="metadata" controlsList="nodownload noplaybackrate"></audio>
             }
             <small>{{ getAttachmentLabel(attachment.type) }}</small>
           </div>
@@ -74,7 +74,16 @@
     <footer class="composer">
       @if (selectedAttachment) {
       <div class="pending-attachment">
-        <span>{{ getAttachmentLabel(selectedAttachment.type) }} جاهز للإرسال</span>
+        <div class="pending-preview">
+          @if (selectedAttachment.type === 'image') {
+          <img [src]="selectedAttachment.url" [alt]="selectedAttachment.name" />
+          } @else if (selectedAttachment.type === 'video') {
+          <video [src]="selectedAttachment.url" controls preload="metadata" controlsList="nodownload noplaybackrate"></video>
+          } @else {
+          <audio [src]="selectedAttachment.url" controls preload="metadata" controlsList="nodownload noplaybackrate"></audio>
+          }
+          <span>{{ getAttachmentLabel(selectedAttachment.type) }} جاهز للإرسال</span>
+        </div>
         <button type="button" (click)="removeAttachment()" aria-label="إزالة المرفق">×</button>
       </div>
       }

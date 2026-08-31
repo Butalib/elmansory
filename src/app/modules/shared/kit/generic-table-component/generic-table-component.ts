@@ -26,6 +26,8 @@ export class GenericTableComponent {
 
   activeDropdownIndex: number | null = null;
   dropdownPosition: 'top' | 'bottom' = 'bottom';
+  dropdownTop = 0;
+  dropdownLeft = 0;
 
   get skeletonGridColumns(): string {
     return `repeat(${Math.max(this.columns.length, 1)}, minmax(6rem, 1fr))`;
@@ -48,12 +50,19 @@ export class GenericTableComponent {
     const rect = trigger.getBoundingClientRect();
 
     const estimatedDropdownHeight = 120;
+    const estimatedDropdownWidth = 160;
+    const viewportPadding = 8;
     const spaceBelow = window.innerHeight - rect.bottom;
+    const shouldOpenTop = spaceBelow < estimatedDropdownHeight;
 
-    this.dropdownPosition =
-      spaceBelow < estimatedDropdownHeight
-        ? 'top'
-        : 'bottom';
+    this.dropdownPosition = shouldOpenTop ? 'top' : 'bottom';
+    this.dropdownTop = shouldOpenTop
+      ? Math.max(viewportPadding, rect.top - estimatedDropdownHeight - 4)
+      : Math.min(window.innerHeight - estimatedDropdownHeight - viewportPadding, rect.bottom + 4);
+    this.dropdownLeft = Math.min(
+      window.innerWidth - estimatedDropdownWidth - viewportPadding,
+      Math.max(viewportPadding, rect.right - estimatedDropdownWidth),
+    );
 
     this.activeDropdownIndex = index;
   }

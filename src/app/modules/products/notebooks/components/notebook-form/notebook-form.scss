@@ -1,13 +1,13 @@
 .product-form {
   display: flex;
   flex-direction: column;
-  gap: 1.125rem;
+  gap: 0.75rem;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: minmax(22rem, 1.45fr) minmax(18rem, 1fr);
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: start;
   direction: ltr;
 }
@@ -15,7 +15,7 @@
 .form-column {
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: 0.5rem;
   direction: rtl;
 }
 
@@ -24,7 +24,7 @@
 .switch-panel {
   border-radius: 0.875rem;
   background: var(--color-black-100);
-  padding: 1rem;
+  padding: 0.75rem;
   direction: rtl;
 }
 
@@ -42,13 +42,13 @@
 }
 
 .image-panel {
-  min-height: 28rem;
+  position: relative;
+  height: clamp(33.45rem, 30vw, 22rem);
 }
 
 .image-upload {
   width: 100%;
   height: 100%;
-  min-height: 27.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,7 +62,6 @@
   img {
     width: 100%;
     height: 100%;
-    min-height: inherit;
     object-fit: cover;
     display: block;
   }
@@ -70,16 +69,19 @@
 
 .image-placeholder {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.75rem;
   width: 100%;
   height: 100%;
-  min-height: inherit;
   background: var(--color-white);
+  color: var(--color-primary-500);
+  font-weight: 700;
 
   img {
-    width: 4rem;
-    height: 4rem;
+    width: 15.5rem;
+    height: 7.5rem;
     min-height: auto;
     object-fit: contain;
     opacity: 0.7;
@@ -90,27 +92,49 @@
   display: none;
 }
 
+.clear-image {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-error);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.75rem rgba(var(--color-shadow-rgb), 0.15);
+}
+
 .two-columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.625rem;
 }
 
 .switch-panel {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.625rem;
 
   label {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 3rem;
+    min-height: 2.5rem;
     flex: 1;
     border-radius: 0.5rem;
     background: var(--color-white);
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.75rem;
     color: var(--color-black-700);
     font-weight: 600;
   }
@@ -119,12 +143,12 @@
 .form-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: 0.625rem;
 }
 
 .primary-action,
 .secondary-action {
-  min-height: 3rem;
+  min-height: 2.75rem;
   border: none;
   border-radius: 0.75rem;
   font-family: inherit;
@@ -149,7 +173,7 @@
 
 :host ::ng-deep {
   .ui-input {
-    min-height: 2.875rem;
+    min-height: 2.625rem;
     border-radius: 0.875rem;
     background: var(--color-white);
   }
@@ -159,7 +183,7 @@
   }
 
   .select-box {
-    min-height: 2.875rem;
+    min-height: 2.625rem;
     border: none;
     border-radius: 0.875rem;
     background: var(--color-white);
@@ -171,6 +195,7 @@
 }
 
 @media (max-width: 56rem) {
+
   .form-grid,
   .two-columns,
   .switch-panel,

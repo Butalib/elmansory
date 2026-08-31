@@ -1,22 +1,22 @@
 .modal-container {
     &.vsm {
-        max-width: 330px;
+        max-width: min(330px, calc(100vw - 24px));
     }
 
     &.sm {
-        max-width: 450px;
+        max-width: min(450px, calc(100vw - 24px));
     }
 
     &.md {
-        max-width: 630px;
+        max-width: min(630px, calc(100vw - 24px));
     }
 
     &.lg {
-        max-width: 850px;
+        max-width: min(850px, calc(100vw - 24px));
     }
 
     &.xl {
-        max-width: 1100px;
+        max-width: min(1100px, calc(100vw - 24px));
     }
 }
 
@@ -183,8 +183,6 @@
     }
 
     .modal-container {
-        max-width: 40%;
-
         max-height: calc(100vh - 24px);
         max-height: calc(100dvh - 24px);
 
@@ -228,5 +226,26 @@
 
     .modal-actions {
         padding-top: 12px;
+    }
+}
+
+@media (max-width: 48rem) {
+    .modal-backdrop {
+        padding: 8px;
+    }
+
+    .modal-container {
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .modal-actions {
+        gap: 8px;
+        padding-top: 12px;
+    }
+
+    .btn {
+        min-height: 2.5rem;
+        padding: 8px 12px;
     }
 }

@@ -84,19 +84,26 @@ export class StationeryDetailsComponent implements OnChanges {
   }
 
   colorValue(color: string): string {
+    const normalizedColor = color.trim();
     const colors: Record<string, string> = {
       احمر: 'var(--color-product-red)',
       أحمر: 'var(--color-product-red)',
+      red: 'var(--color-product-red)',
       اخضر: 'var(--color-product-green)',
       أخضر: 'var(--color-product-green)',
+      green: 'var(--color-product-green)',
       اصفر: 'var(--color-product-yellow)',
       أصفر: 'var(--color-product-yellow)',
+      yellow: 'var(--color-product-yellow)',
       رمادي: 'var(--color-product-gray)',
+      gray: 'var(--color-product-gray)',
+      grey: 'var(--color-product-gray)',
       ازرق: 'var(--color-product-blue)',
       أزرق: 'var(--color-product-blue)',
+      blue: 'var(--color-product-blue)',
     };
 
-    return colors[color] ?? color;
+    return colors[normalizedColor] ?? 'var(--color-primary-100)';
   }
 
   onImageError(event: Event): void {

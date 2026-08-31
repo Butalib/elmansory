@@ -11,15 +11,17 @@
   </app-generic-table>
 </div>
 
-<app-region-modal
-  [isOpen]="isModalOpen"
-  [mode]="modalMode"
-  [regionData]="selectedRegion"
-  [governorateOptions]="governorateOptions"
-  (closeModal)="closeModal()"
-  (save)="saveRegion($event)"
->
-</app-region-modal>
+@if (isModalOpen) {
+  <app-region-modal
+    [isOpen]="isModalOpen"
+    [mode]="modalMode"
+    [regionData]="selectedRegion"
+    [governorateOptions]="governorateOptions"
+    (closeModal)="closeModal()"
+    (save)="saveRegion($event)"
+  >
+  </app-region-modal>
+}
 
 <app-confirmation-dialog
   [isOpen]="isConfirmOpen"

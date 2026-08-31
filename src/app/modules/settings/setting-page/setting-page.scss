@@ -1,12 +1,22 @@
+:host {
+     display: flex;
+     flex: 1;
+     flex-direction: column;
+     min-height: 0;
+}
+
  .settings-layout {
      display: flex;
      gap: 16px;
-     height: 100%;
-     background-color: var(--color-black-50);
+     flex: 1;
+     min-height: 0;
+     background-color: var(--color-white);
+     align-items: stretch;
 
      // تنسيق السايد بار
      .settings-sidebar {
          width: 190px;
+         min-height: 100%;
          box-sizing: border-box;
          background-color: var(--color-white);
          border-radius: 12px;
@@ -15,6 +25,7 @@
          flex-shrink: 0;
          border: 1px solid var(--color-black-100);
          overflow: hidden;
+         align-self: stretch;
 
          .settings-nav {
              list-style: none;
@@ -64,6 +75,7 @@
          flex-direction: column;
          gap: 24px;
          min-width: 0;
+         min-height: 0;
 
          .settings-header-wrapper {
              background-color: var(--color-white);
@@ -75,11 +87,10 @@
 
          .settings-router-container {
              flex: 1;
+             min-height: 0;
              background-color: var(--color-white);
              border-radius: 12px;
              padding: 24px;
-             box-shadow: 0 2px 12px rgb(var(--color-black-rgb) / 0.03);
-             border: 1px solid var(--color-black-100);
              overflow-y: auto;
          }
      }

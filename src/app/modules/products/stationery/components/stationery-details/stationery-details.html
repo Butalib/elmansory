@@ -32,9 +32,12 @@
 
       <div class="option-line">
         <span class="option-title">الألوان :</span>
-        <div class="swatches">
+        <div class="color-chips">
           @for (color of colors; track color) {
-          <span class="swatch" [style.background]="colorValue(color)" [title]="color"></span>
+          <span class="color-chip" [title]="color">
+            <span class="swatch" [style.background]="colorValue(color)"></span>
+            <span>{{ color }}</span>
+          </span>
           } @empty {
           <span class="muted">لا توجد ألوان</span>
           }
@@ -57,16 +60,7 @@
   <section class="ratings-section">
     <header class="ratings-header">
       <h2>التقييمات</h2>
-      <div class="rating-filters">
-        <button type="button">
-          <span>28 ابريل - 5 مايو</span>
-          <img src="assets/icon/main-header/calendar-02.svg" alt="" draggable="false" />
-        </button>
-        <button type="button">
-          <span>تصفية</span>
-          <img src="assets/icon/main-header/filter-horizontal.svg" alt="" draggable="false" />
-        </button>
-      </div>
+
     </header>
 
     <div class="rating-overview">
@@ -92,7 +86,8 @@
         @for (review of reviews; track review.id) {
         <article class="review-card">
           <div class="review-user">
-            <img [src]="review.reviewerAvatar || fallbackImage" [alt]="review.reviewerName" (error)="onImageError($event)" />
+            <img [src]="review.reviewerAvatar || fallbackImage" [alt]="review.reviewerName"
+              (error)="onImageError($event)" />
             <div>
               <strong>{{ review.reviewerName }}</strong>
               <span>{{ review.createdAt | date: 'shortDate' }}</span>

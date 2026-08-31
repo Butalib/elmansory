@@ -47,6 +47,12 @@ export class NotebookFormComponent implements OnInit, OnChanges {
     this.changeDetectorRef.detectChanges();
   }
 
+  clearImage(event: Event, input: HTMLInputElement): void {
+    event.stopPropagation();
+    input.value = '';
+    this.onImageSelected(null);
+  }
+
   onImageFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
@@ -60,6 +66,7 @@ export class NotebookFormComponent implements OnInit, OnChanges {
       if (typeof reader.result === 'string') {
         this.onImageSelected(reader.result);
       }
+      input.value = '';
     };
     reader.readAsDataURL(file);
   }

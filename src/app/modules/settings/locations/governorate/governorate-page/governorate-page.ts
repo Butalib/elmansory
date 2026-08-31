@@ -164,10 +164,7 @@ export class GovernoratePage implements OnInit, OnDestroy {
 
     if (query.searchTerm) {
       const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter((governorate) =>
-        governorate.name.toLowerCase().includes(term) ||
-        String(governorate.regionsCount).includes(term),
-      );
+      filteredData = filteredData.filter((governorate) => governorate.name.toLowerCase().includes(term));
     }
 
     if (query.startDate && query.endDate) {

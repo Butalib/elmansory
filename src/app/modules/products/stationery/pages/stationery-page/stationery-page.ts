@@ -45,6 +45,7 @@ export class StationeryPage implements OnInit, OnDestroy {
       hasToggle: true,
       toggleKey: 'isActive',
       actions: [
+        { id: 'view', label: 'تفاصيل', icon: 'assets/icon/shared/eye.svg' },
         { id: 'edit', label: 'تعديل', icon: 'assets/icon/shared/edit.svg' },
         { id: 'delete', label: 'حذف', icon: 'assets/icon/shared/delete-02.svg', color: 'var(--color-error-600)' },
       ],
@@ -68,6 +69,11 @@ export class StationeryPage implements OnInit, OnDestroy {
   }
 
   onActionClick(event: { actionId: string; row: IStationery }): void {
+    if (event.actionId === 'view') {
+      this.router.navigate(['details', event.row.id], { relativeTo: this.route });
+      return;
+    }
+
     if (event.actionId === 'edit') {
       this.router.navigate(['edit', event.row.id], { relativeTo: this.route });
       return;

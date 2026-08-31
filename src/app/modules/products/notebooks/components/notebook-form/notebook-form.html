@@ -34,23 +34,22 @@
         </span>
         }
       </button>
+      @if (imagePreviewUrl) {
+      <button type="button" class="clear-image" aria-label="مسح الصورة" (click)="clearImage($event, imageInput)">×</button>
+      }
       <input #imageInput type="file" accept="image/*" class="hidden-input" (change)="onImageFileSelected($event)"
         (cancel)="$event.stopPropagation()" />
     </div>
 
     <div class="switch-panel">
       <label>
-        <app-btn-switch
-          [checked]="getControl('isFeatured').value"
-          (toggle)="setToggle('isFeatured', $event)"
-        ></app-btn-switch>
+        <app-btn-switch [checked]="getControl('isFeatured').value"
+          (toggle)="setToggle('isFeatured', $event)"></app-btn-switch>
         <span>ضمن الأكثر مبيعًا</span>
       </label>
       <label>
-        <app-btn-switch
-          [checked]="getControl('isSchoolReady').value"
-          (toggle)="setToggle('isSchoolReady', $event)"
-        ></app-btn-switch>
+        <app-btn-switch [checked]="getControl('isSchoolReady').value"
+          (toggle)="setToggle('isSchoolReady', $event)"></app-btn-switch>
         <span>ضمن جهز نفسك للمدرسة</span>
       </label>
     </div>

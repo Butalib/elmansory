@@ -12,11 +12,11 @@
 
 /* في حالة إن السايدبار اتعمله تصغير (Collapsed) */
 :host(.sidebar-collapsed) {
-  grid-template-columns: 5rem minmax(0, 1fr);
+  grid-template-columns: 4rem minmax(0, 1fr);
 }
 
 :host(.compact-sidebar) {
-  grid-template-columns: 5rem minmax(0, 1fr);
+  grid-template-columns: 4rem minmax(0, 1fr);
 }
 
 /* المنطقة اللي هتشيل الهيدر والـ Router Outlet */
@@ -60,9 +60,9 @@
   padding: .5rem clamp(0.5rem, 2vw, 1rem);
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 43.75rem) {
   :host {
-    grid-template-columns: 5rem minmax(0, 1fr);
+    grid-template-columns: 4rem minmax(0, 1fr);
   }
 
   .header-area {
@@ -70,6 +70,6 @@
   }
 
   .page-content {
-    padding: 0.5rem;
+    padding: 0.375rem;
   }
 }

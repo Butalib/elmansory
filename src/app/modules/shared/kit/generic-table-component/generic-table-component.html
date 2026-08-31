@@ -81,7 +81,8 @@
 
               @if (activeDropdownIndex === i) {
               <div class="actions-dropdown" [class.open-top]="dropdownPosition === 'top'"
-                [class.open-bottom]="dropdownPosition === 'bottom'" (click)="$event.stopPropagation()">
+                [class.open-bottom]="dropdownPosition === 'bottom'" [style.top.px]="dropdownTop"
+                [style.left.px]="dropdownLeft" (click)="$event.stopPropagation()">
                 @for (action of col.actions || []; track action.id) {
                 <button type="button" class="dropdown-action" [style.color]="action.color || null"
                   (click)="onActionClick(action.id, row)">

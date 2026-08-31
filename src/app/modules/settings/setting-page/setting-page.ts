@@ -15,6 +15,7 @@ export class SettingPage implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscription();
 
   config$ = this.headerState.config$;
+  searchResetKey = 0;
 
   ngOnInit(): void {
     this.configureHeader(this.router.url);
@@ -46,6 +47,8 @@ export class SettingPage implements OnInit, OnDestroy {
   }
 
   private configureHeader(url: string): void {
+    this.searchResetKey += 1;
+
     if (url.includes('/settings/contact-methods')) {
       this.headerState.setConfig({
         title: 'طرق التواصل',

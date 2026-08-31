@@ -9,18 +9,17 @@
 .conversations-shell {
   display: grid;
   grid-template-columns: minmax(20rem, 27rem) minmax(0, 1fr);
-  gap: 1rem;
+  gap: clamp(0.5rem, 1vw, 1rem);
   width: 100%;
   height: calc(100dvh - 5.375rem);
   min-height: 0;
   overflow: hidden;
-  color: var(--color-black-950, var(--color-black-950));
 }
 
 .conversations-list,
 .chat-panel {
   min-height: 0;
-  border: 0.0625rem solid var(--color-black-100, var(--color-black-100));
+  border: 0.0625rem solid var(--color-black-100);
   border-radius: 0.5rem;
   background: var(--color-white);
 }
@@ -28,9 +27,9 @@
 .conversations-list {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: clamp(0.625rem, 1vw, 1rem);
   overflow: hidden;
-  background: var(--color-black-50, var(--color-black-50));
+  background: var(--color-black-50);
 }
 
 .search-box {
@@ -55,11 +54,6 @@
   border-radius: 0.5rem;
   background: var(--color-white);
   border: 0.0625rem solid transparent;
-}
-
-.search-box input:focus,
-.input-wrap:focus-within {
-  border-color: var(--color-primary-500, var(--color-primary-500));
 }
 
 .conversation-items {
@@ -89,7 +83,7 @@
 }
 
 .conversation-card.active {
-  border-inline-start: 0.3125rem solid var(--color-primary-500, var(--color-primary-500));
+  border-inline-start: 0.3125rem solid var(--color-primary-500);
   background: var(--color-primary-50);
 }
 
@@ -118,7 +112,7 @@
 .chat-header p,
 .select-placeholder p,
 .conversation-meta small {
-  color: var(--color-black-500, var(--color-black-500));
+  color: var(--color-black-500);
   font-size: 0.75rem;
 }
 
@@ -142,7 +136,7 @@
   height: 1.25rem;
   padding: 0 0.25rem;
   border-radius: 50%;
-  background: var(--color-primary-500, var(--color-primary-500));
+  background: var(--color-primary-500);
   color: var(--color-white);
   font-size: 0.75rem;
 }
@@ -158,8 +152,8 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  border-bottom: 0.0625rem solid var(--color-black-100, var(--color-black-100));
+  padding: clamp(0.625rem, 1vw, 1rem) clamp(0.75rem, 1.25vw, 1.25rem);
+  border-bottom: 0.0625rem solid var(--color-black-100);
 }
 
 .chat-header h2,
@@ -174,7 +168,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1.25rem;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem);
   background-image: radial-gradient(var(--color-black-200) 0.0625rem, transparent 0.0625rem);
   background-size: 4rem 4rem;
 }
@@ -192,13 +186,13 @@
   max-width: min(36rem, 80%);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background: var(--color-white);
-  box-shadow: 0 0.25rem 1rem rgb(var(--color-shadow-rgb) / 0.06);
+  background: var(--color-primary-500);
+  color: var(--color-white);
 }
 
 .message.outgoing .message-bubble {
-  background: var(--color-primary-500, var(--color-primary-500));
-  color: var(--color-white);
+  background: var(--color-white);
+  color: inherit;
 }
 
 .message-bubble p {
@@ -211,39 +205,40 @@
   display: block;
   margin-top: 0.5rem;
   font-size: 0.6875rem;
-  color: var(--color-black-400, var(--color-black-400));
+  color: rgb(var(--color-white-rgb) / 0.78);
 }
 
 .message.outgoing .message-bubble time {
-  color: rgb(var(--color-white-rgb) / 0.78);
+  color: var(--color-black-400);
 }
 
 .attachment-preview {
   display: grid;
   gap: 0.375rem;
   margin-top: 0.5rem;
+  max-width: min(18rem, 100%);
+  overflow: hidden;
 }
 
 .attachment-preview img,
 .attachment-preview video {
+  width: 100%;
   max-width: 18rem;
   max-height: 14rem;
   border-radius: 0.5rem;
   object-fit: cover;
+  background: var(--color-black-50);
 }
 
 .attachment-preview audio {
-  width: min(18rem, 100%);
-}
-
-.attachment-preview small {
-  font-size: 0.6875rem;
+  width: 100%;
+  max-width: 18rem;
 }
 
 .composer {
   flex: 0 0 auto;
-  padding: 1rem;
-  border-top: 0.0625rem solid var(--color-black-100, var(--color-black-100));
+  padding: clamp(0.625rem, 1vw, 1rem);
+  border-top: 0.0625rem solid var(--color-black-100);
 }
 
 .composer-row {
@@ -267,14 +262,9 @@
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
-  background: var(--color-primary-500, var(--color-primary-500));
+  background: var(--color-primary-500);
   color: var(--color-white);
   transform: rotate(180deg);
-}
-
-.send-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
 }
 
 .input-wrap {
@@ -283,7 +273,7 @@
   align-items: center;
   min-height: 3rem;
   padding: 0 0.5rem;
-  border: 0.0625rem solid var(--color-black-100, var(--color-black-100));
+  border: 0.0625rem solid var(--color-black-100);
   border-radius: 0.5rem;
 }
 
@@ -295,7 +285,7 @@
   height: 2rem;
   border-radius: 50%;
   background: transparent;
-  color: var(--color-black-500, var(--color-black-500));
+  color: var(--color-black-500);
 }
 
 .input-wrap button.recording {
@@ -312,8 +302,37 @@
   padding: 0.625rem 0.75rem;
   border-radius: 0.5rem;
   background: var(--color-primary-50);
-  color: var(--color-primary-500, var(--color-primary-500));
+  color: var(--color-primary-500);
   font-size: 0.875rem;
+  overflow: hidden;
+}
+
+.pending-preview {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+
+  img,
+  video {
+    width: 4rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    background: var(--color-white);
+  }
+
+  audio {
+    width: min(16rem, 52vw);
+    max-width: 100%;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .select-placeholder,
@@ -326,34 +345,27 @@
   text-align: center;
 }
 
-.select-placeholder img {
-  width: 3.5rem;
-  height: 3.5rem;
-}
-
 .select-placeholder h2 {
   margin: 0;
-  font-size: 1.25rem;
 }
 
 @media (max-width: 64rem) {
   .conversations-shell {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(12rem, 18rem) minmax(0, 1fr);
-  }
-
-  .conversations-list {
-    max-height: none;
+    grid-template-rows: minmax(11rem, 16rem) minmax(0, 1fr);
   }
 }
 
 @media (max-width: 40rem) {
   .conversations-shell {
     height: calc(100dvh - 5rem);
+    grid-template-rows: minmax(10rem, 14rem) minmax(0, 1fr);
+    gap: 0.5rem;
   }
 
   .conversation-card {
     grid-template-columns: 2.75rem minmax(0, 1fr);
+    min-height: 4rem;
   }
 
   .conversation-meta {
@@ -363,6 +375,31 @@
   }
 
   .message-bubble {
-    max-width: 92%;
+    max-width: 94%;
+    padding: 0.625rem 0.75rem;
+  }
+
+  .composer-row {
+    grid-template-columns: 2.625rem minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .send-btn {
+    width: 2.625rem;
+    height: 2.625rem;
+  }
+
+  .input-wrap {
+    grid-template-columns: 2rem 2rem minmax(0, 1fr);
+    min-height: 2.625rem;
+    padding: 0 0.375rem;
+  }
+
+  .pending-preview {
+    grid-template-columns: minmax(0, 1fr);
+
+    audio {
+      width: 100%;
+    }
   }
 }

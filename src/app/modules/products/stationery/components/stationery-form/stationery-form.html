@@ -14,7 +14,6 @@
         } @else {
         <span class="upload-placeholder">
           <img src="assets/icon/slyders/upload-icon.svg" alt="" draggable="false" />
-          <!-- <span>اضغط لرفع الصورة أو اسحبها هنا</span> -->
         </span>
         }
       </button>
@@ -28,7 +27,8 @@
           <button type="button" class="remove-image" aria-label="حذف الصورة" (click)="removeImage(i, $event)">×</button>
         </div>
         }
-        <button type="button" class="add-image" aria-label="إضافة صورة" (click)="openImagePicker($event, imageInput)">+</button>
+        <button type="button" class="add-image" aria-label="إضافة صورة"
+          (click)="openImagePicker($event, imageInput)">+</button>
       </div>
 
       <input #imageInput type="file" accept="image/*" class="hidden-input" (change)="onImageFileSelected($event)"
@@ -69,11 +69,12 @@
 
   <section class="options-panel">
     <div class="options-header">
-      <button type="button" class="add-variant" (click)="openAddVariant()">إضافة متغير <span>+</span></button>
       <div>
         <h2>خيارات المنتج</h2>
         <p>يمكنك من خلال هذا القسم إضافة نسخ متعددة من نفس المنتج مثل اختلاف الألوان أو الأحجام أو نوع الخامة.</p>
       </div>
+      <button type="button" class="add-variant" (click)="openAddVariant()">إضافة متغير <span>+</span></button>
+
     </div>
 
     @if (variants.length > 0) {

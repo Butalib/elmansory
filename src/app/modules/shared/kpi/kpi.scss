@@ -1,19 +1,19 @@
 .kpi-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
     width: 100%;
     margin-bottom: .5rem;
     direction: rtl; // عشان التنسيق العربي
 
     .kpi-card {
-        flex: 1; // عشان كل الكروت تاخد مساحة متساوية
         display: flex;
         align-items: center;
         justify-content: flex-start;
         gap: 1rem;
-        padding: .8rem;
+        min-width: 0;
+        padding: clamp(0.625rem, 1vw, 0.8rem);
         background-color: var(--color-white);
         border: 0.0625rem solid var(--color-black-200);
         border-radius: 1rem;
@@ -34,7 +34,7 @@
 
     .kpi-value {
         margin: 0;
-        font-size: 1.875rem;
+        font-size: clamp(1.35rem, 2vw, 1.875rem);
         font-weight: 800;
         color: var(--color-black-800);
         line-height: 1;
@@ -65,4 +65,14 @@
 
 * {
     user-select: none;
+}
+
+@media (max-width: 48rem) {
+    .kpi-container {
+        gap: 0.5rem;
+    }
+
+    .kpi-card {
+        gap: 0.625rem;
+    }
 }

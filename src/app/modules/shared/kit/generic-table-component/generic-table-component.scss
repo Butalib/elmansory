@@ -9,12 +9,30 @@
   .table-wrapper {
     position: relative;
     width: 100%;
-    overflow: visible;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
     background: var(--color-white);
     border: 0.0625rem solid var(--color-black-200);
     border-radius: 1rem;
     box-shadow: 0 0.75rem 2rem rgb(var(--color-shadow-rgb) / 0.06);
     animation: tableSlideIn 220ms ease-out both;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-black-300) transparent;
+
+    &::-webkit-scrollbar {
+      height: 0.45rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-black-300);
+      border-radius: 999px;
+    }
   }
 
   thead {
@@ -36,7 +54,7 @@
 
     th,
     td {
-      padding: 1rem;
+      padding: clamp(0.625rem, 1vw, 1rem);
       text-align: right;
       vertical-align: middle;
       border-bottom: 0.0625rem solid var(--color-black-200);
@@ -195,12 +213,12 @@
 
   /* --- Actions Dropdown --- */
   .actions-dropdown {
-    position: absolute;
-    left: 1rem;
+    position: fixed;
 
     z-index: 1000;
 
     min-width: 10rem;
+    max-width: calc(100vw - 1rem);
     padding: 0.375rem;
 
     background: var(--color-white);
@@ -214,14 +232,11 @@
 
   /* Open Below */
   .actions-dropdown.open-bottom {
-    top: calc(100% + 0.25rem);
     bottom: auto;
   }
 
   /* Open Above */
   .actions-dropdown.open-top {
-    top: auto;
-    bottom: calc(100% + 0.25rem);
     transform-origin: bottom left;
   }
 
@@ -278,7 +293,7 @@
     }
 
     .pagination-btn {
-      width: 3rem;
+      width: 2.75rem;
       padding: 0.5rem 0.3rem;
 
       border: 0.0625rem solid var(--color-white);
@@ -305,50 +320,15 @@
   }
 }
 
-@container (max-width: 48rem) {
-  .generic-table .table-wrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-black-300) transparent;
-
-    &::-webkit-scrollbar {
-      height: 0.45rem;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--color-black-300);
-      border-radius: 999px;
-    }
-  }
-}
-
 @media (max-width: 48rem) {
-  .generic-table .table-wrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-black-300) transparent;
-
-    &::-webkit-scrollbar {
-      height: 0.45rem;
+  .generic-table {
+    table,
+    .table-skeleton {
+      min-width: 42rem;
     }
 
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--color-black-300);
-      border-radius: 999px;
+    table {
+      font-size: 0.75rem;
     }
   }
 }
