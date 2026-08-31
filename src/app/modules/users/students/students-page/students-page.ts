@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { StudentsService } from '../../../../core/service/students.service';
 import { LookupService } from '../../../../core/service/lookup.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IKpi } from '../../../../core/interface/IKpi';
 import { ITableColumn } from '../../../../core/interface/IGenericTable';
 import { HybridQueryEngine } from '../../../../core/service/data/hybrid-query-engine.service';
@@ -20,12 +20,31 @@ export class StudentsPage implements OnInit {
   private readonly lookupService = inject(LookupService);
   private readonly toaster = inject(ToastrService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   // 1. KPI Configuration
   kpiStats: IKpi[] = [
-    { id: "1", title: 'إجمالي الطلاب', value: '2.48k', icon: 'assets/icon/shared/kpi/student/user.svg', iconBgColor: '#e0f2fe' },
-    { id: "2", title: 'الطلاب النشطين', value: '2.48k', icon: 'assets/icon/shared/kpi/student/user-check.svg', iconBgColor: '#e0f2fe' },
-    { id: "3", title: 'الطلاب الموقوفين', value: '2.48k', icon: 'assets/icon/shared/kpi/student/user-x.svg', iconBgColor: '#e0f2fe' }
+    {
+      id: '1',
+      title: 'إجمالي الطلاب',
+      value: '4',
+      icon: 'assets/icon/shared/kpi/student/user.svg',
+      iconBgColor: 'var(--color-primary-50)',
+    },
+    {
+      id: '2',
+      title: 'الطلاب النشطين',
+      value: '2',
+      icon: 'assets/icon/shared/kpi/student/user-check.svg',
+      iconBgColor: 'var(--color-primary-50)',
+    },
+    {
+      id: '3',
+      title: 'الطلاب الموقوفين',
+      value: '2',
+      icon: 'assets/icon/shared/kpi/student/user-x.svg',
+      iconBgColor: 'var(--color-primary-50)',
+    },
   ];
 
   // 2. Table Configuration
@@ -45,9 +64,9 @@ export class StudentsPage implements OnInit {
       actions: [
         { id: 'view', label: ' تفاصيل', icon: 'assets/icon/shared/eye.svg' },
         { id: 'edit', label: 'تعديل', icon: 'assets/icon/shared/edit.svg' },
-        { id: 'delete', label: 'حذف', icon: 'assets/icon/shared/delete-02.svg', color: '#EF4444' }
-      ]
-    }
+        { id: 'delete', label: 'حذف', icon: 'assets/icon/shared/delete-02.svg', color: 'var(--color-error-500)' },
+      ],
+    },
   ];
 
   // 3. Query Engine Setup
@@ -55,7 +74,7 @@ export class StudentsPage implements OnInit {
     (query) => this.studentsService.loadByQuery(query),
     (data, query) => this.filterLocally(data, query),
     this.studentsService.items$,
-    'local'
+    'local',
   );
 
   // 4. UI & State
@@ -75,10 +94,8 @@ export class StudentsPage implements OnInit {
   }
 
   private loadInitialLookups(): void {
-
-    this.lookupService.getOptions('levels', 'subLevel').subscribe(res => this.levelsList = res);
+    this.lookupService.getOptions('levels', 'subLevel').subscribe((res) => (this.levelsList = res));
   }
-
 
   onPageChange(newPage: number): void {
     this.engine.patchQuery({ _page: newPage });
@@ -103,7 +120,7 @@ export class StudentsPage implements OnInit {
       this.studentIdToDelete = event.row.id;
       this.isConfirmationDialogOpen = true;
     } else if (event.actionId === 'view') {
-      this.router.navigate(['/users/students/details', event.row.id]);
+      this.router.navigate(['details', event.row.id], { relativeTo: this.route });
     }
   }
 
@@ -137,7 +154,7 @@ export class StudentsPage implements OnInit {
         error: (err) => {
           this.toaster.error('حدث خطأ أثناء الإضافة');
           console.error(err);
-        }
+        },
       });
     } else {
       this.studentsService.update(payload.id as string, payload).subscribe({
@@ -148,7 +165,7 @@ export class StudentsPage implements OnInit {
         error: (err) => {
           this.toaster.error('حدث خطأ أثناء التعديل');
           console.error(err);
-        }
+        },
       });
     }
   }
@@ -167,7 +184,7 @@ export class StudentsPage implements OnInit {
       error: (err) => {
         this.toaster.error('حدث خطأ أثناء الحذف');
         this.isDeleting = false;
-      }
+      },
     });
   }
   closeConfirmDialog(): void {
@@ -180,17 +197,19 @@ export class StudentsPage implements OnInit {
 
     if (query.searchTerm) {
       const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter(student =>
-        student.name?.toLowerCase().includes(term) ||
-        student.phone?.toLowerCase().includes(term) ||
-        student.levelName?.toLowerCase().includes(term)
+      filteredData = filteredData.filter(
+        (student) =>
+          student.name?.toLowerCase().includes(term) ||
+          student.phone?.toLowerCase().includes(term) ||
+          student.levelName?.toLowerCase().includes(term),
       );
     }
     if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter(student => {
-        const studentJoinDate = typeof student.joinDate === 'string'
-          ? student.joinDate.split('T')[0]
-          : new Date(student.joinDate).toISOString().split('T')[0];
+      filteredData = filteredData.filter((student) => {
+        const studentJoinDate =
+          typeof student.joinDate === 'string'
+            ? student.joinDate.split('T')[0]
+            : new Date(student.joinDate).toISOString().split('T')[0];
 
         return studentJoinDate >= query.startDate && studentJoinDate <= query.endDate;
       });

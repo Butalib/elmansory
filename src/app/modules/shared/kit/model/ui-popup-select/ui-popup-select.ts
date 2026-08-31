@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild, } from '@angular/core';
+import { ConnectedPosition } from '@angular/cdk/overlay';
 import { FormControl, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ISelectOption } from '../../../../../core/interface/ISelectOption';
@@ -10,8 +11,7 @@ import { ISelectOption } from '../../../../../core/interface/ISelectOption';
   styleUrl: './ui-popup-select.scss',
 })
 export class UiPopupSelect implements OnInit, OnDestroy {
-  // Configuration (Hybrid Inputs)
-  // 1. Reactive Forms Approach
+
   @Input() control?: AbstractControl | null = null;
   // 2. Simple Binding Approach
   @Input() value: string | number | null = null;
@@ -25,17 +25,36 @@ export class UiPopupSelect implements OnInit, OnDestroy {
   isOpen = false;
   searchTerm = '';
   searchControl = new FormControl('');
+  triggerWidth = 0;
+  readonly panelPositions: ConnectedPosition[] = [
+    {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'start',
+      overlayY: 'top',
+      offsetY: 4,
+    },
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'bottom',
+      offsetY: -4,
+    },
+  ];
+
+  @ViewChild('triggerElement')
+  triggerElement?: ElementRef<HTMLElement>;
+
   private searchSubscription?: Subscription;
   constructor(private readonly elementRef: ElementRef) { }
   // Lifecycle
   ngOnInit(): void {
-    // مراقبة التغييرات في حقل البحث الداخلي
     this.searchSubscription = this.searchControl.valueChanges.subscribe((value) => {
       this.searchTerm = value || '';
     });
   }
   ngOnDestroy(): void {
-    // تنظيف الذاكرة
     this.searchSubscription?.unsubscribe();
   }
   // Derived State (Getters)
@@ -63,6 +82,7 @@ export class UiPopupSelect implements OnInit, OnDestroy {
     if (this.currentDisabledState) {
       return;
     }
+    this.updateTriggerWidth();
     this.isOpen = !this.isOpen;
     if (!this.isOpen) {
       this.resetSearch();
@@ -79,19 +99,25 @@ export class UiPopupSelect implements OnInit, OnDestroy {
     this.isOpen = false;
     this.resetSearch();
   }
+  close(): void {
+    if (this.isOpen) {
+      this.isOpen = false;
+      this.resetSearch();
+    }
+  }
+
   private resetSearch(): void {
-    // تصفير الكنترول برمجياً بدون إطلاق حدث جديد يستهلك موارد
     this.searchControl.setValue('', { emitEvent: false });
     this.searchTerm = '';
+  }
+  private updateTriggerWidth(): void {
+    this.triggerWidth = this.triggerElement?.nativeElement.getBoundingClientRect().width ?? 0;
   }
   // Events
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      if (this.isOpen) {
-        this.isOpen = false;
-        this.resetSearch();
-      }
+      this.close();
     }
   }
 }

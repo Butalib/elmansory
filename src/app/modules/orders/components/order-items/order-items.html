@@ -1,54 +1,60 @@
 <div class="order-items">
+  <div class="items-list">
+    @for (item of order.items; track item.id) {
+    <article class="order-item">
 
-    <!-- Items -->
-    <div class="items-list">
-
-        @for (item of order.items; track item.id) {
-        <div class="order-item">
-
-            <img [src]="item.image" [alt]="item.name">
-
-            <div class="item-info">
-                <p>{{ item.name }}</p>
-                <p>{{ item.type }}</p>
-            </div>
-
-            <div class="item-quantity">
-                <span>x{{ item.quantity }}</span>
-            </div>
-
-            <div class="item-price">
-                {{ item.price }} د.ع
-            </div>
-
+      <!-- 1. الهوية (الصورة والتفاصيل) هتبقى الأول عشان في الـ RTL تظهر على اليمين -->
+      <div class="item-identity">
+        @if (hasRenderableImage(item.image)) {
+        <img class="product-image" [src]="item.image" [alt]="item.name" />
+        } @else {
+        <div class="product-image product-image--placeholder" aria-label="صورة المنتج غير متاحة">
+          {{ item.name.charAt(0) }}
         </div>
         }
 
+        <div class="item-info">
+          <span class="item-type">{{ item.type }}</span>
+          <p class="item-name">{{ item.name }}</p>
+          <p class="item-price">{{ item.price }} د.ع</p>
+        </div>
+      </div>
+      <div class="item-quantity" aria-label="الكمية" dir="ltr">x{{ item.quantity }}</div>
+
+    </article>
+    }
+  </div>
+
+  <!-- Summary -->
+  <div class="order-summary">
+    <div class="summary-row">
+      <span>إجمالي المنتجات</span>
+      <span>{{ totalQuantity }} منتجات</span>
     </div>
 
-    <!-- Summary -->
-    <div class="order-summary">
-
-        <div class="summary-row">
-            <span>إجمالي المنتجات</span>
-            <span>{{ totalQuantity }} منتجات</span>
-        </div>
-
-        <div class="summary-row">
-            <span>إجمالي السعر</span>
-            <span>{{ subtotal }} د.ع</span>
-        </div>
-
-        <div class="summary-row">
-            <span>الخصم</span>
-            <span>{{ order.discount }} د.ع</span>
-        </div>
-
-        <div class="summary-row total">
-            <strong>الإجمالي</strong>
-            <strong>{{ total }} د.ع</strong>
-        </div>
-
+    <div class="summary-row">
+      <span>إجمالي السعر</span>
+      <span>{{ subtotal }} د.ع</span>
     </div>
 
+    @if (editMode && discountControl) {
+    <div class="summary-row summary-row--edit">
+      <span>الخصم</span>
+      <div class="discount-input-wrap">
+        <app-ui-input [control]="discountControl" type="number" placeholder="الخصم"></app-ui-input>
+        <span class="currency-label">د.ع</span>
+      </div>
+    </div>
+    } @else {
+    <div class="summary-row">
+      <span>الخصم</span>
+      <span>{{ order.discount }} د.ع</span>
+    </div>
+    }
+
+    <div class="summary-row total">
+      <strong>الإجمالي</strong>
+      <strong>{{ total }} د.ع</strong>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-error);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.2s ease;
+
+  img {
+    width: 1.375rem;
+    height: 1.375rem;
+    flex: 0 0 1.375rem;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  // &:hover,
+  // &:focus-visible {
+  //   background: var(--color-error-50);
+  //   outline: none;
+  // }
+
+  &.collapsed {
+    justify-content: center;
+    padding-inline: 0;
+  }
+}

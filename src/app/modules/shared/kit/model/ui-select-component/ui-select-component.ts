@@ -3,7 +3,9 @@ import {
   ElementRef,
   HostListener,
   Input,
+  ViewChild,
 } from '@angular/core';
+import { ConnectedPosition } from '@angular/cdk/overlay';
 
 import { FormControl } from '@angular/forms';
 
@@ -26,18 +28,35 @@ export class UiSelectComponent {
 
   @Input()
   options: ISelectOption[] = [];
-  // إضافة استقبال مسار الأيقونة (اختياري)
   @Input() icon?: string;
 
   isOpen = false;
+  triggerWidth = 0;
+  readonly dropdownPositions: ConnectedPosition[] = [
+    {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'start',
+      overlayY: 'top',
+      offsetY: 4,
+    },
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'bottom',
+      offsetY: -4,
+    },
+  ];
+
+  @ViewChild('triggerElement')
+  triggerElement?: ElementRef<HTMLElement>;
 
   constructor(
     private readonly eRef: ElementRef
   ) { }
 
-  // =========================
   // Selected Option
-  // =========================
 
   get selectedText(): string {
     const value = this.control.value;
@@ -57,13 +76,12 @@ export class UiSelectComponent {
     return selectedOption?.option ?? '';
   }
 
-  // =========================
   // Dropdown
-  // =========================
 
   toggleDropdown(event: Event): void {
     event.stopPropagation();
 
+    this.updateTriggerWidth();
     this.isOpen = !this.isOpen;
   }
 
@@ -74,9 +92,15 @@ export class UiSelectComponent {
     this.isOpen = false;
   }
 
-  // =========================
+  closeDropdown(): void {
+    this.isOpen = false;
+  }
+
+  private updateTriggerWidth(): void {
+    this.triggerWidth = this.triggerElement?.nativeElement.getBoundingClientRect().width ?? 0;
+  }
+
   // Outside Click
-  // =========================
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {

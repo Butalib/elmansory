@@ -10,6 +10,6 @@ import { IGovernorate } from '../interface/IGovernorate';
 })
 export class GovernorateService extends GenericCrudService<IGovernorate> {
   constructor(apiService: ApiDataService) {
-    super('locations', apiService);
+    super('governorates', apiService);
   }
 }

@@ -3,22 +3,29 @@
   display: grid;
   height: 100vh;
   width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
 
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: 13.625rem minmax(0, 1fr);
   transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* في حالة إن السايدبار اتعمله تصغير (Collapsed) */
 :host(.sidebar-collapsed) {
-  grid-template-columns: 5rem 1fr;
+  grid-template-columns: 5rem minmax(0, 1fr);
+}
+
+:host(.compact-sidebar) {
+  grid-template-columns: 5rem minmax(0, 1fr);
 }
 
 /* المنطقة اللي هتشيل الهيدر والـ Router Outlet */
 .main-content {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--color-white);
 
   /* لون خلفية رمادي فاتح مريح للعين عشان يفصل عن السايدبار الأبيض */
   transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -29,8 +36,8 @@
 .header-area {
   flex: 0 0 4.375rem;
   /* ارتفاع الهيدر ثابت */
-  background: #ffffff;
-  border-bottom: 0.0625rem solid var(--color-black-100, #e0e0e0);
+  background: var(--color-white);
+  border-bottom: 0.0625rem solid var(--color-black-100, var(--color-black-200));
 
   user-select: none;
 
@@ -43,8 +50,25 @@
   flex-direction: column;
 
   min-height: 0;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
 
-  padding: .5rem 1rem;
+  padding: .5rem clamp(0.5rem, 2vw, 1rem);
+}
+
+@media (max-width: 48rem) {
+  :host {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+
+  .header-area {
+    flex-basis: 4rem;
+  }
+
+  .page-content {
+    padding: 0.5rem;
+  }
 }

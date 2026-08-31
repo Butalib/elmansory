@@ -1,0 +1,109 @@
+:host {
+  display: block;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-black-100);
+}
+
+.edit-btn {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.edit-btn img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.contact-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  font-size: 0.875rem;
+  color: var(--color-black-900);
+}
+
+.contact-value span:first-child {
+  overflow-wrap: anywhere;
+  direction: ltr;
+}
+
+.contact-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.contact-icon img {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.contact-icon.phone {
+  background: var(--color-primary-50);
+  border: 0.0625rem solid var(--color-primary-100);
+}
+
+.contact-icon.instagram {
+  background: linear-gradient(135deg, var(--color-social-instagram-start), var(--color-social-instagram-mid) 50%, var(--color-social-instagram-end));
+}
+
+.contact-icon.tiktok {
+  background: var(--color-social-tiktok-bg);
+  text-shadow: 0.0625rem 0 var(--color-social-tiktok-cyan), -0.0625rem 0 var(--color-social-tiktok-pink);
+}
+
+.contact-icon.facebook {
+  background: var(--color-social-facebook);
+  font-family: Arial, sans-serif;
+}
+
+.contact-icon.telegram {
+  background: var(--color-social-telegram);
+  font-size: 0.875rem;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 12rem;
+  color: var(--color-black-500);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 40rem) {
+  .contact-row {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .contact-value {
+    font-size: 0.8125rem;
+  }
+}

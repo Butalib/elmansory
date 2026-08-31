@@ -1,0 +1,105 @@
+<app-modal-container [isOpen]="isOpen" [title]="modalTitle" size="xl" [cancelLabel]="cancelLabel"
+  [confirmLabel]="confirmLabel" [confirmTheme]="confirmTheme" [isConfirmDisabled]="isConfirmDisabled"
+  (closeModal)="handleClose()" (confirm)="handleConfirm()">
+  @if (order) {
+
+  <div class="details-subheader">
+    <!-- Back arrow — edit mode only -->
+    @if (mode === 'edit') {
+    <button type="button" class="back-btn" (click)="backToView.emit()">
+      <span class="back-arrow">&#8594;</span>
+      <span>رجوع</span>
+    </button>
+    }
+
+    <div class="order-identity">
+      <p class="order-number-value">رقم الطلب &nbsp;#{{ order.orderCode }}</p>
+    </div>
+
+    <!-- Action buttons — view mode only -->
+    @if (mode === 'view') {
+    <div class="details-actions">
+      <app-btn-switch [checked]="order.isActive"
+        (toggle)="toggleActive.emit({ orderId: order.id, value: $event })"></app-btn-switch>
+      <button type="button" class="icon-btn" title="تعديل" (click)="switchToEdit.emit()">
+        <img src="assets/icon/shared/edit.svg" alt="تعديل" draggable="false" />
+      </button>
+      <button type="button" class="icon-btn icon-btn--danger" title="حذف" (click)="requestDelete.emit(order.id)">
+        <img src="assets/icon/shared/delete-02.svg" alt="حذف" draggable="false" />
+      </button>
+    </div>
+    }
+  </div>
+
+  <!-- Main two-column layout -->
+  <div class="details-body">
+    <!-- LEFT COLUMN: Customer information -->
+    <div class="details-col">
+      <div class="customer-card">
+        <!-- Avatar + name identity area -->
+        <div class="customer-avatar-area">
+          <img class="customer-avatar-img" [src]="order.customerAvatar || 'assets/img/dashbourd/avatar.jpg'"
+            [alt]="order.customer.name" />
+          <div class="customer-name-area">
+            <p class="customer-fullname">{{ order.customer.name }}</p>
+            <p class="customer-phone">{{ order.customer.phone }}</p>
+          </div>
+        </div>
+
+        <!-- Info rows -->
+        <div class="info-rows">
+          <div class="info-row">
+            <span class="info-label">الاسم</span>
+            <span class="info-value">{{ order.customer.name }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">رقم التلفون</span>
+            <span class="info-value">{{ order.customer.phone }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">الإيميل</span>
+            <span class="info-value">{{ order.customer.email }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">المحافظة</span>
+            <span class="info-value">{{ order.customer.governorate }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">المنطقة</span>
+            <span class="info-value">{{ order.customer.area }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">العنوان</span>
+            <span class="info-value">{{ order.customer.address }}</span>
+          </div>
+
+          <!-- Status badge -->
+          <div class="info-row">
+            <span class="info-label">حالة الطلب</span>
+            <span class="status-badge" [style.backgroundColor]="statusConfig[order.status]?.bgColor"
+              [style.color]="statusConfig[order.status]?.textColor">
+              {{ statusConfig[order.status]?.text || order.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Order items + summary -->
+    <div class="details-col">
+      <app-order-items [order]="order" [editMode]="mode === 'edit'"
+        [discountControl]="discountControl"></app-order-items>
+    </div>
+  </div>
+
+  } @else {
+  <div class="details-loading">
+    <p>جاري تحميل تفاصيل الطلب...</p>
+  </div>
+  }
+</app-modal-container>

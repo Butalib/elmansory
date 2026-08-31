@@ -1,0 +1,29 @@
+@if (isLoading) {
+<div class="page-state">جاري تحميل تفاصيل المنتج...</div>
+} @else if (hasLoadError || !product) {
+<div class="page-state page-state--error">
+  <strong>تعذر العثور على المنتج</strong>
+  <button type="button" class="outline-button" (click)="goBack()">العودة إلى القرطاسية</button>
+</div>
+} @else {
+<app-stationery-details
+  [product]="product"
+  (edit)="editProduct()"
+  (deleteProduct)="requestDelete()"
+  (toggleActive)="toggleActive($event)"
+>
+</app-stationery-details>
+}
+
+<app-confirmation-dialog
+  [isOpen]="isDeleteConfirmOpen"
+  title="تأكيد حذف المنتج"
+  message="هل أنت متأكد من حذف هذا المنتج؟ لا يمكن التراجع عن هذه العملية."
+  confirmLabel="حذف"
+  cancelLabel="إلغاء"
+  confirmTheme="error"
+  [isLoading]="isDeleting"
+  (cancel)="cancelDelete()"
+  (confirm)="confirmDelete()"
+>
+</app-confirmation-dialog>

@@ -54,7 +54,8 @@ export class ReservationModel implements OnInit, OnChanges {
       address: ['', Validators.required],
       phoneNumber: ['', [
         Validators.required,
-        Validators.pattern('^01[0125][0-9]{8}$')]], telegramLink: ['', Validators.required]
+        Validators.pattern('^01[0125][0-9]{8}$')]],
+      telegramLink: ['', Validators.required]
     });
   }
   private setupDependencies(): void {

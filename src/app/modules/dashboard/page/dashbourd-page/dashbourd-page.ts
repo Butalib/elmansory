@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -10,6 +10,8 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
+import { IDashboard, IDashboardChart } from '../../../../core/interface/IDashboard';
+import { DashboardService } from '../../../../core/service/dashboard.service';
 
 type DashboardChartOptions = {
   series: ApexAxisChartSeries;
@@ -30,43 +32,60 @@ type DashboardChartOptions = {
   templateUrl: './dashbourd-page.html',
   styleUrl: './dashbourd-page.scss',
 })
-export class DashbourdPage {
-  readonly statsCards = signal([
-    { title: 'إجمالي الحجوزات', value: '2550', icon: 'assets/icon/dashbourd/statsCards/booking.svg' },
-    { title: 'إجمالي عملاء جدد', value: '400', icon: 'assets/icon/dashbourd/statsCards/users.svg' },
-    { title: 'إجمالي المبيعات', value: '2.48k', icon: 'assets/icon/dashbourd/statsCards/sales.svg' },
-  ]);
+export class DashbourdPage implements OnInit {
+  private readonly dashboardService = inject(DashboardService);
 
-  readonly products = signal([
-    { name: 'شنطة مدرسية - ازرق', theme: 'bag-blue' },
-    { name: 'شنطة مدرسية - ازرق', theme: 'bag-pink' },
-    { name: 'شنطة مدرسية - ازرق', theme: 'bottle' },
-    { name: 'شنطة مدرسية - ازرق', theme: 'case' },
-    { name: 'شنطة مدرسية - ازرق', theme: 'books' },
-  ]);
+  readonly dashboardData = signal<IDashboard | null>(null);
+  readonly statsCards = computed(() => this.dashboardData()?.statsCards ?? []);
+  readonly products = computed(() => this.dashboardData()?.topProducts ?? []);
+  readonly wheelData = computed(() => this.dashboardData()?.luckyWheel ?? null);
+  readonly legendItems = computed(() => this.wheelData()?.legend ?? []);
+  readonly chartOptions = computed<Partial<DashboardChartOptions>>(() =>
+    this.createChartOptions(this.dashboardData()?.bookingChart)
+  );
 
-  readonly legendItems = [
-    { value: '47.000', label: 'شاركوا مرة واحدة', className: 'hatched' },
-    { value: '2000', label: 'لم يستخدموا العجلة بعد', className: 'light' },
-    { value: '100.000', label: 'شاركوا 2-3 مرات', className: 'blue' },
-    { value: '150.000', label: 'شاركوا أكثر من 3 مرات', className: 'gray' },
-  ];
+  ngOnInit(): void {
+    this.dashboardService.loadAll().subscribe({
+      next: (data) => this.dashboardData.set(data[0] ?? null),
+      error: () => this.dashboardData.set(null),
+    });
+  }
 
-  readonly chartOptions: Partial<DashboardChartOptions> = {
-    series: [{ name: 'الحجوزات', data: [55, 36, 55, 90, 42, 57, 72, 90, 37, 20] }],
-    chart: { type: 'bar', height: 324, toolbar: { show: false }, fontFamily: 'inherit' },
-    plotOptions: { bar: { borderRadius: 8, columnWidth: '66%', distributed: true } },
-    dataLabels: { enabled: false },
-    colors: ['#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#E2F6FD', '#00ADE9', '#E2F6FD', '#E2F6FD'],
-    xaxis: {
-      categories: ['أ/ ياسين حمزة', 'أ/ حسين حمزة', 'أ/ علي عبد الله', 'أ/ أحمد الجاف', 'أ/ منذر الفاتح', 'أ/ دانيار الجاف', 'أ/ حسين حمزة', 'أ/ قاسم علي', 'أ/ حسين حمزة', 'أ/ ياسين حمزة'],
-      labels: { rotate: 0, trim: true, style: { colors: '#686868', fontSize: '0.625rem' } },
-      axisBorder: { show: false },
-      axisTicks: { show: false },
-    },
-    yaxis: { opposite: true, min: 0, max: 100, tickAmount: 10, labels: { style: { colors: '#222', fontSize: '0.6875rem' } } },
-    grid: { borderColor: '#E8E8E8', strokeDashArray: 4, xaxis: { lines: { show: false } }, yaxis: { lines: { show: true } } },
-    legend: { show: false },
-    tooltip: { y: { formatter: (value) => `${value} حجز` } },
-  };
+  private createChartOptions(chartData?: IDashboardChart): Partial<DashboardChartOptions> {
+    const values = chartData?.values ?? [];
+    const categories = chartData?.categories ?? [];
+    const highlightIndex = chartData?.highlightIndex ?? values.length - 1;
+
+    return {
+      series: [{ name: chartData?.seriesName ?? 'الحجوزات', data: values }],
+      chart: {
+        type: 'bar',
+        height: 324,
+        width: '100%',
+        toolbar: { show: false },
+        fontFamily: 'inherit',
+        redrawOnParentResize: true,
+        redrawOnWindowResize: true,
+      },
+      plotOptions: { bar: { borderRadius: 8, columnWidth: '66%', distributed: true } },
+      dataLabels: { enabled: false },
+      colors: values.map((_, index) => index === highlightIndex ? 'var(--color-primary-500)' : 'var(--color-primary-50)'),
+      xaxis: {
+        categories,
+        labels: { rotate: 0, trim: true, style: { colors: 'var(--color-black-500)', fontSize: '0.625rem' } },
+        axisBorder: { show: false },
+        axisTicks: { show: false },
+      },
+      yaxis: {
+        opposite: true,
+        min: 0,
+        max: chartData?.max ?? 100,
+        tickAmount: chartData?.tickAmount ?? 10,
+        labels: { style: { colors: 'var(--color-black-800)', fontSize: '0.6875rem' } },
+      },
+      grid: { borderColor: 'var(--color-black-200)', strokeDashArray: 4, xaxis: { lines: { show: false } }, yaxis: { lines: { show: true } } },
+      legend: { show: false },
+      tooltip: { y: { formatter: (value) => `${value} حجز` } },
+    };
+  }
 }

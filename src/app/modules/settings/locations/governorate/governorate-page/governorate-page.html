@@ -1,3 +1,34 @@
-<app-generic-table>
+<div class="location-page">
+  <app-generic-table
+    [columns]="tableColumns"
+    [data]="(engine.result$ | async) ?? []"
+    [currentPage]="(engine.pagination$ | async)?.currentPage ?? 1"
+    [totalPages]="(engine.pagination$ | async)?.totalPages ?? 1"
+    (actionClick)="onTableActionClick($event)"
+    (toggleChange)="onToggleChange($event)"
+    (pageChange)="onPageChange($event)"
+  >
+  </app-generic-table>
+</div>
 
-</app-generic-table>
+<app-governorate-modal
+  [isOpen]="isModalOpen"
+  [mode]="modalMode"
+  [governorateData]="selectedGovernorate"
+  (closeModal)="closeModal()"
+  (save)="saveGovernorate($event)"
+>
+</app-governorate-modal>
+
+<app-confirmation-dialog
+  [isOpen]="isConfirmOpen"
+  title="حذف محافظة"
+  message="هل أنت متأكد من حذف هذه المحافظة؟"
+  confirmLabel="حذف"
+  cancelLabel="تراجع"
+  confirmTheme="error"
+  [isLoading]="isDeleting"
+  (confirm)="confirmDelete()"
+  (cancel)="closeConfirm()"
+>
+</app-confirmation-dialog>

@@ -21,6 +21,68 @@
     .toggle-label {
         font-size: 0.95rem;
         font-weight: 600;
-        color: var(--mat-sys-on-surface, #333);
+        color: var(--mat-sys-on-surface, var(--color-black-700));
+    }
+}
+
+.form-container {
+    padding: 0.5rem 0;
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    /* 1. ستايل الـ Labels الخاص بالتواريخ */
+    .field-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--color-black-500);
+        /* لون رمادي عشان ميسرقش العين من الداتا */
+        margin-bottom: 0.5rem;
+        padding-right: 0.25rem;
+        /* مسافة بسيطة من اليمين لتناسق الـ RTL */
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+
+        .col-6 {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 0;
+        }
+    }
+
+    /* 2. ستايل الحاوية بتاعة السويتش عشان تطابق الـ Inputs زي الفيجما */
+    .toggle-field-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* بتضمن إن النص يمين والسويتش شمال */
+        min-height: 3.5rem;
+        /* نفس ارتفاع حقول الإدخال */
+        padding: 0 1.25rem;
+        background-color: var(--color-black-50);
+        /* لون الخلفية الرمادي الفاتح بتاع الـ Inputs */
+        border: 1px solid var(--color-black-200);
+        /* الإطار الخفيف */
+        border-radius: 0.75rem;
+        /* الحواف الدائرية */
+        transition: all 0.2s ease;
+
+        &:hover {
+            border-color: var(--color-black-300);
+            /* تأثير بسيط للـ UX */
+        }
+
+        .toggle-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--mat-sys-on-surface, var(--color-black-900));
+        }
     }
 }

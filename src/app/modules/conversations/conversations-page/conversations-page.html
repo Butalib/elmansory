@@ -1,0 +1,127 @@
+<section class="conversations-shell" dir="rtl" lang="ar">
+  <aside class="conversations-list">
+    <div class="search-box">
+      <input type="search" placeholder="ابحث هنا..." (input)="onSearch($any($event.target).value)" />
+    </div>
+
+    <div class="conversation-items">
+      @if (isLoading()) {
+      <div class="empty-state">جاري تحميل المحادثات...</div>
+      } @else {
+      @for (conversation of conversations(); track conversation.id) {
+      <button
+        type="button"
+        class="conversation-card"
+        [class.active]="selectedConversation()?.id === conversation.id"
+        (click)="selectConversation(conversation)"
+      >
+        <img [src]="conversation.avatar" [alt]="conversation.customerName" />
+        <span class="conversation-info">
+          <strong>{{ conversation.customerName }}</strong>
+          <span>{{ getLastMessage(conversation) }}</span>
+        </span>
+        <span class="conversation-meta">
+          <small>{{ conversation.updatedAt | date: 'shortTime' }}</small>
+          @if (conversation.unreadCount > 0) {
+          <b>{{ conversation.unreadCount }}</b>
+          }
+        </span>
+      </button>
+      } @empty {
+      <div class="empty-state">لا توجد محادثات</div>
+      }
+      }
+    </div>
+  </aside>
+
+  <main class="chat-panel">
+    @if (selectedConversation(); as conversation) {
+    <header class="chat-header">
+      <img [src]="conversation.avatar" [alt]="conversation.customerName" />
+      <div>
+        <h2>{{ conversation.customerName }}</h2>
+        <p>{{ conversation.customerPhone }}</p>
+      </div>
+    </header>
+
+    <div #messagesPanel class="messages-panel">
+      @for (message of conversation.messages; track message.id) {
+      <article class="message" [class.outgoing]="message.sender === 'admin'">
+        <div class="message-bubble">
+          @if (message.text) {
+          <p>{{ message.text }}</p>
+          }
+
+          @for (attachment of message.attachments; track attachment.id) {
+          <div class="attachment-preview">
+            @if (attachment.type === 'image') {
+            <img [src]="attachment.url" [alt]="attachment.name" />
+            } @else if (attachment.type === 'video') {
+            <video [src]="attachment.url" controls></video>
+            } @else {
+            <audio [src]="attachment.url" controls></audio>
+            }
+            <small>{{ getAttachmentLabel(attachment.type) }}</small>
+          </div>
+          }
+
+          <time>{{ getMessageTime(message) }}</time>
+        </div>
+      </article>
+      }
+    </div>
+
+    <footer class="composer">
+      @if (selectedAttachment) {
+      <div class="pending-attachment">
+        <span>{{ getAttachmentLabel(selectedAttachment.type) }} جاهز للإرسال</span>
+        <button type="button" (click)="removeAttachment()" aria-label="إزالة المرفق">×</button>
+      </div>
+      }
+
+      <div class="composer-row">
+        <button
+          type="button"
+          class="send-btn"
+          (click)="sendMessage()"
+          [disabled]="isUploading() || (!messageText.trim() && !selectedAttachment)"
+          aria-label="إرسال"
+        >
+          ➤
+        </button>
+
+        <div class="input-wrap">
+          <button type="button" (click)="mediaInput.click()" aria-label="إرفاق صورة أو فيديو">⌕</button>
+          <button
+            type="button"
+            [class.recording]="isRecording()"
+            (click)="toggleRecording()"
+            aria-label="تسجيل صوت"
+          >
+            ●
+          </button>
+          <input
+            #mediaInput
+            type="file"
+            accept="image/*,video/*,audio/*"
+            hidden
+            (change)="onMediaSelected($event)"
+          />
+          <input
+            type="text"
+            placeholder="اكتب رسالتك..."
+            [(ngModel)]="messageText"
+            (keydown.enter)="sendMessage()"
+          />
+        </div>
+      </div>
+    </footer>
+    } @else {
+    <div class="select-placeholder">
+      <img src="assets/icon/sidebar/chat.svg" alt="" />
+      <h2>اختار محادثة</h2>
+      <p>اضغط على أي محادثة من القائمة لفتح الرسائل الخاصة بها.</p>
+    </div>
+    }
+  </main>
+</section>

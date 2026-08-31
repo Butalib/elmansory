@@ -39,16 +39,38 @@ export class LevelsPage implements OnInit {
     this.engine.patchQuery({ searchTerm });
   }
 
+  onSortChange(order: 'asc' | 'desc'): void {
+    this.engine.patchQuery({ _sort: 'createdAt', _order: order });
+  }
+
+  onDateRangeChange(range: { startDate: string; endDate: string }): void {
+    this.engine.patchQuery({ startDate: range.startDate, endDate: range.endDate });
+  }
+
   // فلترة محلية لو الـ mode local
   private filterLocally(data: ILevels[], query: any): ILevels[] {
-    if (!query.searchTerm) {
-      return data;
+    let filteredData = data;
+
+    if (query.searchTerm) {
+      const term = query.searchTerm.toLowerCase();
+      filteredData = filteredData.filter(level =>
+        level.level?.toLowerCase().includes(term) ||
+        level.subLevel?.toLowerCase().includes(term)
+      );
     }
-    const term = query.searchTerm.toLowerCase();
-    return data.filter(level =>
-      level.level?.toLowerCase().includes(term) ||
-      level.subLevel?.toLowerCase().includes(term)
-    );
+
+    if (query.startDate && query.endDate) {
+      filteredData = filteredData.filter((level) => {
+        const levelDate =
+          typeof level.createdAt === 'string'
+            ? level.createdAt.split('T')[0]
+            : level.createdAt.toISOString().split('T')[0];
+
+        return levelDate >= query.startDate && levelDate <= query.endDate;
+      });
+    }
+
+    return filteredData;
   }
 
   onPageChange(newPage: number): void {

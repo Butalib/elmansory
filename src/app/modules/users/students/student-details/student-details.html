@@ -1,1 +1,141 @@
-<p>student-details works!</p>
+<section class="student-details-page" dir="rtl">
+
+  <!-- Header -->
+  <header class="page-header">
+    <!-- <h1>الطلاب</h1> -->
+    <button type="button" class="outline-button" (click)="goBackToStudents()">
+      <span aria-hidden="true">→</span> العودة إلى الطلاب
+    </button>
+  </header>
+
+  @if (isLoading) {
+  <div class="page-state"><span class="spinner"></span> جاري تحميل بيانات الطالب...</div>
+  } @else if (hasError || !student) {
+  <div class="page-state page-state--error">
+    <strong>تعذر العثور على الطالب</strong>
+    <button type="button" class="outline-button" (click)="goBackToStudents()">العودة</button>
+  </div>
+  } @else {
+
+  <!-- 1. Top Section (Profile & KPIs) -->
+ <section class="top-stats-wrapper" aria-label="ملخص الطالب">
+    
+    <!-- Profile Section (بدون خلفية بيضاء، مجرد محتوى) -->
+    <div class="profile-section">
+      <div class="profile-info">
+        <h2>{{ student.name }}</h2>
+        <!-- الحاوية دي هتاخد Flex Row عشان ترصهم جنب بعض -->
+        <div class="profile-meta">
+          <span class="meta-item">
+            <img src="assets/icon/main-header/calendar-02.svg" alt=""> 
+            {{ student.joinDate || 'غير محدد' }}
+          </span>
+          <span class="meta-item" dir="ltr">
+            <img src="assets/icon/model/phone.svg" alt=""> 
+            {{ student.phone }}
+          </span>
+        </div>
+      </div>
+      <img class="student-avatar" [src]="student.avatar || imageFallback" (error)="onImageError($event)" />
+    </div>
+
+    <!-- KPI Generic Component (الكروت البيضاء) -->
+    <div class="kpis-wrapper">
+      <app-kpi [stats]="studentKpis"></app-kpi>
+    </div>
+    
+  </section>
+
+  <!-- 2. Bottom Section (Orders & Invoice) -->
+  <main class="details-layout-grid">
+
+    <!-- Right: Orders List -->
+    <aside class="panel">
+      <div class="panel-heading">
+        <h2>طلبات الطالب</h2>
+        @if (!isOrdersLoading) { <span>{{ orders.length }} طلب</span> }
+      </div>
+
+      @if (isOrdersLoading) {
+      <div class="section-state"><span class="spinner"></span></div>
+      } @else if (orders.length === 0) {
+      <div class="section-state"><strong>لا توجد طلبات لهذا الطالب</strong></div>
+      } @else {
+      <div class="orders-list">
+        @for (order of orders; track trackById($index, order)) {
+        <button type="button" class="order-list-item" [class.active]="selectedOrder?.id === order.id"
+          (click)="selectOrder(order)">
+          <div class="order-item-header">
+            <strong dir="ltr">#{{ order.orderCode }}</strong>
+            <span class="status-badge" [class]="'status-badge--' + order.status">
+              {{ order.status === 'accepted' ? 'مكتملة' : order.status === 'rejected' ? 'ملغاة' : 'مراجعة' }}
+            </span>
+          </div>
+          <div class="order-item-details">
+            <span>{{ order.createdAt }}</span>
+            <span>{{ order.itemCount }} منتج</span>
+          </div>
+        </button>
+        }
+      </div>
+      }
+    </aside>
+
+    <!-- Left: Invoice Details -->
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>@if (selectedOrder) { طلب <span dir="ltr">#{{ selectedOrder.orderCode }}</span> } @else { تفاصيل الطلب }
+        </h2>
+      </div>
+
+      @if (isSelectedOrderLoading) {
+      <div class="section-state"><span class="spinner"></span></div>
+      } @else if (!selectedOrder) {
+      <div class="section-state"><span>اختر طلباً لعرض تفاصيله</span></div>
+      } @else {
+      <div class="products-table-wrap">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>اسم المنتج</th>
+              <th>السعر</th>
+              <th>الكمية</th>
+              <th>الاجمالي</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of selectedOrder.items; track trackById($index, item)) {
+            <tr>
+              <td>
+                <div class="product-cell">
+                  <img class="product-image" [src]="item.image || imageFallback" (error)="onImageError($event)" />
+                  <div class="product-info">
+                    <strong>{{ item.name }}</strong>
+                    <span class="item-type-badge">{{ item.type }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ item.price }} د.ع</td>
+              <td><span class="quantity-pill">{{ item.quantity }}</span></td>
+              <td>{{ item.price * item.quantity }} د.ع</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (selectedOrderSummary; as sum) {
+      <div class="order-summary-box">
+        <div class="summary-row"><span>إجمالي المنتجات</span><strong>{{ sum.totalProducts }} منتج</strong></div>
+        <div class="summary-row"><span>إجمالي السعر</span><strong>{{ sum.subtotal }} د.ع</strong></div>
+        <div class="summary-row"><span>الخصم</span><strong class="discount-value">{{ sum.discount }}
+            د.ع</strong></div>
+        <div class="summary-row summary-row--total"><span>الإجمالي</span><strong>{{ sum.finalTotal }}
+            د.ع</strong></div>
+      </div>
+      }
+      }
+    </section>
+  </main>
+  }
+</section>

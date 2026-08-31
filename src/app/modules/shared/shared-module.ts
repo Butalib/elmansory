@@ -16,6 +16,7 @@ import { GenericTableComponent } from './kit/generic-table-component/generic-tab
 import { UiInput } from './kit/model/ui-input-component/ui-input';
 import { UiPopupSelect } from './kit/model/ui-popup-select/ui-popup-select';
 import { Kpi } from './kpi/kpi';
+import { OverlayModule } from '@angular/cdk/overlay';
 @NgModule({
   declarations: [
     InnerActionHeader,
@@ -31,7 +32,7 @@ import { Kpi } from './kpi/kpi';
     UiPopupSelect,
     Kpi,
   ],
-  imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule],
+  imports: [CommonModule, SharedRoutingModule, ReactiveFormsModule, MatSlideToggleModule, OverlayModule],
   exports: [
     InnerActionHeader,
     BtnSwitch,

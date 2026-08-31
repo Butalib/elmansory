@@ -101,9 +101,9 @@ export class ProfitsPage implements OnInit, OnDestroy {
     const totalSalesCalc = data.reduce((sum, item) => sum + (item.ordersCount || 0), 0) * 2500;
 
     this.kpiStats = [
-      { id: '1', title: 'إجمالي المنتجات', value: totalProducts.toString(), icon: 'assets/icon/profit/products.svg', iconBgColor: '#e0f2fe' },
-      { id: '2', title: 'إجمالي المبيعات', value: `${totalSalesCalc.toLocaleString()} د.ع`, icon: 'assets/icon/profit/sales.svg', iconBgColor: '#e0f2fe' },
-      { id: '3', title: 'إجمالي الأرباح', value: `${totalProfitsCalc.toLocaleString()} د.ع`, icon: 'assets/icon/profit/profits.svg', iconBgColor: '#f3f4f6' }
+      { id: '1', title: 'إجمالي المنتجات', value: totalProducts.toString(), icon: 'assets/icon/profit/products.svg', iconBgColor: 'var(--color-primary-50)' },
+      { id: '2', title: 'إجمالي المبيعات', value: `${totalSalesCalc.toLocaleString()} د.ع`, icon: 'assets/icon/profit/sales.svg', iconBgColor: 'var(--color-primary-50)' },
+      { id: '3', title: 'إجمالي الأرباح', value: `${totalProfitsCalc.toLocaleString()} د.ع`, icon: 'assets/icon/profit/profits.svg', iconBgColor: 'var(--color-black-100)' }
     ];
   }
 

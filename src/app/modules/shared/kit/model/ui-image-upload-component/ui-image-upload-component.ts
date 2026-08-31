@@ -15,7 +15,6 @@ export class UiImageUploadComponent implements OnChanges {
   @Input() isOpen = false;
   @Input() existingImageUrl: string | null = null;
 
-  // 1. التعديل الأول: غيرنا النوع لـ string | null عشان نبعت الـ Base64 أو نبعت فاضي
   @Output() fileSelected = new EventEmitter<string | null>();
 
   previewUrl: string | null = null;
@@ -70,7 +69,6 @@ export class UiImageUploadComponent implements OnChanges {
         this.previewUrl = reader.result;
         this.cdr.detectChanges();
 
-        // 2. التعديل التاني: بنبعت النتيجة (اللي هي الـ Base64 String) للأب مباشرة
         this.fileSelected.emit(this.previewUrl);
       }
     };
@@ -85,13 +83,11 @@ export class UiImageUploadComponent implements OnChanges {
   clearImage(event: Event): void {
     event.stopPropagation();
 
-    // 3. التعديل التالت: بنصفر الصورتين محلياً عشان الـ UI يتحدث فوراً
     this.previewUrl = null;
     this.existingImageUrl = null;
 
     this.clearFileInput();
 
-    // بنبلغ الأب إن الصورة اتمسحت عشان يصفر الـ State عنده هو كمان
     this.fileSelected.emit(null);
   }
 

@@ -1,43 +1,90 @@
-@use 'sass:map';
-@use 'variables' as vars;
+.text-primary-50 { color: var(--color-primary-50); }
+.text-primary-100 { color: var(--color-primary-100); }
+.text-primary-200 { color: var(--color-primary-200); }
+.text-primary-300 { color: var(--color-primary-300); }
+.text-primary-400 { color: var(--color-primary-400); }
+.text-primary-500 { color: var(--color-primary-500); }
+.text-primary-600 { color: var(--color-primary-600); }
 
-:root {
-  @each $category, $shades in vars.$colors {
-    @each $shade, $value in $shades {
-      --color-#{$category}-#{$shade}: #{$value};
-    }
-  }
-}
+.bg-primary-50 { background-color: var(--color-primary-50); }
+.bg-primary-100 { background-color: var(--color-primary-100); }
+.bg-primary-200 { background-color: var(--color-primary-200); }
+.bg-primary-300 { background-color: var(--color-primary-300); }
+.bg-primary-400 { background-color: var(--color-primary-400); }
+.bg-primary-500 { background-color: var(--color-primary-500); }
+.bg-primary-600 { background-color: var(--color-primary-600); }
 
-@each $category, $shades in vars.$colors {
-  @each $shade, $value in $shades {
-    .text-#{$category}-#{$shade} { color: var(--color-#{$category}-#{$shade}); }
-    .bg-#{$category}-#{$shade} { background-color: var(--color-#{$category}-#{$shade}); }
-  }
-}
+.text-secondary-50 { color: var(--color-secondary-50); }
+.text-secondary-100 { color: var(--color-secondary-100); }
+.text-secondary-200 { color: var(--color-secondary-200); }
+.text-secondary-300 { color: var(--color-secondary-300); }
+.text-secondary-400 { color: var(--color-secondary-400); }
+.text-secondary-500 { color: var(--color-secondary-500); }
+.text-secondary-600 { color: var(--color-secondary-600); }
+.text-secondary-700 { color: var(--color-secondary-700); }
 
-@each $name, $props in vars.$text-sizes {
-  .text-#{$name} {
-    font-size: map.get($props, size);
-    line-height: map.get($props, line-height);
-    font-family: vars.$font-family-base;
-  }
-}
+.bg-secondary-50 { background-color: var(--color-secondary-50); }
+.bg-secondary-100 { background-color: var(--color-secondary-100); }
+.bg-secondary-200 { background-color: var(--color-secondary-200); }
+.bg-secondary-300 { background-color: var(--color-secondary-300); }
+.bg-secondary-400 { background-color: var(--color-secondary-400); }
+.bg-secondary-500 { background-color: var(--color-secondary-500); }
+.bg-secondary-600 { background-color: var(--color-secondary-600); }
+.bg-secondary-700 { background-color: var(--color-secondary-700); }
 
-@each $name, $weight in vars.$font-weights {
-  .font-#{$name} {
-    font-weight: #{$weight};
-  }
-}
+.text-black-50 { color: var(--color-black-50); }
+.text-black-100 { color: var(--color-black-100); }
+.text-black-200 { color: var(--color-black-200); }
+.text-black-300 { color: var(--color-black-300); }
+.text-black-400 { color: var(--color-black-400); }
+.text-black-500 { color: var(--color-black-500); }
+.text-black-600 { color: var(--color-black-600); }
+.text-black-700 { color: var(--color-black-700); }
+.text-black-800 { color: var(--color-black-800); }
+.text-black-900 { color: var(--color-black-900); }
+.text-black-950 { color: var(--color-black-950); }
 
-@each $category, $shades in vars.$colors {
-  @each $shade, $value in $shades {
-    .text-#{$category}-#{$shade} { color: var(--color-#{$category}-#{$shade}); }
-    
-    .bg-#{$category}-#{$shade} { background-color: var(--color-#{$category}-#{$shade}); }
-    
-    .bg-#{$category}-#{$shade}-light { 
-      background-color: color-mix(in srgb, var(--color-#{$category}-#{$shade}) 15%, transparent); 
-    }
-  }
-}
+.bg-black-50 { background-color: var(--color-black-50); }
+.bg-black-100 { background-color: var(--color-black-100); }
+.bg-black-200 { background-color: var(--color-black-200); }
+.bg-black-300 { background-color: var(--color-black-300); }
+.bg-black-400 { background-color: var(--color-black-400); }
+.bg-black-500 { background-color: var(--color-black-500); }
+.bg-black-600 { background-color: var(--color-black-600); }
+.bg-black-700 { background-color: var(--color-black-700); }
+.bg-black-800 { background-color: var(--color-black-800); }
+.bg-black-900 { background-color: var(--color-black-900); }
+.bg-black-950 { background-color: var(--color-black-950); }
+
+.text-warning { color: var(--color-warning); }
+.text-error { color: var(--color-error); }
+.text-info { color: var(--color-info); }
+.text-success { color: var(--color-success); }
+
+.bg-warning { background-color: var(--color-warning); }
+.bg-error { background-color: var(--color-error); }
+.bg-info { background-color: var(--color-info); }
+.bg-success { background-color: var(--color-success); }
+
+.bg-primary-500-light { background-color: color-mix(in srgb, var(--color-primary-500) 15%, transparent); }
+.bg-secondary-500-light { background-color: color-mix(in srgb, var(--color-secondary-500) 15%, transparent); }
+.bg-warning-light { background-color: color-mix(in srgb, var(--color-warning) 15%, transparent); }
+.bg-error-light { background-color: color-mix(in srgb, var(--color-error) 15%, transparent); }
+.bg-info-light { background-color: color-mix(in srgb, var(--color-info) 15%, transparent); }
+.bg-success-light { background-color: color-mix(in srgb, var(--color-success) 15%, transparent); }
+
+.text-sssm { font-size: var(--text-size-sssm); line-height: var(--line-height-default); font-family: var(--font-family-base); }
+.text-ssm { font-size: var(--text-size-ssm); line-height: var(--line-height-default); font-family: var(--font-family-base); }
+.text-sm { font-size: var(--text-size-sm); line-height: var(--line-height-default); font-family: var(--font-family-base); }
+.text-base { font-size: var(--text-size-base); line-height: var(--line-height-default); font-family: var(--font-family-base); }
+.text-lg { font-size: var(--text-size-lg); line-height: var(--line-height-default); font-family: var(--font-family-base); }
+.text-xl { font-size: var(--text-size-xl); line-height: var(--line-height-tight); font-family: var(--font-family-base); }
+.text-2xl { font-size: var(--text-size-2xl); line-height: var(--line-height-heading); font-family: var(--font-family-base); }
+.text-3xl { font-size: var(--text-size-3xl); line-height: var(--line-height-heading); font-family: var(--font-family-base); }
+.text-4xl { font-size: var(--text-size-4xl); line-height: var(--line-height-heading); font-family: var(--font-family-base); }
+
+.font-light { font-weight: var(--font-weight-light); }
+.font-regular { font-weight: var(--font-weight-regular); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }

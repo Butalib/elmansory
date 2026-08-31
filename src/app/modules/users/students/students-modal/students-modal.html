@@ -31,26 +31,30 @@
             </app-ui-popup-select>
         </div>
 
-        <!-- التواريخ متقسمين جنب بعض باستخدام Grid أو Row/Col -->
+        <!-- التواريخ (تم إضافة Labels) -->
         <div class="row">
             <div class="col-6 form-group mb-3">
+                <label class="field-label">تاريخ الميلاد</label>
                 <app-ui-input [control]="studentForm.get('birthDate')" placeholder="تاريخ الميلاد" type="date"
                     icon="assets/icon/main-header/calendar-02.svg">
                 </app-ui-input>
             </div>
             <div class="col-6 form-group mb-3">
+                <label class="field-label">تاريخ الانضمام</label>
                 <app-ui-input [control]="studentForm.get('joinDate')" placeholder="تاريخ الانضمام" type="date"
                     icon="assets/icon/main-header/calendar-02.svg">
                 </app-ui-input>
             </div>
         </div>
 
-        <!-- سويتش التفعيل -->
-        <div class="form-group d-flex align-items-center justify-content-between mt-4">
-            <span class="toggle-label">حساب مفعل</span>
-            <app-btn-switch [checked]="studentForm.get('isActive')?.value"
-                (toggle)="studentForm.get('isActive')?.setValue($event)">
-            </app-btn-switch>
+        <!-- سويتش التفعيل (تم وضعه داخل حاوية تطابق تصميم الـ Inputs) -->
+        <div class="form-group mb-2 mt-2">
+            <div class="toggle-field-container">
+                <span class="toggle-label">حساب مفعل</span>
+                <app-btn-switch [checked]="studentForm.get('isActive')?.value"
+                    (toggle)="studentForm.get('isActive')?.setValue($event)">
+                </app-btn-switch>
+            </div>
         </div>
 
     </form>

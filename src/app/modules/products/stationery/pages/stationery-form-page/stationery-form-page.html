@@ -1,0 +1,17 @@
+@if (isLoading) {
+<div class="page-state">جاري تحميل بيانات المنتج...</div>
+} @else if (hasLoadError || (mode === 'edit' && !product)) {
+<div class="page-state page-state--error">
+  <strong>تعذر العثور على المنتج</strong>
+  <button type="button" class="outline-button" (click)="goBack()">العودة إلى القرطاسية</button>
+</div>
+} @else {
+<app-stationery-form
+  [mode]="mode"
+  [product]="product"
+  [isSaving]="isSaving"
+  (save)="onSave($event)"
+  (cancel)="goBack()"
+>
+</app-stationery-form>
+}

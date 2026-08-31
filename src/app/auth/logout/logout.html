@@ -1,0 +1,11 @@
+<button type="button" class="logout-button" [class.collapsed]="isCollapsed" (click)="openConfirm()">
+  <img src="assets/icon/logout/logout-02.svg" alt="" draggable="false" />
+  @if (!isCollapsed) {
+  <span>تسجيل الخروج</span>
+  }
+</button>
+
+<app-confirmation-dialog [isOpen]="isConfirmOpen" title="تسجيل الخروج" message="هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  confirmLabel="تسجيل الخروج" cancelLabel="إلغاء" confirmTheme="error" (confirm)="confirmLogout()"
+  (cancel)="closeConfirm()">
+</app-confirmation-dialog>

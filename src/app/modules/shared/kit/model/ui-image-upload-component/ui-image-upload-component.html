@@ -16,6 +16,7 @@
         </div>
         }
 
-        <input #fileInput type="file" accept="image/*" class="hidden-input" (change)="onFileChange($event)">
+        <input #fileInput type="file" accept="image/*" class="hidden-input" (change)="onFileChange($event)"
+            (cancel)="$event.stopPropagation()">
     </div>
 </div>

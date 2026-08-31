@@ -1,4 +1,5 @@
-<nav class="sidebar" lang="ar" dir="rtl" [class.collapsed]="isCollapsed()">
+<nav class="sidebar" lang="ar" dir="rtl" [class.collapsed]="isCollapsed">
+    <button type="button" class="sidebar-logo" aria-label="طي القائمة الجانبية" (click)="onLogoClick()"></button>
     <ul class="sidebar-menu">
         @for (item of menuItems; track item.id) {
         <li class="sidebar-item">
@@ -9,18 +10,18 @@
 
                 <span class="sidebar-content">
                     <img draggable="false" class="sidebar-icon" [src]="item.icon" [alt]="item.label">
-                    @if (!isCollapsed()) {
+                    @if (!isCollapsed) {
                     <span class="sidebar-title">{{ item.label }}</span>
                     }
                 </span>
 
-                @if (!isCollapsed()) {
+                @if (!isCollapsed) {
                 <img draggable="false" class="sidebar-arrow" src="assets/icon/sidebar/Vector.svg"
                     [class.expanded]="expandedMenuId() === item.id" alt="">
                 }
             </button>
 
-            @if (expandedMenuId() === item.id && !isCollapsed()) {
+            @if (expandedMenuId() === item.id && !isCollapsed) {
             <ul class="submenu">
                 @for (child of item.children; track child.id) {
                 <li>
@@ -35,7 +36,7 @@
             <a draggable="false" [routerLink]="item.route" routerLinkActive="active" class="sidebar-link">
                 <span class="sidebar-content">
                     <img draggable="false" class="sidebar-icon" [src]="item.icon" [alt]="item.label">
-                    @if (!isCollapsed()) {
+                    @if (!isCollapsed) {
                     <span class="sidebar-title">{{ item.label }}</span>
                     }
                 </span>
@@ -44,4 +45,7 @@
         </li>
         }
     </ul>
+    <div class="logout-wrapper">
+        <app-logout [isCollapsed]="isCollapsed"></app-logout>
+    </div>
 </nav>

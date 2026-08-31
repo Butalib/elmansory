@@ -1,0 +1,48 @@
+<app-inner-action-header [title]="'الطلبات'" [showActionButton]="true" [showFilterButton]="true"
+  [actionLabel]="'قبول الطلبات المعلقة'" [btnIcon]="'assets/icon/main-header/accsept.svg'" [showDate]="true"
+  (sortChange)="onSortChange($event)" (search)="onSearch($event)" (actionClicked)="onActionClicked()"
+  (dateRangeChange)="onDateRangeChange($event)">
+</app-inner-action-header>
+
+<!-- KPI cards -->
+<app-kpi [stats]="(kpiStats$ | async) ?? []"></app-kpi>
+
+<!-- Order type filter tabs -->
+<div class="filters-tabs">
+  <button type="button" class="tab-btn" [class.active]="activeOrderType === 'الكل'"
+    (click)="onOrderTypeFilterChange('الكل')">
+    الكل
+  </button>
+  <button type="button" class="tab-btn" [class.active]="activeOrderType === 'ملازم'"
+    (click)="onOrderTypeFilterChange('ملازم')">
+    ملازم
+  </button>
+  <button type="button" class="tab-btn" [class.active]="activeOrderType === 'حجز الكترونى'"
+    (click)="onOrderTypeFilterChange('حجز الكترونى')">
+    حجز إلكتروني
+  </button>
+  <button type="button" class="tab-btn" [class.active]="activeOrderType === 'جهز نفسك للمدرسة'"
+    (click)="onOrderTypeFilterChange('جهز نفسك للمدرسة')">
+    جهز نفسك للمدرسة
+  </button>
+</div>
+
+<!-- Orders table -->
+<app-generic-table [columns]="tableColumns" [data]="(engine.result$ | async) ?? []"
+  [currentPage]="(engine.pagination$ | async)?.currentPage ?? 1"
+  [totalPages]="(engine.pagination$ | async)?.totalPages ?? 1" (pageChange)="onPageChange($event)"
+  (actionClick)="onActionClick($event)" (toggleChange)="onToggleStatus($event)">
+</app-generic-table>
+
+<!-- ── Bulk accept all — confirmation dialog ──────────────────────────── -->
+
+<app-confirmation-dialog [isOpen]="isAcceptAllModalOpen" title="هل ترغب في اعتماد كل الطلبات المعلقة؟"
+  confirmLabel="تأكيد" cancelLabel="إلغاء" confirmTheme="primary" [isLoading]="isSaving"
+  (cancel)="isAcceptAllModalOpen = false" (confirm)="confirmAcceptAll()">
+</app-confirmation-dialog>
+
+<!-- ── Delete order — confirmation dialog ────────────────────────────── -->
+<app-confirmation-dialog [isOpen]="isDeleteConfirmOpen" title="تأكيد حذف الطلب"
+  message="هل أنت متأكد من حذف هذا الطلب؟ لا يمكن التراجع عن هذه العملية." confirmLabel="حذف" cancelLabel="إلغاء"
+  confirmTheme="error" [isLoading]="isDeleting" (cancel)="closeDeleteConfirm()" (confirm)="confirmDelete()">
+</app-confirmation-dialog>

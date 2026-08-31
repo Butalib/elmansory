@@ -1,5 +1,6 @@
 <app-inner-action-header [showSearch]="true" [showActionButton]="true" [actionLabel]="'إضافة حجز جديد'"
   [btnIcon]="'assets/icon/main-header/add.svg'" [showDate]="true" (search)="onSearch($event)"
+  (dateRangeChange)="onDateRangeChange($event)" (sortChange)="onSortChange($event)"
   (actionClicked)="openModal()" [showFilterButton]="true">
 </app-inner-action-header>
 

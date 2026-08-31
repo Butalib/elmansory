@@ -34,7 +34,7 @@ export class TeacherPage implements OnInit {
       toggleKey: 'isActive',
       actions: [
         { id: 'edit', label: 'تعديل', icon: 'assets/icon/shared/edit.svg' },
-        { id: 'delete', label: 'حذف', icon: 'assets/icon/shared/delete-02.svg', color: '#EF4444' }
+        { id: 'delete', label: 'حذف', icon: 'assets/icon/shared/delete-02.svg', color: 'var(--color-error-500)' }
       ]
     }
   ];
@@ -158,17 +158,40 @@ export class TeacherPage implements OnInit {
     this.engine.patchQuery({ searchTerm });
   }
 
+  onDateRangeChange(range: { startDate: string; endDate: string }): void {
+    this.engine.patchQuery({ startDate: range.startDate, endDate: range.endDate });
+  }
+
   onPageChange(newPage: number): void {
     this.engine.patchQuery({ _page: newPage });
   }
 
   private filterLocally(data: ITeacher[], query: any): ITeacher[] {
-    if (!query.searchTerm) return data;
-    const term = query.searchTerm.toLowerCase();
-    return data.filter(teacher =>
-      teacher.name?.toLowerCase().includes(term) ||
-      teacher.subjectName?.toLowerCase().includes(term) ||
-      teacher.levelName?.toLowerCase().includes(term)
-    );
+    let filteredData = data;
+
+    if (query.searchTerm) {
+      const term = query.searchTerm.toLowerCase();
+      filteredData = filteredData.filter(teacher =>
+        teacher.name?.toLowerCase().includes(term) ||
+        teacher.subjectName?.toLowerCase().includes(term) ||
+        teacher.levelName?.toLowerCase().includes(term)
+      );
+    }
+
+    if (query.startDate && query.endDate) {
+      filteredData = filteredData.filter((teacher) => {
+        const createdAt = (teacher as ITeacher & { createdAt?: string | Date }).createdAt;
+        if (!createdAt) return true;
+
+        const teacherDate =
+          typeof createdAt === 'string'
+            ? createdAt.split('T')[0]
+            : createdAt.toISOString().split('T')[0];
+
+        return teacherDate >= query.startDate && teacherDate <= query.endDate;
+      });
+    }
+
+    return filteredData;
   }
 }

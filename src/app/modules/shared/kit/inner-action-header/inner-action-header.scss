@@ -1,6 +1,3 @@
-@use 'sass:map';
-@use '../../../../../assets/styles/variables' as vars;
-
 .inner-action-header {
   display: flex;
   justify-content: space-between;
@@ -19,7 +16,7 @@
     gap: 0.375rem;
     /* Gap من فيجما */
 
-    border: 0.0625rem solid map.get(vars.$colors, 'black', 100);
+    border: 0.0625rem solid var(--color-black-100);
     border-radius: 0.75rem;
     /* Radius من فيجما */
 
@@ -34,8 +31,8 @@
     transition: border-color 0.3s ease;
 
     &:focus-within {
-      border-color: map.get(vars.$colors, 'primary', 500);
-      background-color: #fff;
+      border-color: var(--color-primary-500);
+      background-color: var(--color-white);
     }
 
     input {
@@ -45,12 +42,12 @@
       flex-grow: 1;
       /* Fill */
       font-family: inherit;
-      color: map.get(vars.$colors, 'black', 800);
+      color: var(--color-black-800);
       font-size: 0.875rem;
     }
 
     i {
-      color: map.get(vars.$colors, 'black', 400);
+      color: var(--color-black-400);
       font-size: 1.125rem;
     }
   }
@@ -73,8 +70,8 @@
       /* Gap من فيجما */
       width: fit-content;
       /* Hug */
-      background-color: map.get(vars.$colors, 'black', 50);
-      border: 0.0625rem solid map.get(vars.$colors, 'black', 100);
+      background-color: var(--color-black-50);
+      border: 0.0625rem solid var(--color-black-100);
       border-radius: 1rem;
       /* Radius من فيجما */
 
@@ -85,7 +82,7 @@
       font-family: inherit;
       font-size: 0.875rem;
       font-weight: 500;
-      color: map.get(vars.$colors, 'black', 700);
+      color: var(--color-black-700);
       cursor: default;
     }
 
@@ -99,8 +96,8 @@
       width: 11.75rem;
       /* Hug */
       /* التعديل هنا: الـ Background مش لون ثابت، ده Gradient من فيجما */
-      background: linear-gradient(90deg, #00B8FF 0%, #00A3DE 100%);
-      color: #ffffff;
+      background: linear-gradient(90deg, var(--color-primary-300) 0%, var(--color-primary-500) 100%);
+      color: var(--color-white);
       border: none;
       border-radius: 1rem;
       /* Radius من فيجما */
@@ -130,6 +127,14 @@
   display: inline-block;
 }
 
+.date-container--edge-safe {
+  .date-picker-menu {
+    right: auto;
+    left: 0;
+    transform-origin: top left;
+  }
+}
+
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -137,13 +142,15 @@
   z-index: 1000;
   min-width: 12rem;
   padding: 0.5rem;
-  background: #ffffff;
-  border: 0.0625rem solid #e5e7eb;
+  background: var(--color-white);
+  border: 0.0625rem solid var(--color-black-200);
   border-radius: 0.875rem;
-  box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.18);
+  box-shadow: 0 1rem 2.5rem rgb(var(--color-shadow-rgb) / 0.18);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  animation: dropdownIn 160ms ease-out both;
+  transform-origin: top right;
 
   .dropdown-item {
     width: 100%;
@@ -151,7 +158,7 @@
     border: none;
     border-radius: 0.625rem;
     background: transparent;
-    color: #334155;
+    color: var(--color-black-700);
     font: inherit;
     font-weight: 500;
     text-align: right;
@@ -159,9 +166,21 @@
     transition: background-color 0.2s ease, color 0.2s ease;
 
     &:hover {
-      background: #f1f5f9;
-      color: #00a3de;
+      background: var(--color-black-100);
+      color: var(--color-primary-500);
     }
+  }
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -182,20 +201,20 @@
 
       label {
         font-size: 0.875rem;
-        color: #64748b;
+        color: var(--color-black-500);
         font-weight: 600;
       }
 
       input[type="date"] {
         padding: 0.5rem;
-        border: 1px solid #e5e7eb;
+        border: 1px solid var(--color-black-200);
         border-radius: 0.5rem;
         font-family: inherit;
-        color: #1e293b;
+        color: var(--color-black-800);
         outline: none;
 
         &:focus {
-          border-color: #00a3de;
+          border-color: var(--color-primary-500);
         }
       }
     }
@@ -204,8 +223,8 @@
   .apply-btn {
     width: 100%;
     padding: 0.75rem;
-    background-color: #00a3de;
-    color: #fff;
+    background-color: var(--color-primary-500);
+    color: var(--color-white);
     border: none;
     border-radius: 0.5rem;
     font-weight: 600;
@@ -213,13 +232,13 @@
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: darken(#00a3de, 10%);
+      background-color: var(--color-primary-600);
     }
   }
 
   .error-msg {
     display: block;
-    color: #dc2626;
+    color: var(--color-error);
     /* أحمر */
     font-size: 0.75rem;
     font-weight: 600;
@@ -236,8 +255,8 @@
       flex: 2;
       /* ياخد مساحة أكبر شوية */
       padding: 0.625rem;
-      background-color: #00a3de;
-      color: #fff;
+      background-color: var(--color-primary-500);
+      color: var(--color-white);
       border: none;
       border-radius: 0.5rem;
       font-weight: 600;
@@ -245,11 +264,11 @@
       transition: background-color 0.2s, opacity 0.2s;
 
       &:hover:not(:disabled) {
-        background-color: darken(#00a3de, 10%);
+        background-color: var(--color-primary-600);
       }
 
       &:disabled {
-        background-color: #cbd5e1;
+        background-color: var(--color-black-300);
         cursor: not-allowed;
       }
     }
@@ -257,8 +276,8 @@
     .reset-btn {
       flex: 1;
       padding: 0.625rem;
-      background-color: #f1f5f9;
-      color: #475569;
+      background-color: var(--color-black-100);
+      color: var(--color-black-600);
       border: none;
       border-radius: 0.5rem;
       font-weight: 600;
@@ -266,8 +285,8 @@
       transition: background-color 0.2s;
 
       &:hover {
-        background-color: #e2e8f0;
-        color: #1e293b;
+        background-color: var(--color-black-200);
+        color: var(--color-black-800);
       }
     }
   }

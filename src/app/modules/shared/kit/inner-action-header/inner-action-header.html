@@ -28,7 +28,7 @@
 
     <!-- 2. فلتر التاريخ -->
     @if (showDate) {
-    <div class="relative-container">
+    <div class="relative-container date-container" [class.date-container--edge-safe]="!showActionButton">
       <button type="button" class="date-box" (click)="toggleDateMenu($event)">
         <img draggable="false" src="assets/icon/main-header/calendar-02.svg" alt="Date Icon" class="date-icon">
         <span>{{ dateLabel }}</span>

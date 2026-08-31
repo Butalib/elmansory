@@ -1,15 +1,17 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { LayoutServices } from '../../core/service/Layout.service';
+
 @Component({
   selector: 'app-header-componant',
   standalone: false,
   templateUrl: './header-componant.html',
   styleUrl: './header-componant.scss',
 })
-export class HeaderComponent implements OnInit {
-  pageTitle: string = "";
+export class HeaderComponent implements OnInit, OnDestroy {
+  private readonly subscription = new Subscription();
+
   notificationsCount = signal<number>(0);
   userData = signal({
     name: 'Butalib',
@@ -21,27 +23,44 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     readonly layoutServices: LayoutServices
   ) { }
-  ngOnInit() {
-    // 2. معالجة الـ Initial Load: نقرأ الـ URL الحالي فوراً أول ما الهيدر يتولد
-    this.updatePageTitle(this.router.url);
 
-    // 3. معالجة التنقلات المستقبلية: نستمع للراوتر 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.updatePageTitle(event.urlAfterRedirects || event.url);
-    });
+  ngOnInit(): void {
+    this.updatePageTitle();
+
+    this.subscription.add(
+      this.router.events.pipe(
+        filter((event) => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.updatePageTitle();
+      })
+    );
   }
 
-  // 4. Clean Code: عملنا دالة مساعدة عشان نمنع تكرار الكود (DRY Principle)
-  private updatePageTitle(url: string) {
-    const urlSegments = url.split('/');
-    const currentRoutePath = urlSegments[urlSegments.length - 1];
-
-    // البحث في السيرفس بناءً على المسار
-    const newTitle = this.layoutServices.findTitleByRoute(currentRoutePath);
-
-    // تحديث مصدر الحقيقة (Single Source of Truth)
-    this.layoutServices.pageTitle.set(newTitle);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
-} 
+
+  private updatePageTitle(): void {
+    const routeTitle = this.findActiveRouteTitle(this.router.routerState.snapshot.root);
+    const fallbackTitle = this.layoutServices.findTitleByUrl(this.router.url);
+
+    this.layoutServices.pageTitle.set(routeTitle || fallbackTitle);
+  }
+
+  private findActiveRouteTitle(route: ActivatedRouteSnapshot): string | null {
+    let currentRoute: ActivatedRouteSnapshot | null = route;
+    let title: string | null = null;
+
+    while (currentRoute) {
+      const routeTitle = currentRoute.data?.['title'];
+
+      if (typeof routeTitle === 'string' && routeTitle.trim()) {
+        title = routeTitle;
+      }
+
+      currentRoute = currentRoute.firstChild ?? null;
+    }
+
+    return title;
+  }
+}

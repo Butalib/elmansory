@@ -3,14 +3,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    background-color: #ffffff;
+    background-color: var(--color-white);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgb(var(--color-black-rgb) / 0.04);
+    border: 1px solid var(--color-black-100);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 12px rgb(var(--color-black-rgb) / 0.08);
     }
 }
 
@@ -22,7 +22,7 @@
     .icon-box {
         width: 40px;
         height: 40px;
-        background-color: #e6f4ff;
+        background-color: var(--color-primary-50);
         /* لون أزرق فاتح زي الديزاين */
         border-radius: 8px;
         display: flex;
@@ -39,7 +39,7 @@
         margin: 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: #333;
+        color: var(--color-black-700);
     }
 }
 
@@ -63,7 +63,7 @@
         border-radius: 50%;
 
         &:hover {
-            background-color: #f5f5f5;
+            background-color: var(--color-black-100);
         }
 
         img {
@@ -80,8 +80,8 @@
         background: white;
         min-width: 120px;
         border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        border: 1px solid #eee;
+        box-shadow: 0 4px 12px rgb(var(--color-black-rgb) / 0.15);
+        border: 1px solid var(--color-black-100);
         z-index: 10;
         padding: 0.5rem 0;
         margin-top: 0.5rem;
@@ -95,12 +95,12 @@
             transition: background 0.2s;
 
             &:hover {
-                background-color: #f9f9f9;
+                background-color: var(--color-black-50);
             }
 
             span {
                 font-size: 0.9rem;
-                color: #555;
+                color: var(--color-black-600);
                 font-weight: 500;
             }
         }
@@ -116,7 +116,7 @@
             padding: 0;
             font-family: inherit;
             font-size: 0.9rem;
-            color: #555;
+            color: var(--color-black-600);
 
             .sidebar-icon {
                 width: 1.25rem;

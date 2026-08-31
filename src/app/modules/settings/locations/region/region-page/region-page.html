@@ -1,3 +1,35 @@
-<app-generic-table>
+<div class="location-page">
+  <app-generic-table
+    [columns]="tableColumns"
+    [data]="(tableRows$ | async) ?? []"
+    [currentPage]="(engine.pagination$ | async)?.currentPage ?? 1"
+    [totalPages]="(engine.pagination$ | async)?.totalPages ?? 1"
+    (actionClick)="onTableActionClick($event)"
+    (toggleChange)="onToggleChange($event)"
+    (pageChange)="onPageChange($event)"
+  >
+  </app-generic-table>
+</div>
 
-</app-generic-table>
+<app-region-modal
+  [isOpen]="isModalOpen"
+  [mode]="modalMode"
+  [regionData]="selectedRegion"
+  [governorateOptions]="governorateOptions"
+  (closeModal)="closeModal()"
+  (save)="saveRegion($event)"
+>
+</app-region-modal>
+
+<app-confirmation-dialog
+  [isOpen]="isConfirmOpen"
+  title="حذف منطقة"
+  message="هل أنت متأكد من حذف هذه المنطقة؟"
+  confirmLabel="حذف"
+  cancelLabel="تراجع"
+  confirmTheme="error"
+  [isLoading]="isDeleting"
+  (confirm)="confirmDelete()"
+  (cancel)="closeConfirm()"
+>
+</app-confirmation-dialog>

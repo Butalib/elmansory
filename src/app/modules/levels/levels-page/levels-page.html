@@ -1,5 +1,6 @@
 <app-inner-action-header [showSearch]="true" [btnIcon]="'assets/icon/main-header/add.svg'" [showDate]="true"
-    (search)="onSearch($event)" [showFilterButton]="true">
+    (search)="onSearch($event)" (dateRangeChange)="onDateRangeChange($event)"
+    (sortChange)="onSortChange($event)" [showFilterButton]="true">
 </app-inner-action-header>
 
 <app-generic-table [columns]="tableColumns" [data]="engine.result$ | async" (toggleChange)="onToggleChange($event)"

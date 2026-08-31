@@ -1,1 +1,30 @@
-<p>governorate-modal works!</p>
+<app-modal-container
+  [isOpen]="isOpen"
+  [title]="mode === 'add' ? 'إضافة محافظة جديدة' : 'تعديل المحافظة'"
+  size="md"
+  confirmLabel="حفظ"
+  cancelLabel="إلغاء"
+  [isConfirmDisabled]="governorateForm.invalid"
+  (closeModal)="closeModal.emit()"
+  (confirm)="onSubmit()"
+>
+  <form [formGroup]="governorateForm" class="form-container">
+    <div class="form-group">
+      <app-ui-input
+        [control]="governorateForm.get('name')"
+        placeholder="اسم المحافظة"
+        icon="assets/icon/model/loction.svg"
+      >
+      </app-ui-input>
+    </div>
+
+    <div class="toggle-row">
+      <span>تفعيل المحافظة</span>
+      <app-btn-switch
+        [checked]="governorateForm.get('isActive')?.value"
+        (toggle)="governorateForm.get('isActive')?.setValue($event)"
+      >
+      </app-btn-switch>
+    </div>
+  </form>
+</app-modal-container>

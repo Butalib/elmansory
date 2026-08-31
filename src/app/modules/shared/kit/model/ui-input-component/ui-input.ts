@@ -51,22 +51,4 @@ export class UiInput {
       this.valueChange.emit(input.value);
     }
   }
-  // onInput(event: Event): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   let currentValue = inputElement.value;
-
-  //   if (this.restrictMode === 'numbersOnly') {
-  //     // استبدل أي حاجة مش رقم بفراغ (امسحها)
-  //     currentValue = currentValue.replace(/[^0-9]/g, '');
-  //   } else if (this.restrictMode === 'englishOnly') {
-  //     // استبدل أي حاجة مش حروف إنجليزي أو أرقام أو رموز اللينكات بفراغ (يمنع العربي)
-  //     currentValue = currentValue.replace(/[^a-zA-Z0-9.:/_-]/g, '');
-  //   }
-
-  //   // لو اليوزر كتب حرف ممنوع وإتمسح، حدث الـ Input والـ FormControl بالقيمة النظيفة
-  //   if (inputElement.value !== currentValue) {
-  //     inputElement.value = currentValue;
-  //     this.control.setValue(currentValue);
-  //   }
-  // }
 }

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostListener, ElementRef, inject } from '@angular/core';
 import { ISubject } from '../../../../core/interface/ISubject';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-subject-card',
   standalone: false,
@@ -7,6 +8,8 @@ import { ISubject } from '../../../../core/interface/ISubject';
   styleUrl: './subject-card.scss',
 })
 export class SubjectCard {
+  //inject toast service to show error message when delete failed or change toggle failed
+  private toastr = inject(ToastrService);
   @Input() subject!: ISubject;
 
   @Output() toggleActive = new EventEmitter<boolean>();
@@ -31,6 +34,7 @@ export class SubjectCard {
 
   onToggle(checked: boolean): void {
     this.toggleActive.emit(checked);
+    this.toastr.success(`تم ${checked ? 'تفعيل' : 'تعطيل'} المادة بنجاح`);
   }
 
   onEditAction(): void {
@@ -43,6 +47,7 @@ export class SubjectCard {
   onDeleteClick(): void {
     this.isMenuOpen = false; // 1. اقفل المنيو فوراً
     this.isConfirmOpen = true; // 2. افتح الديالوج اللي بره المنيو
+
   }
 
   onCancelDelete(): void {
@@ -52,5 +57,6 @@ export class SubjectCard {
   onConfirmDelete(): void {
     this.isConfirmOpen = false; // نقفل الديالوج
     this.delete.emit(this.subject); // نبعت للـ Page تنفذ الحذف في الـ API
+    this.toastr.success(`تم حذف المادة بنجاح`);
   }
 }

@@ -1,0 +1,24 @@
+<section class="products-shell" lang="ar" dir="rtl">
+  @if (showTabs()) {
+  <nav class="products-tabs" aria-label="أنواع المنتجات">
+    <a
+      routerLink="notebooks"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="products-tab"
+    >
+      ملازم
+    </a>
+    <a
+      routerLink="stationery"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="products-tab"
+    >
+      قرطاسية
+    </a>
+  </nav>
+  }
+
+  <router-outlet></router-outlet>
+</section>

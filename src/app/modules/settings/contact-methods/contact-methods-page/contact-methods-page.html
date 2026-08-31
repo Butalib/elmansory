@@ -1,0 +1,31 @@
+<section class="contact-methods" dir="rtl" lang="ar">
+  @for (method of filteredContactMethods; track method.id) {
+  <article class="contact-row">
+
+    <div class="contact-value">
+      <span class="contact-icon" [class]="method.type" [attr.aria-label]="getContactLabel(method.type)">
+        @if (method.type === 'phone') {
+        <img src="assets/icon/model/phone.svg" alt="" draggable="false" />
+        } @else if (method.type === 'instagram') {
+        ◎
+        } @else if (method.type === 'tiktok') {
+        ♪
+        } @else if (method.type === 'facebook') {
+        f
+        } @else {
+        ➤
+        }
+      </span>
+      <span>{{ method.value }}</span>
+
+    </div>
+
+    <button type="button" class="edit-btn" [attr.aria-label]="'تعديل ' + getContactLabel(method.type)">
+      <img src="assets/icon/shared/edit.svg" alt="" draggable="false" />
+    </button>
+
+  </article>
+  } @empty {
+  <div class="empty-state">لا توجد بيانات مطابقة للبحث</div>
+  }
+</section>

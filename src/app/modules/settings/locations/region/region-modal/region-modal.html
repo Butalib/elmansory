@@ -1,1 +1,50 @@
-<p>region-modal works!</p>
+<app-modal-container
+  [isOpen]="isOpen"
+  [title]="mode === 'add' ? 'إضافة منطقة جديدة' : 'تعديل المنطقة'"
+  size="md"
+  confirmLabel="حفظ"
+  cancelLabel="إلغاء"
+  [isConfirmDisabled]="regionForm.invalid"
+  (closeModal)="closeModal.emit()"
+  (confirm)="onSubmit()"
+>
+  <form [formGroup]="regionForm" class="form-container">
+    <div class="form-group">
+      <app-ui-popup-select
+        [control]="regionForm.get('governorateId')"
+        [options]="governorateOptions"
+        placeholder="المحافظة"
+        icon="assets/icon/model/loction.svg"
+      >
+      </app-ui-popup-select>
+    </div>
+
+    <div class="form-group">
+      <app-ui-input
+        [control]="regionForm.get('name')"
+        placeholder="اسم المنطقة"
+        icon="assets/icon/model/loction.svg"
+      >
+      </app-ui-input>
+    </div>
+
+    <div class="form-group">
+      <app-ui-input
+        [control]="regionForm.get('deliveryPrice')"
+        type="number"
+        placeholder="سعر التوصيل"
+        icon="assets/icon/student-kpi/wallet-01.svg"
+      >
+      </app-ui-input>
+    </div>
+
+    <div class="toggle-row">
+      <span>تفعيل المنطقة</span>
+      <app-btn-switch
+        [checked]="regionForm.get('isActive')?.value"
+        (toggle)="regionForm.get('isActive')?.setValue($event)"
+      >
+      </app-btn-switch>
+    </div>
+  </form>
+</app-modal-container>

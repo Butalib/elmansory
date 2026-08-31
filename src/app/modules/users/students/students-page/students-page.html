@@ -1,6 +1,6 @@
 <app-inner-action-header [showSearch]="true" [showActionButton]="true" [showDate]="true" actionLabel="إضافة طالب جديد"
-    btnIcon="assets/icon/main-header/add.svg" (search)="onSearch($event)" (actionClicked)="openModal('add')">
-    <!-- (dateChange)="onDateRangeChange()" -->
+    btnIcon="assets/icon/main-header/add.svg" (search)="onSearch($event)"
+    (dateRangeChange)="onDateRangeChange($event)" (actionClicked)="openModal('add')">
 </app-inner-action-header>
 <app-kpi [stats]="kpiStats"></app-kpi>
 <!-- الجدول Generic Table -->

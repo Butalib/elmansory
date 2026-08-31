@@ -1,0 +1,145 @@
+<form class="product-form" [formGroup]="form" (ngSubmit)="onSubmit()" lang="ar" dir="rtl">
+  <section class="top-grid">
+    <div class="form-panel">
+      <h2>المعلومات الأساسية</h2>
+      <app-ui-input [control]="getControl('name')" placeholder="أدخل اسم المنتج"
+        icon="assets/icon/sidebar/products.svg"></app-ui-input>
+      <textarea formControlName="description" placeholder="الوصف"></textarea>
+    </div>
+
+    <div class="image-panel">
+      <button type="button" class="main-image" (click)="openImagePicker($event, imageInput)">
+        @if (selectedImageUrl) {
+        <img [src]="selectedImageUrl" alt="صورة المنتج" />
+        } @else {
+        <span class="upload-placeholder">
+          <img src="assets/icon/slyders/upload-icon.svg" alt="" draggable="false" />
+          <!-- <span>اضغط لرفع الصورة أو اسحبها هنا</span> -->
+        </span>
+        }
+      </button>
+
+      <div class="image-thumbs">
+        @for (image of imageUrls; track i; let i = $index) {
+        <div class="thumb-item" [class.active]="i === selectedImageIndex">
+          <button type="button" class="thumb-preview" (click)="selectImage(i)">
+            <img [src]="image" alt="صورة المنتج" />
+          </button>
+          <button type="button" class="remove-image" aria-label="حذف الصورة" (click)="removeImage(i, $event)">×</button>
+        </div>
+        }
+        <button type="button" class="add-image" aria-label="إضافة صورة" (click)="openImagePicker($event, imageInput)">+</button>
+      </div>
+
+      <input #imageInput type="file" accept="image/*" class="hidden-input" (change)="onImageFileSelected($event)"
+        (cancel)="$event.stopPropagation()" />
+    </div>
+  </section>
+
+  <section class="form-panel pricing-panel">
+    <h2>السعر و الكمية</h2>
+    <div class="two-columns">
+      <app-ui-input [control]="getControl('originalPrice')" type="number" placeholder="السعر الأصلي"></app-ui-input>
+      <app-ui-input [control]="getControl('consumerPrice')" type="number" placeholder="سعر البيع"></app-ui-input>
+    </div>
+    <div class="two-columns">
+      <app-ui-input [control]="getControl('discountPercentage')" type="number"
+        placeholder="نسبة الخصم (اختياري)"></app-ui-input>
+      <app-ui-input [control]="getControl('quantity')" type="number" placeholder="الكمية"></app-ui-input>
+    </div>
+
+    <div class="switch-panel">
+      <label>
+        <app-btn-switch [checked]="getControl('isFeatured').value" (toggle)="setToggle('isFeatured', $event)">
+        </app-btn-switch>
+        <span>ضمن الأكثر مبيعًا</span>
+      </label>
+      <label>
+        <app-btn-switch [checked]="getControl('isSchoolReady').value" (toggle)="setToggle('isSchoolReady', $event)">
+        </app-btn-switch>
+        <span>ضمن جهز نفسك للمدرسة</span>
+      </label>
+      <label>
+        <app-btn-switch [checked]="getControl('isActive').value" (toggle)="setToggle('isActive', $event)">
+        </app-btn-switch>
+        <span>نشط</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="options-panel">
+    <div class="options-header">
+      <button type="button" class="add-variant" (click)="openAddVariant()">إضافة متغير <span>+</span></button>
+      <div>
+        <h2>خيارات المنتج</h2>
+        <p>يمكنك من خلال هذا القسم إضافة نسخ متعددة من نفس المنتج مثل اختلاف الألوان أو الأحجام أو نوع الخامة.</p>
+      </div>
+    </div>
+
+    @if (variants.length > 0) {
+    <div class="option-summary">
+      <div class="summary-box">
+        <strong>الألوان</strong>
+        <div class="chips">
+          @for (color of colors; track color) {
+          <span>{{ color }} <button type="button">×</button></span>
+          }
+        </div>
+      </div>
+      <div class="summary-box">
+        <strong>الحجم</strong>
+        <div class="chips">
+          @for (size of sizes; track size) {
+          <span>{{ size }} <button type="button">×</button></span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="variants-table-wrap">
+      <table class="variants-table">
+        <thead>
+          <tr>
+            <th>الألوان</th>
+            <th>الحجم</th>
+            <th>السعر</th>
+            <th>الكمية</th>
+            <th>الإجراء</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (variant of variants; track variant.id) {
+          <tr>
+            <td>{{ variant.color }}</td>
+            <td>{{ variant.size }}</td>
+            <td>{{ variant.price }}</td>
+            <td>{{ variant.quantity }}</td>
+            <td>
+              <div class="variant-actions">
+                <button type="button" class="dots" aria-label="تعديل المتغير"
+                  (click)="openEditVariant(variant)">⋮</button>
+                <app-btn-switch [checked]="variant.isActive" (toggle)="toggleVariant(variant, $event)"></app-btn-switch>
+                <button type="button" class="remove-variant" aria-label="حذف المتغير" (click)="removeVariant(variant)">
+                  ×
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+  </section>
+
+  <footer class="form-actions">
+    <button type="button" class="secondary-action" [disabled]="isSaving" (click)="cancel.emit()">إلغاء</button>
+    <button type="submit" class="primary-action" [disabled]="form.invalid || isSaving">
+      {{ isSaving ? 'جاري الحفظ...' : 'حفظ' }}
+    </button>
+  </footer>
+</form>
+
+<app-stationery-variant-modal [isOpen]="isVariantModalOpen" [variant]="selectedVariant" (save)="saveVariant($event)"
+  (cancel)="closeVariantModal()">
+</app-stationery-variant-modal>

@@ -1,0 +1,65 @@
+<form class="product-form" [formGroup]="form" (ngSubmit)="onSubmit()" lang="ar" dir="rtl">
+  <section class="form-grid">
+    <div class="form-column">
+      <div class="form-panel">
+        <h2>المعلومات الأساسية</h2>
+        <app-ui-input [control]="getControl('name')" placeholder="أدخل اسم الملزمة"
+          icon="assets/icon/sidebar/products.svg"></app-ui-input>
+        <app-ui-select [control]="getControl('teacherId')" [options]="teachers" placeholder="اسم المعلم"
+          icon="assets/icon/model/user.svg"></app-ui-select>
+        <app-ui-select [control]="getControl('subjectId')" [options]="subjects" placeholder="المادة"
+          icon="assets/icon/model/subj.svg"></app-ui-select>
+        <app-ui-select [control]="getControl('levelId')" [options]="levels" placeholder="الصف الدراسي"
+          icon="assets/icon/sidebar/levels.svg"></app-ui-select>
+      </div>
+
+      <div class="form-panel">
+        <h2>السعر والكمية</h2>
+        <div class="two-columns">
+          <app-ui-input [control]="getControl('price')" type="number" placeholder="السعر"></app-ui-input>
+          <app-ui-input [control]="getControl('discountPercentage')" type="number"
+            placeholder="نسبة الخصم (اختياري)"></app-ui-input>
+        </div>
+        <app-ui-input [control]="getControl('quantity')" type="number" placeholder="الكمية"></app-ui-input>
+      </div>
+    </div>
+
+    <div class="image-panel">
+      <button type="button" class="image-upload" (click)="imageInput.click()">
+        @if (imagePreviewUrl) {
+        <img [src]="imagePreviewUrl" alt="صورة الملزمة" />
+        } @else {
+        <span class="image-placeholder">
+          <img src="assets/icon/slyders/upload-icon.svg" alt="" draggable="false" />
+        </span>
+        }
+      </button>
+      <input #imageInput type="file" accept="image/*" class="hidden-input" (change)="onImageFileSelected($event)"
+        (cancel)="$event.stopPropagation()" />
+    </div>
+
+    <div class="switch-panel">
+      <label>
+        <app-btn-switch
+          [checked]="getControl('isFeatured').value"
+          (toggle)="setToggle('isFeatured', $event)"
+        ></app-btn-switch>
+        <span>ضمن الأكثر مبيعًا</span>
+      </label>
+      <label>
+        <app-btn-switch
+          [checked]="getControl('isSchoolReady').value"
+          (toggle)="setToggle('isSchoolReady', $event)"
+        ></app-btn-switch>
+        <span>ضمن جهز نفسك للمدرسة</span>
+      </label>
+    </div>
+  </section>
+
+  <footer class="form-actions">
+    <button type="button" class="secondary-action" [disabled]="isSaving" (click)="cancel.emit()">إلغاء</button>
+    <button type="submit" class="primary-action" [disabled]="form.invalid || isSaving">
+      {{ isSaving ? 'جاري الحفظ...' : 'حفظ' }}
+    </button>
+  </footer>
+</form>

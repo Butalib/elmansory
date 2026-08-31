@@ -1,0 +1,29 @@
+@if (isOpen) {
+<div class="variant-backdrop" (click)="cancel.emit()">
+  <section class="variant-modal" dir="rtl" (click)="$event.stopPropagation()">
+    <header>
+      <button type="button" class="close-btn" aria-label="إغلاق" (click)="cancel.emit()">×</button>
+      <h2>{{ variant ? 'تعديل تفاصيل المتغير' : 'إضافة متغير جديد' }}</h2>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="two-columns">
+        <app-ui-input [control]="getControl('color')" placeholder="اللون"></app-ui-input>
+        <app-ui-input [control]="getControl('size')" placeholder="الحجم"></app-ui-input>
+      </div>
+      <app-ui-input [control]="getControl('price')" type="number" placeholder="سعر البيع"></app-ui-input>
+      <app-ui-input [control]="getControl('quantity')" type="number" placeholder="الكمية"></app-ui-input>
+
+      <label class="active-row">
+        <span>نشط</span>
+        <app-btn-switch [checked]="getControl('isActive').value" (toggle)="setActive($event)"></app-btn-switch>
+      </label>
+
+      <footer>
+        <button type="button" class="secondary-action" (click)="cancel.emit()">إلغاء</button>
+        <button type="submit" class="primary-action" [disabled]="form.invalid">حفظ</button>
+      </footer>
+    </form>
+  </section>
+</div>
+}

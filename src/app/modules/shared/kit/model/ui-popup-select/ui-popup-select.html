@@ -2,7 +2,8 @@
 
     <!-- Trigger -->
 
-    <button type="button" class="popup-select__trigger" [disabled]="isDisabled" (click)="toggle()">
+    <button #triggerElement #popupOrigin="cdkOverlayOrigin" cdkOverlayOrigin type="button"
+        class="popup-select__trigger" [disabled]="currentDisabledState" (click)="toggle()">
 
         @if (icon) {
         <img class="popup-select__icon" [src]="icon" alt="" draggable="false">
@@ -23,7 +24,11 @@
 
     <!-- Popup -->
 
-    @if (isOpen) {
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="popupOrigin"
+        [cdkConnectedOverlayOpen]="isOpen" [cdkConnectedOverlayPositions]="panelPositions"
+        [cdkConnectedOverlayWidth]="triggerWidth" [cdkConnectedOverlayHasBackdrop]="true"
+        cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop" (backdropClick)="close()"
+        (detach)="close()">
 
     <div class="popup-select__panel" (click)="$event.stopPropagation()">
 
@@ -69,6 +74,6 @@
 
     </div>
 
-    }
+    </ng-template>
 
 </div>

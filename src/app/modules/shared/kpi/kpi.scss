@@ -14,15 +14,15 @@
         justify-content: flex-start;
         gap: 1rem;
         padding: .8rem;
-        background-color: #ffffff;
-        border: 0.0625rem solid #e5e7eb;
+        background-color: var(--color-white);
+        border: 0.0625rem solid var(--color-black-200);
         border-radius: 1rem;
-        box-shadow: 0 0.25rem 1rem rgba(15, 23, 42, 0.03);
+        box-shadow: 0 0.25rem 1rem rgb(var(--color-shadow-rgb) / 0.03);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
 
         &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0.5rem 1.5rem rgba(15, 23, 42, 0.06);
+            box-shadow: 0 0.5rem 1.5rem rgb(var(--color-shadow-rgb) / 0.06);
         }
     }
 
@@ -36,14 +36,14 @@
         margin: 0;
         font-size: 1.875rem;
         font-weight: 800;
-        color: #1e293b;
+        color: var(--color-black-800);
         line-height: 1;
     }
 
     .kpi-title {
         margin: 0;
         font-size: 0.875rem;
-        color: #64748b;
+        color: var(--color-black-500);
         font-weight: 600;
     }
 

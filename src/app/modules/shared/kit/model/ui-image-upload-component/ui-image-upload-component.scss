@@ -5,13 +5,11 @@
 
 .upload-area {
     position: relative;
-    width: 100%;
+    width: 98%;
     height: 250px;
-    border: 2px dashed #0ea5e9;
-    /* اللون الأزرق حسب الفيجما */
+    border: 2px dashed var(--color-primary-400);
     border-radius: 12px;
-    background-color: #f0f9ff;
-    /* خلفية زرقاء فاتحة جداً */
+    background-color: var(--color-primary-50);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,11 +17,10 @@
     overflow: hidden;
     transition: all 0.3s ease;
 
-    /* التأثير عند سحب صورة فوق المربع */
     &.dragging,
     &:hover {
-        background-color: #e0f2fe;
-        border-color: #0284c7;
+        background-color: var(--color-primary-50);
+        border-color: var(--color-primary-600);
     }
 }
 
@@ -39,7 +36,7 @@
     }
 
     .upload-text {
-        color: #0ea5e9;
+        color: var(--color-primary-400);
         font-size: 1rem;
         font-weight: 500;
         margin: 0;
@@ -50,17 +47,15 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* عشان الصورة متتمطش وتخرب */
 }
 
-/* طبقة تظهر عند الوقوف على الصورة لتغييرها */
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(var(--color-black-rgb) / 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,7 +69,6 @@
     }
 }
 
-/* إخفاء الانبوت الأصلي */
 .hidden-input {
     display: none;
 }

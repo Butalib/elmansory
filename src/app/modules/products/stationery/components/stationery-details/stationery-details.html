@@ -1,0 +1,118 @@
+<section class="stationery-details" dir="rtl">
+  <div class="details-main">
+    <aside class="gallery-card">
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="product.name" (error)="onImageError($event)" />
+      </div>
+
+      <div class="thumbs" aria-label="صور المنتج">
+        @for (image of galleryImages; track image; let i = $index) {
+        <button type="button" [class.active]="i === selectedImageIndex" (click)="selectImage(i)">
+          <img [src]="image" [alt]="product.name" (error)="onImageError($event)" />
+        </button>
+        }
+      </div>
+    </aside>
+
+    <article class="product-summary">
+      <div class="summary-actions">
+        <button type="button" class="icon-action danger" aria-label="حذف المنتج" (click)="deleteProduct.emit()">
+          <img src="assets/icon/shared/delete-02.svg" alt="" draggable="false" />
+        </button>
+        <button type="button" class="icon-action" aria-label="تعديل المنتج" (click)="edit.emit()">
+          <img src="assets/icon/shared/edit.svg" alt="" draggable="false" />
+        </button>
+        <app-btn-switch [checked]="product.isActive" (toggle)="toggleActive.emit($event)"></app-btn-switch>
+      </div>
+
+      <span class="category-pill">{{ product.categoryName || 'منتجات' }}</span>
+      <h1>{{ product.name }}</h1>
+      <p class="description">{{ product.description || 'لا يوجد وصف لهذا المنتج.' }}</p>
+      <strong class="price">{{ formatPrice(product.consumerPrice) }}</strong>
+
+      <div class="option-line">
+        <span class="option-title">الألوان :</span>
+        <div class="swatches">
+          @for (color of colors; track color) {
+          <span class="swatch" [style.background]="colorValue(color)" [title]="color"></span>
+          } @empty {
+          <span class="muted">لا توجد ألوان</span>
+          }
+        </div>
+      </div>
+
+      <div class="option-line">
+        <span class="option-title">الحجم</span>
+        <div class="chips">
+          @for (size of sizes; track size) {
+          <span class="chip"><span aria-hidden="true">×</span> {{ size }}</span>
+          } @empty {
+          <span class="muted">لا توجد أحجام</span>
+          }
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <section class="ratings-section">
+    <header class="ratings-header">
+      <h2>التقييمات</h2>
+      <div class="rating-filters">
+        <button type="button">
+          <span>28 ابريل - 5 مايو</span>
+          <img src="assets/icon/main-header/calendar-02.svg" alt="" draggable="false" />
+        </button>
+        <button type="button">
+          <span>تصفية</span>
+          <img src="assets/icon/main-header/filter-horizontal.svg" alt="" draggable="false" />
+        </button>
+      </div>
+    </header>
+
+    <div class="rating-overview">
+      <div class="score">
+        <strong>{{ averageRating || 0 }}</strong>
+        <span>من 5</span>
+      </div>
+
+      <div class="bars">
+        @for (row of ratingRows; track row.rating) {
+        <div class="rating-row">
+          <span class="stars">{{ '★'.repeat(row.rating) }}</span>
+          <div class="bar">
+            <span [style.width.%]="row.percentage"></span>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="reviews-panel">
+      <div class="reviews-grid">
+        @for (review of reviews; track review.id) {
+        <article class="review-card">
+          <div class="review-user">
+            <img [src]="review.reviewerAvatar || fallbackImage" [alt]="review.reviewerName" (error)="onImageError($event)" />
+            <div>
+              <strong>{{ review.reviewerName }}</strong>
+              <span>{{ review.createdAt | date: 'shortDate' }}</span>
+            </div>
+          </div>
+          <span class="review-stars">{{ '★'.repeat(review.rating) }}</span>
+          <p>{{ review.comment }}</p>
+        </article>
+        } @empty {
+        <div class="empty-reviews">لا توجد تقييمات لهذا المنتج حتى الآن</div>
+        }
+      </div>
+
+      @if (reviews.length > 0) {
+      <div class="pagination">
+        <button type="button">‹</button>
+        <strong>1/1</strong>
+        <button type="button">›</button>
+      </div>
+      }
+    </div>
+  </section>
+</section>

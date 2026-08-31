@@ -1,0 +1,20 @@
+@if (isLoading) {
+<div class="page-state">جاري تحميل بيانات الملزمة...</div>
+} @else if (hasLoadError || (mode === 'edit' && !notebook)) {
+<div class="page-state page-state--error">
+  <strong>تعذر العثور على الملزمة</strong>
+  <button type="button" class="outline-button" (click)="goBack()">العودة إلى الملازم</button>
+</div>
+} @else {
+<app-notebook-form
+  [mode]="mode"
+  [notebook]="notebook"
+  [teachers]="teachers"
+  [subjects]="subjects"
+  [levels]="levels"
+  [isSaving]="isSaving"
+  (save)="onSave($event)"
+  (cancel)="goBack()"
+>
+</app-notebook-form>
+}

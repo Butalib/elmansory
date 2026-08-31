@@ -1,6 +1,6 @@
 <app-inner-action-header [title]="'المواد'" [showActionButton]="true" [showDate]="true"
     [btnIcon]="'assets/icon/main-header/add.svg'" [actionLabel]="'إضافة مادة جديدة'" (actionClicked)="onAddSubject()"
-    (search)="onSearch($event)"></app-inner-action-header>
+    (search)="onSearch($event)" (dateRangeChange)="onDateRangeChange($event)"></app-inner-action-header>
 @if (subjects$ | async; as subjects) {
 <div class=" cards-grid">
     @for (subject of subjects; track subject.id) {

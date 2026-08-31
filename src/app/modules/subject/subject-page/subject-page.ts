@@ -55,6 +55,17 @@ export class SubjectPage implements OnInit, OnDestroy {
           );
         }
 
+        if (query['startDate'] && query['endDate']) {
+          filteredData = filteredData.filter((subject) => {
+            const subjectDate =
+              typeof subject.createdAt === 'string'
+                ? subject.createdAt.split('T')[0]
+                : subject.createdAt.toISOString().split('T')[0];
+
+            return subjectDate >= query['startDate'] && subjectDate <= query['endDate'];
+          });
+        }
+
         return filteredData;
       },
       this.subjectService.items$,
@@ -65,6 +76,10 @@ export class SubjectPage implements OnInit, OnDestroy {
 
   onSearch(searchTerm: string): void {
     this.queryEngine.patchQuery({ searchTerm });
+  }
+
+  onDateRangeChange(range: { startDate: string; endDate: string }): void {
+    this.queryEngine.patchQuery({ startDate: range.startDate, endDate: range.endDate });
   }
 
   onToggleStatus(subject: ISubject, isActive: boolean): void {

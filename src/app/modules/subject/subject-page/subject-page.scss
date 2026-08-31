@@ -10,12 +10,12 @@
     background-color: white;
     padding: 1rem 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 8px rgb(var(--color-black-rgb) / 0.02);
 
     h2 {
         margin: 0;
         font-size: 1.5rem;
-        color: #333;
+        color: var(--color-black-700);
     }
 
     .actions-section {
@@ -28,14 +28,14 @@
 
             input {
                 padding: 0.75rem 2.5rem 0.75rem 1rem;
-                border: 1px solid #e0e0e0;
+                border: 1px solid var(--color-black-200);
                 border-radius: 8px;
                 width: 250px;
                 outline: none;
                 transition: border-color 0.2s;
 
                 &:focus {
-                    border-color: #007bff;
+                    border-color: var(--color-primary-500);
                     /* لون البراند بتاعك */
                 }
             }
@@ -46,7 +46,7 @@
                 top: 50%;
                 transform: translateY(-50%);
                 width: 20px;
-                color: #888;
+                color: var(--color-black-400);
             }
         }
 
@@ -55,7 +55,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
-            background-color: #00b4d8;
+            background-color: var(--color-primary-500);
             /* درجة الأزرق اللي في الديزاين */
             color: white;
             border: none;
@@ -65,7 +65,7 @@
             transition: background-color 0.2s;
 
             &:hover {
-                background-color: #0096b4;
+                background-color: var(--color-primary-600);
             }
         }
     }
@@ -81,7 +81,7 @@
     grid-column: 1 / -1;
     text-align: center;
     padding: 3rem;
-    color: #666;
+    color: var(--color-black-500);
     font-size: 1.2rem;
     background: white;
     border-radius: 12px;

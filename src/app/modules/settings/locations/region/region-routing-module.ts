@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: RegionPage,
+    data: { title: 'المناطق' },
   }
 ];
 

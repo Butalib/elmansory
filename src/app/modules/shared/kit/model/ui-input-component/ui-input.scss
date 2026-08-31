@@ -1,25 +1,23 @@
 .ui-input {
     display: flex;
     align-items: center;
-    background-color: #f7f8fa;
-    /* لون الرمادي الفاتح */
+    background-color: var(--color-black-50);
     border-radius: 8px;
     padding: 0 16px;
     height: 52px;
     border: 1px solid transparent;
     transition: all 0.3s ease;
     width: 100%;
-    /* ده السطر السحري اللي بيمنع الحقل إنه يطلع برا الشاشة */
     box-sizing: border-box;
 
     &:focus-within {
-        border-color: #00a3ff;
-        background-color: #ffffff;
-        box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        border-color: var(--color-primary-500);
+        background-color: var(--color-white);
+        box-shadow: 0 0 0 3px rgb(var(--color-primary-500-rgb) / 0.1);
     }
 
     &.has-error {
-        border-color: #ff4d4f;
+        border-color: var(--color-error);
     }
 
     &__icon {
@@ -28,7 +26,6 @@
         margin-left: 12px;
         object-fit: contain;
         opacity: 0.6;
-        /* بيمنع الأيقونة إنها تنضغط لو النص طويل */
         flex-shrink: 0;
     }
 
@@ -39,14 +36,13 @@
         outline: none;
         font-size: 14px;
         font-family: inherit;
-        color: #333333;
+        color: var(--color-black-700);
         width: 100%;
         padding: 0;
-        /* تصفير حواف المتصفح الافتراضية */
         box-sizing: border-box;
 
         &::placeholder {
-            color: #a3a3a3;
+            color: var(--color-black-400);
         }
 
         &[type="number"]::-webkit-inner-spin-button,

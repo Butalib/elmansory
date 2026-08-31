@@ -12,37 +12,37 @@
       }
     </section>
     <article class="chart-card">
-      <h2>المعلمين الأكثر حجزاً خلال هذا الشهر</h2>
+      <h2>{{ dashboardData()?.bookingChart?.title || 'المعلمين الأكثر حجزاً خلال هذا الشهر' }}</h2>
       <apx-chart
-        [series]="chartOptions.series!"
-        [chart]="chartOptions.chart!"
-        [plotOptions]="chartOptions.plotOptions!"
-        [dataLabels]="chartOptions.dataLabels!"
-        [xaxis]="chartOptions.xaxis!"
-        [yaxis]="chartOptions.yaxis!"
-        [grid]="chartOptions.grid!"
-        [colors]="chartOptions.colors!"
-        [legend]="chartOptions.legend!"
-        [tooltip]="chartOptions.tooltip!"
+        [series]="chartOptions().series!"
+        [chart]="chartOptions().chart!"
+        [plotOptions]="chartOptions().plotOptions!"
+        [dataLabels]="chartOptions().dataLabels!"
+        [xaxis]="chartOptions().xaxis!"
+        [yaxis]="chartOptions().yaxis!"
+        [grid]="chartOptions().grid!"
+        [colors]="chartOptions().colors!"
+        [legend]="chartOptions().legend!"
+        [tooltip]="chartOptions().tooltip!"
       ></apx-chart>
     </article>
   </section>
   <section class="bottom-grid">
     <article class="wheel-card">
       <div class="wheel-heading">
-        <h2>إجمالي الطلاب المشاركين في عجلة الحظ</h2>
-        <button type="button">شهرياً <span>⌄</span></button>
+        <h2>{{ wheelData()?.title || 'إجمالي الطلاب المشاركين في عجلة الحظ' }}</h2>
+        <button type="button">{{ wheelData()?.periodLabel || 'شهرياً' }} <span>⌄</span></button>
       </div>
       <div class="wheel-content">
-        <div class="donut" aria-label="إجمالي الطلاب 300 ألف">
+        <div class="donut" [attr.aria-label]="(wheelData()?.totalLabel || 'إجمالي الطلاب') + ' ' + (wheelData()?.totalValue || '')">
           <div class="donut-hole">
-            <span>إجمالي الطلاب</span>
-            <strong>300.000</strong>
+            <span>{{ wheelData()?.totalLabel || 'إجمالي الطلاب' }}</span>
+            <strong>{{ wheelData()?.totalValue || '0' }}</strong>
           </div>
         </div>
       </div>
       <div class="wheel-legend">
-        @for (item of legendItems; track item.label) {
+        @for (item of legendItems(); track item.id) {
           <div class="legend-item">
             <b>{{ item.value }}</b>
             <span>{{ item.label }}</span>
@@ -52,18 +52,18 @@
       </div>
     </article>
     <article class="products-card">
-      <h2>المنتجات الاكثر مبيعا هذا الشهر</h2>
+      <h2>{{ dashboardData()?.topProductsTitle || 'المنتجات الاكثر مبيعا هذا الشهر' }}</h2>
       <div class="products-list">
-        @for (product of products(); track $index) {
+        @for (product of products(); track product.id) {
           <div class="product-row">
             <span [class]="'product-thumb ' + product.theme"></span>
             <div class="product-info">
               <strong>{{ product.name }}</strong>
-              <b>50.000 ج.م</b>
+              <b>{{ product.price }}</b>
             </div>
             <div class="product-status">
-              <span>مكتملة</span>
-              <small>تم بيع 3000 وحدة</small>
+              <span>{{ product.statusLabel }}</span>
+              <small>{{ product.soldLabel }}</small>
             </div>
           </div>
         }

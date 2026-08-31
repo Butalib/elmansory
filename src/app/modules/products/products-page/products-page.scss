@@ -1,0 +1,46 @@
+.products-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.products-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  margin: 0.5rem 0 1rem;
+  user-select: none;
+}
+
+.products-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.25rem;
+  min-height: 1.75rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 0.0625rem solid transparent;
+  background: var(--color-black-100);
+  color: var(--color-black-600);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover:not(.active) {
+    border-color: var(--color-black-200);
+    background: var(--color-white);
+    color: var(--color-black-800);
+  }
+
+  &.active {
+    background: var(--color-primary-500);
+    color: var(--color-white);
+  }
+}

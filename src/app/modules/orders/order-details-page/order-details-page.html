@@ -1,0 +1,126 @@
+<section class="order-details-page">
+  @if (isLoading) {
+  <div class="page-state" role="status">جاري تحميل تفاصيل الطلب...</div>
+  } @else if (hasLoadError || !order) {
+  <div class="page-state page-state--error">
+    <p>تعذر تحميل تفاصيل الطلب.</p>
+    <button type="button" class="outline-button" (click)="goBackToOrders()">العودة إلى الطلبات</button>
+  </div>
+  } @else {
+  <header class="details-header">
+    <div class="header-title">
+      <button type="button" class="icon-button" aria-label="العودة إلى الطلبات" (click)="goBackToOrders()">
+        <span aria-hidden="true">→</span>
+      </button>
+      <h1>{{ mode === 'view' ? 'تفاصيل الطلب' : 'تعديل الطلب' }}</h1>
+      <p>رقم الطلب <span dir="ltr">#{{ order.orderCode }}</span></p>
+    </div>
+
+    <div class="header-actions">
+      @if (mode === 'view') {
+      <button type="button" class="icon-button icon-button--danger" aria-label="حذف الطلب" (click)="requestDelete()">
+        <img src="assets/icon/shared/delete-02.svg" alt="" draggable="false" />
+      </button>
+      <app-btn-edit (edit)="startEdit()"></app-btn-edit>
+      <app-btn-switch [checked]="order.isActive" (toggle)="toggleActive($event)"></app-btn-switch>
+      }
+    </div>
+  </header>
+
+  <!-- منطقة المحتوى (الكروت فقط بدون أزرار) -->
+  <main class="details-grid">
+
+    <!-- 1. العمود الأيمن في الـ RTL (بيانات العميل) -->
+    <div class="grid-column customer-column">
+      <aside class="customer-card" aria-label="معلومات العميل">
+        <div class="customer-identity">
+          <div class="avatar-wrapper">
+            <img class="customer-avatar" [src]="order.customerAvatar || 'assets/img/dashbourd/avatar.jpg'"
+              [alt]="order.customer.name" />
+          </div>
+        </div>
+
+        <dl class="customer-details">
+          <div>
+            <dt>الاسم</dt>
+            <dd>{{ order.customer.name }}</dd>
+          </div>
+          <div>
+            <dt>رقم التليفون</dt>
+            <dd dir="ltr">{{ order.customer.phone }}</dd>
+          </div>
+          <div>
+            <dt>الإيميل</dt>
+            <dd>{{ order.customer.email }}</dd>
+          </div>
+          <div>
+            <dt>المحافظة</dt>
+            <dd>{{ order.customer.governorate }}</dd>
+          </div>
+          <div>
+            <dt>المنطقة</dt>
+            <dd>{{ order.customer.area }}</dd>
+          </div>
+          <div>
+            <dt>العنوان</dt>
+            <dd>{{ order.customer.address }}</dd>
+          </div>
+          <div>
+            <dt>حالة الطلب</dt>
+            <dd>
+              <span class="status-badge" [style.backgroundColor]="statusConfig[order.status].bgColor"
+                [style.color]="statusConfig[order.status].textColor">
+                {{ statusConfig[order.status].text }}
+              </span>
+            </dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+
+    <!-- 2. العمود الأيسر في الـ RTL (المنتجات والفاتورة) -->
+    <div class="grid-column products-column">
+      <section class="items-section" aria-label="المنتجات المطلوبة">
+        <app-order-items [order]="order" [editMode]="mode === 'edit'"
+          [discountControl]="discountControl"></app-order-items>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- منطقة الأزرار مفصولة تماماً (نفس تقسيم الجريد عشان العرض يطابق الكروت) -->
+  <footer class="details-actions-grid">
+
+    <!-- زرار العميل (اليمين) -->
+    <div class="action-wrapper">
+      @if (mode === 'edit') {
+      <button type="button" class="action-btn secondary-button" [disabled]="isSaving"
+        (click)="cancelEdit()">إلغاء</button>
+      } @else {
+      <button type="button" class="action-btn secondary-button" [disabled]="isSaving"
+        (click)="rejectOrder()">رفض</button>
+      }
+    </div>
+
+    <!-- زرار المنتجات (الشمال) -->
+    <div class="action-wrapper">
+      @if (mode === 'edit') {
+      <button type="button" class="action-btn primary-button" [disabled]="isSaving || discountControl.invalid"
+        (click)="saveDiscount()">
+        {{ isSaving ? 'جاري الحفظ...' : 'حفظ' }}
+      </button>
+      } @else {
+      <button type="button" class="action-btn primary-button" [disabled]="isSaving" (click)="acceptOrder()">
+        {{ isSaving ? 'جاري التحديث...' : 'قبول' }}
+      </button>
+      }
+    </div>
+
+  </footer>
+  }
+</section>
+
+<app-confirmation-dialog [isOpen]="isDeleteConfirmOpen" title="تأكيد حذف الطلب"
+  message="هل أنت متأكد من حذف هذا الطلب؟ لا يمكن التراجع عن هذه العملية." confirmLabel="حذف" cancelLabel="إلغاء"
+  confirmTheme="error" [isLoading]="isDeleting" (cancel)="cancelDelete()" (confirm)="confirmDelete()">
+</app-confirmation-dialog>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { IOrderDetails, IOrderItem } from '../../../../core/interface/IOrder';
+import { FormControl } from '@angular/forms';
+import { IOrderDetails } from '../../../../core/interface/IOrder';
 
 @Component({
   selector: 'app-order-items',
@@ -8,23 +9,23 @@ import { IOrderDetails, IOrderItem } from '../../../../core/interface/IOrder';
   styleUrl: './order-items.scss',
 })
 export class OrderItems {
-   @Input({ required: true }) order!: IOrderDetails;
-
+  @Input({ required: true }) order!: IOrderDetails;
+  @Input() editMode = false;
+  @Input() discountControl: FormControl<number | null> | null = null;
   get totalQuantity(): number {
-    return this.order.items.reduce(
-      (total, item) => total + item.quantity,
-      0
-    );
+    return this.order.items.reduce((total, item) => total + item.quantity, 0);
   }
-
   get subtotal(): number {
-    return this.order.items.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+    return this.order.items.reduce((total, item) => total + item.price * item.quantity, 0);
   }
-
   get total(): number {
-    return this.subtotal - this.order.discount;
+    const discount =
+      this.editMode && this.discountControl != null
+        ? (this.discountControl.value ?? 0)
+        : this.order.discount;
+    return this.subtotal - discount;
+  }
+  hasRenderableImage(image: string | null | undefined): boolean {
+    return typeof image === 'string' && !image.startsWith('assets/img/products/');
   }
 }

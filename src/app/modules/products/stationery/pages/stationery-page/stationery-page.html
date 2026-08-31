@@ -1,0 +1,37 @@
+<app-inner-action-header
+  [showSearch]="true"
+  [showActionButton]="true"
+  [showFilterButton]="true"
+  [showDate]="true"
+  [actionLabel]="'إضافة منتج جديد'"
+  [btnIcon]="'assets/icon/main-header/add.svg'"
+  (search)="onSearch($event)"
+  (sortChange)="onSortChange($event)"
+  (dateRangeChange)="onDateRangeChange($event)"
+  (actionClicked)="openAddView()"
+>
+</app-inner-action-header>
+
+<app-generic-table
+  [columns]="tableColumns"
+  [data]="(engine.result$ | async) ?? []"
+  [currentPage]="(engine.pagination$ | async)?.currentPage ?? 1"
+  [totalPages]="(engine.pagination$ | async)?.totalPages ?? 1"
+  (pageChange)="onPageChange($event)"
+  (actionClick)="onActionClick($event)"
+  (toggleChange)="onToggleStatus($event)"
+>
+</app-generic-table>
+
+<app-confirmation-dialog
+  [isOpen]="isDeleteConfirmOpen"
+  title="تأكيد حذف المنتج"
+  message="هل أنت متأكد من حذف هذا المنتج؟ لا يمكن التراجع عن هذه العملية."
+  confirmLabel="حذف"
+  cancelLabel="إلغاء"
+  confirmTheme="error"
+  [isLoading]="isDeleting"
+  (cancel)="closeDeleteConfirm()"
+  (confirm)="confirmDelete()"
+>
+</app-confirmation-dialog>

@@ -4,20 +4,29 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export interface HeaderConfig {
   title: string;
   buttonText: string;
+  btnIcon: string;
   showButton: boolean;
   showSearch: boolean;
   showFilterButton: boolean;
   showDate: boolean;
 }
 
+const DEFAULT_HEADER_CONFIG: HeaderConfig = {
+  title: '',
+  buttonText: '',
+  btnIcon: '',
+  showButton: false,
+  showSearch: true,
+  showFilterButton: false,
+  showDate: false,
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class HeaderStateService {
   //header state management
-  private configSource = new BehaviorSubject<HeaderConfig>({
-    title: '', buttonText: '', showButton: false, showSearch: true, showFilterButton: false, showDate: false
-  });
+  private configSource = new BehaviorSubject<HeaderConfig>(DEFAULT_HEADER_CONFIG);
   config$ = this.configSource.asObservable();
 
   // state management for actions, search, sort, and date range
@@ -35,7 +44,7 @@ export class HeaderStateService {
 
   // methods to update the state
   setConfig(config: Partial<HeaderConfig>) {
-    this.configSource.next({ ...this.configSource.value, ...config });
+    this.configSource.next({ ...DEFAULT_HEADER_CONFIG, ...config });
   }
 
   emitAction() { this.actionSource.next(); }

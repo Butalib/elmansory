@@ -114,18 +114,37 @@ export class ReservationComponentPage implements OnInit {
     this.engine.patchQuery({ searchTerm });
   }
 
+  onSortChange(order: 'asc' | 'desc'): void {
+    this.engine.patchQuery({ _sort: 'createdAt', _order: order });
+  }
+
+  onDateRangeChange(range: { startDate: string; endDate: string }): void {
+    this.engine.patchQuery({ startDate: range.startDate, endDate: range.endDate });
+  }
+
   private filterLocally(data: ReservationTableRow[], query: any): ReservationTableRow[] {
-    if (!query.searchTerm) {
-      return data;
+    let filteredData = data;
+
+    if (query.searchTerm) {
+      const term = query.searchTerm.toLowerCase();
+      filteredData = filteredData.filter(reservation =>
+        reservation.code?.toLowerCase().includes(term) ||
+        reservation.studentName?.toLowerCase().includes(term) ||
+        reservation.governorateId?.toLowerCase().includes(term) ||
+        reservation.regionId?.toLowerCase().includes(term) ||
+        reservation.phoneNumber?.includes(term) ||
+        reservation.teacherId?.toLowerCase().includes(term)
+      );
     }
-    const term = query.searchTerm.toLowerCase();
-    return data.filter(reservation =>
-      reservation.code?.toLowerCase().includes(term) ||
-      reservation.studentName?.toLowerCase().includes(term) ||
-      reservation.governorateId?.toLowerCase().includes(term) ||
-      reservation.regionId?.toLowerCase().includes(term) ||
-      reservation.phoneNumber?.includes(term) ||
-      reservation.teacherId?.toLowerCase().includes(term)
-    );
+
+    if (query.startDate && query.endDate) {
+      filteredData = filteredData.filter((reservation) => {
+        const reservationDate = reservation.createdAt.split('T')[0];
+
+        return reservationDate >= query.startDate && reservationDate <= query.endDate;
+      });
+    }
+
+    return filteredData;
   }
 }

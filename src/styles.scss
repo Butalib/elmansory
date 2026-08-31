@@ -35,7 +35,7 @@ html {
       density: 0,
     ));
   --mat-sys-primary: var(--color-primary-500);
-  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-primary: var(--color-white);
 }
 
 body {
@@ -57,7 +57,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1.875rem var(--color-black-50) inset !important;
-  -webkit-text-fill-color: var(--color-black-900, #333) !important;
+  -webkit-text-fill-color: var(--color-black-900, var(--color-black-700)) !important;
   border: none !important;
   outline: none !important;
   transition: background-color 5000s ease-in-out 0s;
@@ -65,33 +65,33 @@ input:-webkit-autofill:active {
 
 #toast-container>.ngx-toastr {
   border-radius: 0.75rem !important;
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 0.5rem 1.5rem rgb(var(--color-black-rgb) / 0.08) !important;
   font-family: inherit !important;
   backdrop-filter: blur(0.625rem) !important;
   -webkit-backdrop-filter: blur(0.625rem) !important;
 }
 
 #toast-container>.toast-success {
-  background-color: rgba(52, 199, 89, 0.85) !important;
-  color: #ffffff !important;
-  border: 0.0625rem solid rgba(52, 199, 89, 0.2) !important;
+  background-color: rgb(var(--color-success-rgb) / 0.85) !important;
+  color: var(--color-white) !important;
+  border: 0.0625rem solid rgb(var(--color-success-rgb) / 0.2) !important;
 }
 
 #toast-container>.toast-error {
 
-  background-color: rgba(255, 59, 48, 0.85) !important;
-  color: #ffffff !important;
-  border: 0.0625rem solid rgba(255, 59, 48, 0.2) !important;
+  background-color: rgb(var(--color-error-rgb) / 0.85) !important;
+  color: var(--color-white) !important;
+  border: 0.0625rem solid rgb(var(--color-error-rgb) / 0.2) !important;
 }
 
 #toast-container>.toast-warning {
-  background-color: rgba(255, 204, 0, 0.85) !important;
-  color: var(--color-black-900, #1a1a1a) !important;
-  border: 0.0625rem solid rgba(255, 204, 0, 0.2) !important;
+  background-color: rgb(var(--color-warning-rgb) / 0.85) !important;
+  color: var(--color-black-900, var(--color-black-900)) !important;
+  border: 0.0625rem solid rgb(var(--color-warning-rgb) / 0.2) !important;
 }
 
 #toast-container>.toast-info {
-  background-color: rgba(0, 162, 232, 0.85) !important;
-  color: #ffffff !important;
-  border: 0.0625rem solid rgba(0, 162, 232, 0.2) !important;
+  background-color: rgb(var(--color-info-rgb) / 0.85) !important;
+  color: var(--color-white) !important;
+  border: 0.0625rem solid rgb(var(--color-info-rgb) / 0.2) !important;
 }

@@ -6,6 +6,13 @@ import { ISidebarItem } from '../interface/ISidebarItem';
 })
 export class LayoutServices {
   pageTitle = signal<string>('');
+  private readonly routeTitles: Record<string, string> = {
+    products: 'المنتجات',
+    notebooks: 'الملازم',
+    stationery: 'المنتجات',
+    add: 'إضافة منتج جديد',
+  };
+
   readonly menuItems: ISidebarItem[] = [
     {
       id: 'dashboard',
@@ -92,6 +99,11 @@ export class LayoutServices {
     }
   ];
   findTitleByRoute(routePath: string): string {
+    const matchedRouteTitle = this.routeTitles[routePath];
+    if (matchedRouteTitle) {
+      return matchedRouteTitle;
+    }
+
     for (const item of this.menuItems) {
       if (item.route === routePath) {
         return item.label;
@@ -104,5 +116,37 @@ export class LayoutServices {
       }
     }
     return 'الرئيسية';
+  }
+
+  findTitleByUrl(url: string): string {
+    const cleanUrl = url.split('?')[0].split('#')[0];
+    const segments = cleanUrl.split('/').filter(Boolean);
+
+    if (segments.includes('orders') && segments.includes('details')) {
+      return 'تفاصيل الطلب';
+    }
+
+    if (segments.includes('students') && segments.includes('details')) {
+      return 'تفاصيل الطالب';
+    }
+
+    if (segments.includes('settings') && segments.includes('contact-methods')) {
+      return 'طرق التواصل';
+    }
+
+    if (segments.includes('settings') && segments.includes('locations')) {
+      if (segments.includes('region')) {
+        return 'المناطق';
+      }
+
+      if (segments.includes('governorate')) {
+        return 'المحافظات';
+      }
+
+      return 'المناطق والمحافظات';
+    }
+
+    const currentRoutePath = segments[segments.length - 1] ?? '';
+    return this.findTitleByRoute(currentRoutePath);
   }
 }

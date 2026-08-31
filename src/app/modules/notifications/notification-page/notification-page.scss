@@ -34,23 +34,23 @@
             /* شيلنا البوردر زي التصميم المرفق */
             border-radius: 12px;
             /* حواف دائرية ناعمة */
-            background-color: #f3f4f6;
+            background-color: var(--color-black-100);
             /* لون الخلفية الرمادي الفاتح */
             font-family: inherit;
             font-size: 0.9375rem;
-            color: #333;
+            color: var(--color-black-700);
             outline: none;
             transition: box-shadow 0.3s ease;
 
             &::placeholder {
-                color: #9ca3af;
+                color: var(--color-black-400);
             }
 
             /* تأثير لما المستخدم يضغط على الحقل */
             &:focus {
-                box-shadow: 0 0 0 2px #00a8ff;
+                box-shadow: 0 0 0 2px var(--color-primary-500);
                 /* حافة زرقاء خفيفة تعبر عن التركيز */
-                background-color: #ffffff;
+                background-color: var(--color-white);
             }
         }
 
@@ -63,7 +63,7 @@
     }
 
     .error-msg {
-        color: #e63946;
+        color: var(--color-error);
         font-size: 0.8125rem;
         padding-right: 0.5rem;
         font-weight: 500;
@@ -75,7 +75,7 @@
         .submit-btn {
             width: 100%;
             padding: 1rem;
-            background-color: #00a8ff;
+            background-color: var(--color-primary-500);
             /* اللون الأزرق الخاص بالتصميم */
             color: white;
             border: none;
@@ -86,7 +86,7 @@
             transition: background-color 0.3s ease, opacity 0.3s ease;
 
             &:hover:not(:disabled) {
-                background-color: darken(#00a8ff, 10%);
+                background-color: var(--color-primary-600);
                 /* يغمق شوية لما تقف عليه */
             }
 

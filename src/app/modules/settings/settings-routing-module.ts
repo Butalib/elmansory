@@ -11,10 +11,12 @@ const routes: Routes = [
 
       {
         path: 'locations',
+        data: { title: 'المناطق والمحافظات' },
         loadChildren: () => import('./locations/locations-module').then(m => m.LocationsModule)
       },
       {
         path: 'contact-methods',
+        data: { title: 'طرق التواصل' },
         loadChildren: () => import('./contact-methods/contact-methods-module').then(m => m.ContactMethodsModule)
       }
     ]

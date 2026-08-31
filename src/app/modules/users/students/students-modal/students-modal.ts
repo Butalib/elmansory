@@ -40,7 +40,9 @@ export class StudentsModal implements OnInit, OnChanges {
     this.studentForm = this.fb.group({
       id: [null],
       name: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [
+        Validators.required,
+        Validators.pattern('^01[0125][0-9]{8}$')]],
       levelId: [null, Validators.required],
       birthDate: [null, Validators.required],
       joinDate: [null, Validators.required],

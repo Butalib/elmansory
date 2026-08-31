@@ -1,0 +1,33 @@
+.page-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 50vh;
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-black-500);
+  font-weight: 600;
+
+  &--error {
+    color: var(--color-error-500);
+  }
+
+  strong {
+    color: inherit;
+    font-size: 1.125rem;
+  }
+}
+
+.outline-button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--color-black-300);
+  border-radius: 0.75rem;
+  background: var(--color-white);
+  color: var(--color-primary-500);
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}

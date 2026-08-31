@@ -1,49 +1,132 @@
-$font-family-base: 'Hanimation Arabic', sans-serif;
-$text-sizes: (
-  'sssm': (size: 0.625rem, line-height: 1.5),
-  'ssm': (size: 0.75rem, line-height: 1.5),
-  'sm': (size: 0.875rem, line-height: 1.5),
-  'base': (size: 1rem, line-height: 1.5),
-  'lg': (size: 1.125rem, line-height: 1.5),
-  'xl': (size: 1.25rem, line-height: 1.3),
-  '2xl': (size: 1.5rem, line-height: 1.2),
-  '3xl': (size: 1.75rem, line-height: 1.2),
-  '4xl': (size: 2rem, line-height: 1.2)
-);
-$font-weights: (
-  'light': 300,
-  'regular': 400,
-  'medium': 500,
-  'semibold': 600,
-  'bold': 700
-);
-$colors: (
-  'primary': (50: #e0f2fe,
-    100: #bae6fd,
-    200: #7dd3fc,
-    300: #38bdf8,
-    400: #0ea5e9,
-    500: #00a2e8),
-  'secondary': (50: #fef3c7,
-    100: #fde68a,
-    200: #fcd34d,
-    300: #fbbf24,
-    400: #f59e0b,
-    500: #d97706,
-    600: #b45309,
-    700: #92400e),
-  'black': (50: #f9fafb,
-    100: #f3f4f6,
-    200: #e5e7eb,
-    300: #d1d5db,
-    400: #9ca3af,
-    500: #6b7280,
-    600: #4b5563,
-    700: #374151,
-    800: #1f2937,
-    950: #030712),
-  'states': ('warning': #ffcc00,
-    'error': #ff3b30,
-    'info': #00a2e8,
-    'success': #34c759)
-);
+:root {
+  --font-family-base: 'Hanimation Arabic', sans-serif;
+
+  --text-size-sssm: 0.625rem;
+  --text-size-ssm: 0.75rem;
+  --text-size-sm: 0.875rem;
+  --text-size-base: 1rem;
+  --text-size-lg: 1.125rem;
+  --text-size-xl: 1.25rem;
+  --text-size-2xl: 1.5rem;
+  --text-size-3xl: 1.75rem;
+  --text-size-4xl: 2rem;
+
+  --line-height-default: 1.5;
+  --line-height-tight: 1.3;
+  --line-height-heading: 1.2;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-white-rgb: 255 255 255;
+
+  --color-primary-50: #e0f2fe;
+  --color-primary-100: #bae6fd;
+  --color-primary-200: #7dd3fc;
+  --color-primary-300: #38bdf8;
+  --color-primary-400: #0ea5e9;
+  --color-primary-500: #00a2e8;
+  --color-primary-600: #008ebf;
+
+  --color-secondary-50: #fef3c7;
+  --color-secondary-100: #fde68a;
+  --color-secondary-200: #fcd34d;
+  --color-secondary-300: #fbbf24;
+  --color-secondary-400: #f59e0b;
+  --color-secondary-500: #d97706;
+  --color-secondary-600: #b45309;
+  --color-secondary-700: #92400e;
+
+  --color-black-50: #f9fafb;
+  --color-black-100: #f3f4f6;
+  --color-black-200: #e5e7eb;
+  --color-black-300: #d1d5db;
+  --color-black-400: #9ca3af;
+  --color-black-500: #6b7280;
+  --color-black-600: #4b5563;
+  --color-black-700: #374151;
+  --color-black-800: #1f2937;
+  --color-black-900: #111827;
+  --color-black-950: #030712;
+
+  --color-warning: #ffcc00;
+  --color-warning-50: #fef9c3;
+  --color-warning-100: #fef3c7;
+  --color-warning-600: #ca8a04;
+  --color-error: #ff3b30;
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-info: #00a2e8;
+  --color-success: #34c759;
+  --color-success-50: #dcfce7;
+  --color-success-100: #d1fae5;
+  --color-success-600: #16a34a;
+  --color-success-700: #059669;
+
+  --color-warning-rgb: 255 204 0;
+  --color-error-rgb: 255 59 48;
+  --color-info-rgb: 0 162 232;
+  --color-success-rgb: 52 199 89;
+  --color-primary-500-rgb: 0 162 232;
+  --color-shadow-rgb: 15 23 42;
+  --color-black-rgb: 0 0 0;
+
+  --c-white: var(--color-white);
+  --c-black: var(--color-black);
+  --c-white-rgb: var(--color-white-rgb);
+  --c-black-rgb: var(--color-black-rgb);
+  --c-shadow-rgb: var(--color-shadow-rgb);
+  --c-primary-rgb: var(--color-primary-500-rgb);
+  --c-surface: var(--color-black-50);
+  --c-surface-muted: var(--color-black-100);
+  --c-border: var(--color-black-200);
+  --c-border-strong: var(--color-black-300);
+  --c-faint: var(--color-black-400);
+  --c-muted: var(--color-black-500);
+  --c-muted-strong: var(--color-black-600);
+  --c-text-soft: var(--color-black-800);
+  --c-text: var(--color-black-900);
+  --c-primary-soft: var(--color-primary-50);
+  --c-primary-light: var(--color-primary-100);
+  --c-primary-mid: var(--color-primary-300);
+  --c-primary: var(--color-primary-500);
+  --c-secondary-soft: var(--color-secondary-200);
+  --c-success-soft: var(--color-success-50);
+  --c-success: var(--color-success-600);
+  --c-warning-soft: var(--color-warning-50);
+  --c-warning: var(--color-warning-600);
+  --c-error-soft: var(--color-error-100);
+  --c-error: var(--color-error-500);
+  --c-error-strong: var(--color-error-600);
+
+  --color-social-instagram-start: #f58529;
+  --color-social-instagram-mid: #dd2a7b;
+  --color-social-instagram-end: #8134af;
+  --color-social-tiktok-bg: #050505;
+  --color-social-tiktok-cyan: #25f4ee;
+  --color-social-tiktok-pink: #fe2c55;
+  --color-social-facebook: #1877f2;
+  --color-social-telegram: #229ed9;
+
+  --color-product-red: #e8557d;
+  --color-product-green: #c9eff9;
+  --color-product-yellow: #ffd275;
+  --color-product-gray: #9b9b9b;
+  --color-product-blue: #bfeaf7;
+
+  --c-dashboard-thumb-pink: color-mix(in srgb, var(--color-error) 24%, var(--color-white));
+  --c-dashboard-thumb-bottle: linear-gradient(90deg, var(--color-success) 0 48%, color-mix(in srgb, var(--color-error) 50%, var(--color-white)) 48%);
+  --c-dashboard-thumb-case: color-mix(in srgb, var(--color-success) 48%, var(--color-white));
+  --c-dashboard-thumb-books: repeating-linear-gradient(90deg, var(--c-primary-mid) 0 0.5rem, var(--c-secondary-soft) 0.5rem 1rem, color-mix(in srgb, var(--color-error) 45%, var(--color-white)) 1rem 1.5rem);
+  --c-dashboard-status-bg: color-mix(in srgb, var(--color-success) 10%, var(--color-white));
+  --c-dashboard-donut: conic-gradient(from -40deg, var(--c-white) 0 7%, transparent 7% 19%, var(--c-border) 19% 29%, var(--c-primary) 29% 64%, var(--c-primary-light) 64% 79%, var(--c-border) 79% 89%, transparent 89% 100%);
+  --c-dashboard-donut-hatch: repeating-linear-gradient(45deg, transparent 0 0.25rem, rgb(var(--c-black-rgb) / 0.24) 0.25rem 0.375rem);
+  --c-dashboard-legend-hatched: repeating-linear-gradient(135deg, var(--c-border-strong) 0 0.125rem, var(--c-white) 0.125rem 0.25rem);
+}
