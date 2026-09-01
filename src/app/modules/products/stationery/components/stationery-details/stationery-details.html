@@ -15,17 +15,23 @@
     </aside>
 
     <article class="product-summary">
-      <div class="summary-actions">
-        <button type="button" class="icon-action danger" aria-label="حذف المنتج" (click)="deleteProduct.emit()">
-          <img src="assets/icon/shared/delete-02.svg" alt="" draggable="false" />
+      <div class="summary-toolbar">
+        <span class="category-pill">{{ product.categoryName || 'منتجات' }}</span>
+        <button type="button" class="icon-action back-action" aria-label="الرجوع" (click)="back.emit()">
+          <img src="assets/icon/table/next.svg" alt="" draggable="false" />
         </button>
-        <button type="button" class="icon-action" aria-label="تعديل المنتج" (click)="edit.emit()">
-          <img src="assets/icon/shared/edit.svg" alt="" draggable="false" />
-        </button>
-        <app-btn-switch [checked]="product.isActive" (toggle)="toggleActive.emit($event)"></app-btn-switch>
+
+        <div class="summary-actions">
+          <button type="button" class="icon-action danger" aria-label="حذف المنتج" (click)="deleteProduct.emit()">
+            <img src="assets/icon/shared/delete-02.svg" alt="" draggable="false" />
+          </button>
+          <button type="button" class="icon-action" aria-label="تعديل المنتج" (click)="edit.emit()">
+            <img src="assets/icon/shared/edit.svg" alt="" draggable="false" />
+          </button>
+          <app-btn-switch [checked]="product.isActive" (toggle)="toggleActive.emit($event)"></app-btn-switch>
+        </div>
       </div>
 
-      <span class="category-pill">{{ product.categoryName || 'منتجات' }}</span>
       <h1>{{ product.name }}</h1>
       <p class="description">{{ product.description || 'لا يوجد وصف لهذا المنتج.' }}</p>
       <strong class="price">{{ formatPrice(product.consumerPrice) }}</strong>
@@ -60,7 +66,6 @@
   <section class="ratings-section">
     <header class="ratings-header">
       <h2>التقييمات</h2>
-
     </header>
 
     <div class="rating-overview">
@@ -103,9 +108,13 @@
 
       @if (reviews.length > 0) {
       <div class="pagination">
-        <button type="button">‹</button>
+        <button type="button" aria-label="السابق">
+          <img src="assets/icon/table/next.svg" alt="" draggable="false" />
+        </button>
         <strong>1/1</strong>
-        <button type="button">›</button>
+        <button type="button" aria-label="التالي">
+          <img src="assets/icon/table/prev.svg" alt="" draggable="false" />
+        </button>
       </div>
       }
     </div>

@@ -1,18 +1,19 @@
 @if (isLoading) {
-<div class="page-state">جاري تحميل تفاصيل المنتج...</div>
+  <div class="page-state">جاري تحميل تفاصيل المنتج...</div>
 } @else if (hasLoadError || !product) {
-<div class="page-state page-state--error">
-  <strong>تعذر العثور على المنتج</strong>
-  <button type="button" class="outline-button" (click)="goBack()">العودة إلى القرطاسية</button>
-</div>
+  <div class="page-state page-state--error">
+    <strong>تعذر العثور على المنتج</strong>
+    <button type="button" class="outline-button" (click)="goBack()">العودة إلى القرطاسية</button>
+  </div>
 } @else {
-<app-stationery-details
-  [product]="product"
-  (edit)="editProduct()"
-  (deleteProduct)="requestDelete()"
-  (toggleActive)="toggleActive($event)"
->
-</app-stationery-details>
+  <app-stationery-details
+    [product]="product"
+    (edit)="editProduct()"
+    (deleteProduct)="requestDelete()"
+    (toggleActive)="toggleActive($event)"
+    (back)="goBack()"
+  >
+  </app-stationery-details>
 }
 
 <app-confirmation-dialog

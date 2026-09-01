@@ -1,4 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, Output, computed, inject } from '@angular/core';
+import { ConnectedPosition } from '@angular/cdk/overlay';
+import { Component, EventEmitter, Input, Output, computed, inject } from '@angular/core';
 import { ITableColumn } from '../../../../core/interface/IGenericTable';
 import { LoadingService } from '../../../../core/service/loading.service';
 
@@ -13,7 +14,6 @@ export class GenericTableComponent {
   readonly isTableLoading = computed(() => this.loadingService.isPageLoading());
   readonly tableSkeletonRows = Array.from({ length: 5 });
 
-
   @Input() columns: ITableColumn[] = [];
   @Input() data: any[] | null = [];
 
@@ -25,46 +25,48 @@ export class GenericTableComponent {
   @Output() pageChange = new EventEmitter<number>();
 
   activeDropdownIndex: number | null = null;
-  dropdownPosition: 'top' | 'bottom' = 'bottom';
-  dropdownTop = 0;
-  dropdownLeft = 0;
+  readonly dropdownPositions: ConnectedPosition[] = [
+    {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'start',
+      overlayY: 'top',
+      offsetY: 4,
+    },
+    {
+      originX: 'end',
+      originY: 'bottom',
+      overlayX: 'end',
+      overlayY: 'top',
+      offsetY: 4,
+    },
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'bottom',
+      offsetY: -4,
+    },
+    {
+      originX: 'end',
+      originY: 'top',
+      overlayX: 'end',
+      overlayY: 'bottom',
+      offsetY: -4,
+    },
+  ];
 
   get skeletonGridColumns(): string {
     return `repeat(${Math.max(this.columns.length, 1)}, minmax(6rem, 1fr))`;
   }
 
-  @HostListener('document:click')
-  closeDropdowns(): void {
-    this.activeDropdownIndex = null;
+  toggleActionMenu(index: number, event: Event): void {
+    event.stopPropagation();
+    this.activeDropdownIndex = this.activeDropdownIndex === index ? null : index;
   }
 
-  toggleActionMenu(index: number, event: MouseEvent): void {
-    event.stopPropagation();
-
-    if (this.activeDropdownIndex === index) {
-      this.activeDropdownIndex = null;
-      return;
-    }
-
-    const trigger = event.currentTarget as HTMLElement;
-    const rect = trigger.getBoundingClientRect();
-
-    const estimatedDropdownHeight = 120;
-    const estimatedDropdownWidth = 160;
-    const viewportPadding = 8;
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const shouldOpenTop = spaceBelow < estimatedDropdownHeight;
-
-    this.dropdownPosition = shouldOpenTop ? 'top' : 'bottom';
-    this.dropdownTop = shouldOpenTop
-      ? Math.max(viewportPadding, rect.top - estimatedDropdownHeight - 4)
-      : Math.min(window.innerHeight - estimatedDropdownHeight - viewportPadding, rect.bottom + 4);
-    this.dropdownLeft = Math.min(
-      window.innerWidth - estimatedDropdownWidth - viewportPadding,
-      Math.max(viewportPadding, rect.right - estimatedDropdownWidth),
-    );
-
-    this.activeDropdownIndex = index;
+  closeDropdown(): void {
+    this.activeDropdownIndex = null;
   }
 
   onActionClick(actionId: string, row: any): void {
@@ -73,7 +75,6 @@ export class GenericTableComponent {
   }
 
   onToggle(key: string, row: any, value: boolean): void {
-
     this.toggleChange.emit({ key, row, value });
   }
 

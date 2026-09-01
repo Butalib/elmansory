@@ -2229,30 +2229,55 @@
       "originalPrice": 234234,
       "consumerPrice": 23,
       "discountPercentage": 23,
-      "quantity": 66,
+      "quantity": 2355,
       "status": "available",
       "isActive": true,
       "isFeatured": false,
       "isSchoolReady": true,
       "variants": [
         {
-          "id": "1788163908235",
-          "color": "4قثص",
-          "size": "ثصق",
-          "price": 3232,
-          "quantity": 23,
+          "id": "1788243441455",
+          "color": "red",
+          "size": "L",
+          "price": 121232,
+          "quantity": 2323,
           "isActive": true
         },
         {
-          "id": "1788181931341",
-          "color": "wer",
-          "size": "er",
-          "price": 34,
-          "quantity": 43,
-          "isActive": false
+          "id": "1788244678694",
+          "color": "اخضر",
+          "size": "M",
+          "price": 3242,
+          "quantity": 32,
+          "isActive": true
         }
       ],
-      "reviews": [],
+      "reviews": [
+        {
+          "id": "demo-review-1",
+          "reviewerName": "محمد سليمان",
+          "reviewerAvatar": "assets/img/dashbourd/avatar.jpg",
+          "rating": 5,
+          "comment": "منتج ممتاز والخامة مناسبة للاستخدام اليومي.",
+          "createdAt": "2026-08-31T09:00:00.000Z"
+        },
+        {
+          "id": "demo-review-2",
+          "reviewerName": "أحمد محمود",
+          "reviewerAvatar": "assets/img/dashbourd/avatar.jpg",
+          "rating": 4,
+          "comment": "الشكل جيد والسعر مناسب، محتاج ألوان أكثر فقط.",
+          "createdAt": "2026-08-31T10:30:00.000Z"
+        },
+        {
+          "id": "demo-review-3",
+          "reviewerName": "سارة علي",
+          "reviewerAvatar": "assets/img/dashbourd/avatar.jpg",
+          "rating": 3,
+          "comment": "التجربة مقبولة والتوصيل كان سريع.",
+          "createdAt": "2026-08-31T11:45:00.000Z"
+        }
+      ],
       "createdAt": "2026-08-31T08:11:35.628Z",
       "id": "L1hmhjYy-Ck"
     }

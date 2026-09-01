@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { IStationery, IStationeryReview, IStationeryVariant } from '../../../../../core/interface/IStationery';
+import {
+  IStationery,
+  IStationeryReview,
+  IStationeryVariant,
+} from '../../../../../core/interface/IStationery';
 
 @Component({
   selector: 'app-stationery-details',
@@ -13,6 +17,7 @@ export class StationeryDetailsComponent implements OnChanges {
   @Output() edit = new EventEmitter<void>();
   @Output() deleteProduct = new EventEmitter<void>();
   @Output() toggleActive = new EventEmitter<boolean>();
+  @Output() back = new EventEmitter<void>();
 
   readonly fallbackImage = 'assets/img/dashbourd/avatar.jpg';
   selectedImageIndex = 0;
