@@ -1,12 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { first, Observable, take } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiDataService {
-  private readonly baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
   get<T>(endpoint: string, queryParams?: any): Observable<T> {
     let params = new HttpParams();

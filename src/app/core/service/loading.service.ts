@@ -27,7 +27,7 @@ export class LoadingService {
     this.pendingPageTransitions.update((count) => Math.max(0, count - 1));
   }
 
-  flashPageLoading(duration = 150): void {
+  flashPageLoading(duration = 250): void {
     this.startPageTransition();
 
     setTimeout(() => {

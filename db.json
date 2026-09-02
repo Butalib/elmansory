@@ -1201,10 +1201,10 @@
       "customerAvatar": "assets/img/dashbourd/avatar.jpg",
       "createdAt": "3024-06-16T11:30:00Z",
       "itemCount": 1,
-      "isActive": true,
+      "isActive": false,
       "status": "accepted",
       "orderType": "حجز الكترونى",
-      "discount": 130,
+      "discount": 148,
       "customer": {
         "name": "Jane Smith",
         "phone": "0112333456789",
@@ -2424,7 +2424,7 @@
       "customerPhone": "+964 770 123 4567",
       "avatar": "assets/img/dashbourd/avatar.jpg",
       "unreadCount": 0,
-      "updatedAt": "2026-09-02T06:39:24.619Z",
+      "updatedAt": "2026-09-02T11:14:50.906Z",
       "messages": [
         {
           "id": "m-1",
@@ -2622,6 +2622,13 @@
           "text": "jnm;",
           "createdAt": "2026-09-02T06:39:24.619Z",
           "attachments": []
+        },
+        {
+          "id": "8fc1b35a-95f7-46aa-a6b5-a73d27e5e913",
+          "sender": "admin",
+          "text": "refr",
+          "createdAt": "2026-09-02T11:14:50.906Z",
+          "attachments": []
         }
       ]
     },
@@ -2631,7 +2638,7 @@
       "customerPhone": "+964 771 222 4455",
       "avatar": "assets/img/dashbourd/avatar.jpg",
       "unreadCount": 0,
-      "updatedAt": "2026-08-31T12:55:55.731Z",
+      "updatedAt": "2026-09-02T11:25:10.988Z",
       "messages": [
         {
           "id": "m-4",
@@ -2797,6 +2804,37 @@
               "mimeType": "audio/webm;codecs=opus",
               "size": 13820,
               "compressedSize": 13820
+            }
+          ]
+        },
+        {
+          "id": "91afae71-34ad-442f-96f1-767231104e55",
+          "sender": "admin",
+          "text": "trdcs",
+          "createdAt": "2026-09-02T11:15:03.491Z",
+          "attachments": []
+        },
+        {
+          "id": "6e0acad4-4d0f-46ae-baf8-eb9c794117c7",
+          "sender": "admin",
+          "text": "vbil;",
+          "createdAt": "2026-09-02T11:16:22.575Z",
+          "attachments": []
+        },
+        {
+          "id": "c9090059-a529-45f6-924e-243bad36f596",
+          "sender": "admin",
+          "text": "",
+          "createdAt": "2026-09-02T11:25:10.988Z",
+          "attachments": [
+            {
+              "id": "35b7f7b5-46a7-4e79-b271-97d398160011",
+              "type": "image",
+              "name": "skill-icons_instagram.jpg",
+              "url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCAAYABgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCDw7oOl2GhG8vvOW2EnkxRW2BJM4GSzEjgdPzq+ItGMHn/ANi6p5OceZ9pG3P12YrUS3h/4R/SlmXMIvZDJ/u/Ln9K2ydbHiXZh/7L3424/wBH+z/+g/drq/tRN2jt/XY9tYCnSu359bbO33nF+MfB9l/ZztGsqhHEM0Nwys8MhXcpDLwQRRWnIsQ8OaqLfPk/bo/Lz/d+bH6UVvGcKy5p6s6oYOnO6mrtaGp4RvdN17w/HsfzIWPmAxEFonIwVYVPf2dikBifUL1Yv+eYjyPy3Yoor4mVZwrOFrpaEYWc6k027X1/q9zl/FGt6Zpehm2tTIsCv50kk+A8rgYCgDtzRRRX0GGnJ00yMwxVTC1fZ035n//Z",
+              "mimeType": "image/jpeg",
+              "size": 4369,
+              "compressedSize": 900
             }
           ]
         }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit , ChangeDetectorRef } from '@angular/core';
 import { Teachers } from '../../../../core/service/teachers.service';
 import { FormBuilder } from '@angular/forms';
 import { ITeacher } from '../../../../core/interface/ITeacher';
@@ -19,6 +19,7 @@ export class TeacherPage implements OnInit {
   private readonly lookupService = inject(LookupService);
   private readonly toaster = inject(ToastrService);
   private readonly fb = inject(FormBuilder);
+  private readonly cdRef = inject(ChangeDetectorRef);
 
 
   tableColumns: ITableColumn[] = [
@@ -66,9 +67,18 @@ export class TeacherPage implements OnInit {
 
   private loadInitialLookups(): void {
 
-    this.lookupService.getOptions('levels', 'subLevel').subscribe(res => this.levelsList = res); this.lookupService.getOptions('subjects').subscribe(res => this.subjectsList = res);
+this.lookupService.getOptions('levels', 'subLevel').subscribe(res => {
+      this.levelsList = res;
+      // 3. بنبلغ أنجولار يعتمد التغيير فوراً
+      this.cdRef.detectChanges();
+  
+});
+    this.lookupService.getOptions('subjects').subscribe(res => {
+      this.subjectsList = res;
+      // 3. بنبلغ أنجولار يعتمد التغيير فوراً
+      this.cdRef.detectChanges();
+    });
   }
-
 
   openModal(mode: 'add' | 'edit', teacher?: ITeacher): void {
     this.modalMode = mode;
