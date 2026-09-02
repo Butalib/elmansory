@@ -178,6 +178,7 @@
     display: grid;
     gap: 0.3125rem;
     flex: 1;
+    overflow-y: auto;
 }
 
 .product-row {
