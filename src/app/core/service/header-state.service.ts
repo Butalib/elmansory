@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-export interface HeaderConfig {
+export interface IHeaderConfig {
   title: string;
   buttonText: string;
   btnIcon: string;
@@ -11,7 +11,7 @@ export interface HeaderConfig {
   showDate: boolean;
 }
 
-const DEFAULT_HEADER_CONFIG: HeaderConfig = {
+const DEFAULT_HEADER_CONFIG: IHeaderConfig = {
   title: '',
   buttonText: '',
   btnIcon: '',
@@ -26,7 +26,7 @@ const DEFAULT_HEADER_CONFIG: HeaderConfig = {
 })
 export class HeaderStateService {
 
-  private configSource = new BehaviorSubject<HeaderConfig>(DEFAULT_HEADER_CONFIG);
+  private configSource = new BehaviorSubject<IHeaderConfig>(DEFAULT_HEADER_CONFIG);
   config$ = this.configSource.asObservable();
 
 
@@ -43,7 +43,7 @@ export class HeaderStateService {
   dateRange$ = this.dateRangeSource.asObservable();
 
 
-  setConfig(config: Partial<HeaderConfig>) {
+  setConfig(config: Partial<IHeaderConfig>) {
     this.configSource.next({ ...DEFAULT_HEADER_CONFIG, ...config });
   }
 
