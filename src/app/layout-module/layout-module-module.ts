@@ -7,7 +7,7 @@ import { Sidebar } from './sidebar/sidebar';
 import { HeaderComponent } from './header-componant/header-componant';
 import { RouterModule } from '@angular/router';
 import { LogoutComponent } from '../auth/logout/logout';
-import { SharedModule } from '../modules/shared/shared-module';
+import { SharedModule } from '../pages/shared/shared-module';
 
 @NgModule({
   declarations: [LayoutComponant, Sidebar, HeaderComponent],

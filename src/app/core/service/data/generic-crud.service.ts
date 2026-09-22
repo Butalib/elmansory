@@ -1,13 +1,22 @@
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { inject } from '@angular/core';
+import { BehaviorSubject, EMPTY, Observable, catchError, tap } from 'rxjs';
 import { ApiDataService } from './api.data.service';
+import { RefreshService } from '../refresh.service';
 
 export class GenericCrudService<T> {
   private itemsSubject = new BehaviorSubject<T[]>([]);
+  private readonly refreshService = inject(RefreshService);
   public items$ = this.itemsSubject.asObservable();
   constructor(
     protected endpoint: string,
     protected apiService: ApiDataService
-  ) { }
+  ) {
+    this.refreshService.refresh$.subscribe(() => {
+      this.loadAll().pipe(
+        catchError(() => EMPTY),
+      ).subscribe();
+    });
+  }
 
   loadAll(queryParams?: any): Observable<T[]> {
     return this.apiService.get<T[]>(this.endpoint, queryParams).pipe(

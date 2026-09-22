@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, computed, inject } from '@angular/core';
-import { ISubject } from '../../../../app/core/interface/ISubject';
+import { ISubject } from '../../../core/interface/ISubject';
 import { Observable } from 'rxjs';
 import { SubjectService } from '../../../core/service/subject.service';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';

@@ -13,7 +13,7 @@ const routes: Routes = [
     path: 'layout',
     component: LayoutComponant,
     children: [
-      { path: '', loadChildren: () => import('../modules/module-module').then(m => m.ModuleModule) }
+      { path: '', loadChildren: () => import('../pages/module-module').then(m => m.ModuleModule) }
     ]
   }
 ];
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutModuleRoutingModule {}
+export class LayoutModuleRoutingModule { }

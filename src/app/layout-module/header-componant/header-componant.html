@@ -8,6 +8,20 @@
 
   <div class="header-actions">
 
+      <button
+        type="button"
+        class="action-btn refresh-btn"
+        [disabled]="loadingService.isPageLoading()"
+        aria-label="Refresh data"
+        (click)="refreshData()"
+      >
+        <img
+          src="assets/icon/main-header/refresh.svg"
+          alt=""
+          class="action-icon"
+          [class.is-spinning]="loadingService.isPageLoading()"
+        >
+      </button>
 
       <button type="button" class="action-btn">
           <img src="assets/icon/sidebar/notifications.svg" alt="إشعارات" class="action-icon">

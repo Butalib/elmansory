@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/service/auth-service/auth.service';
-import { SharedModule } from '../../modules/shared/shared-module';
+import { SharedModule } from '../../pages/shared/shared-module';
 
 @Component({
   selector: 'app-logout',

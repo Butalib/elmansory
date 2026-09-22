@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { LayoutServices } from '../../core/service/Layout.service';
+import { LoadingService } from '../../core/service/loading.service';
+import { RefreshService } from '../../core/service/refresh.service';
 
 @Component({
   selector: 'app-header-componant',
@@ -21,8 +23,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   });
   constructor(
     private router: Router,
-    readonly layoutServices: LayoutServices
+    readonly layoutServices: LayoutServices,
+    readonly loadingService: LoadingService,
+    private readonly refreshService: RefreshService,
   ) { }
+
+  refreshData(): void {
+    if (!this.loadingService.isPageLoading()) {
+      this.refreshService.refresh();
+    }
+  }
 
   ngOnInit(): void {
     this.updatePageTitle();
