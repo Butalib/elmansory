@@ -8,6 +8,7 @@ import { ITableColumn } from '../../../../core/interface/IGenericTable';
 import { HybridQueryEngine } from '../../../../core/service/data/hybrid-query-engine.service';
 import { IStudent } from '../../../../core/interface/IStudent';
 import { ISelectOption } from '../../../../core/interface/ISelectOption';
+import { filterByDateRange, filterBySearch } from '../../../../core/utils/query';
 
 @Component({
   selector: 'app-students-page',
@@ -193,27 +194,8 @@ export class StudentsPage implements OnInit {
     this.isDeleting = false;
   }
   private filterLocally(data: IStudent[], query: any): IStudent[] {
-    let filteredData = data;
+    const searchResult = filterBySearch(data, query.searchTerm, ['name', 'phone', 'levelName']);
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter(
-        (student) =>
-          student.name?.toLowerCase().includes(term) ||
-          student.phone?.toLowerCase().includes(term) ||
-          student.levelName?.toLowerCase().includes(term),
-      );
-    }
-    if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter((student) => {
-        const studentJoinDate =
-          typeof student.joinDate === 'string'
-            ? student.joinDate.split('T')[0]
-            : new Date(student.joinDate).toISOString().split('T')[0];
-
-        return studentJoinDate >= query.startDate && studentJoinDate <= query.endDate;
-      });
-    }
-    return filteredData;
+    return filterByDateRange(searchResult, query, 'joinDate');
   }
 }

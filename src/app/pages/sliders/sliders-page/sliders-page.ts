@@ -8,6 +8,7 @@ import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engin
 
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '../../../core/service/loading.service';
+import { filterBySearch } from '../../../core/utils/query';
 
 @Component({
   selector: 'app-sliders-page',
@@ -141,11 +142,7 @@ export class SlidersPage implements OnInit {
     });
   }
   private filterSlidersLocally(data: ISlider[], query: IQueryEngine): ISlider[] {
-    if (!query.searchTerm) {
-      return data;
-    }
-    const term = query.searchTerm.toLowerCase();
-    return data.filter(slider => slider.title?.toLowerCase().includes(term) || slider.displayLocation?.toLowerCase().includes(term));
+    return filterBySearch(data, query.searchTerm, ['title', 'displayLocation']);
   }
   onDateRangeChange(range: { startDate: string; endDate: string }): void {
     this.engine.patchQuery({ startDate: range.startDate, endDate: range.endDate });

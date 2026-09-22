@@ -6,6 +6,7 @@ import { ITableColumn } from '../../../../../core/interface/IGenericTable';
 import { HeaderStateService } from '../../../../../core/service/header-state.service';
 import { HybridQueryEngine } from '../../../../../core/service/data/hybrid-query-engine.service';
 import { GovernorateService } from '../../../../../core/service/Governorate.service';
+import { filterByDateRange, filterBySearch } from '../../../../../core/utils/query';
 
 @Component({
   selector: 'app-governorate-page',
@@ -160,20 +161,8 @@ export class GovernoratePage implements OnInit, OnDestroy {
   }
 
   private filterLocally(data: IGovernorate[], query: any): IGovernorate[] {
-    let filteredData = data;
+    const searchResult = filterBySearch(data, query.searchTerm, ['name']);
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter((governorate) => governorate.name.toLowerCase().includes(term));
-    }
-
-    if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter((governorate) => {
-        const addedDate = governorate.addedAt.split('T')[0];
-        return addedDate >= query.startDate && addedDate <= query.endDate;
-      });
-    }
-
-    return filteredData;
+    return filterByDateRange(searchResult, query, 'addedAt');
   }
 }

@@ -7,6 +7,7 @@ import { IOrder } from '../../../core/interface/IOrder';
 import { OrdersService } from '../../../core/service/orders.service';
 import { IKpi } from '../../../core/interface/IKpi';
 import { map, Observable } from 'rxjs';
+import { filterByDateRange, filterByField, filterBySearch } from '../../../core/utils/query';
 
 @Component({
   selector: 'app-orders-page',
@@ -218,27 +219,13 @@ export class OrdersPage implements OnInit {
     let filteredData = data;
 
     if (query.orderType && query.orderType !== 'الكل') {
-      filteredData = filteredData.filter((order) => order.orderType === query.orderType);
+      filteredData = filterByField(filteredData, 'orderType', query.orderType);
     }
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter(
-        (order) =>
-          order.orderCode?.toLowerCase().includes(term) ||
-          order.customerName?.toLowerCase().includes(term) ||
-          order.itemCount?.toString().includes(term) ||
-          order.status?.toLowerCase().includes(term),
-      );
-    }
+    const searchResult = filterBySearch(filteredData, query.searchTerm, [
+      'orderCode', 'customerName', 'itemCount', 'status',
+    ]);
 
-    if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter((order) => {
-        const orderDate = order.createdAt.split('T')[0];
-        return orderDate >= query.startDate && orderDate <= query.endDate;
-      });
-    }
-
-    return filteredData;
+    return filterByDateRange(searchResult, query, 'createdAt');
   }
 }

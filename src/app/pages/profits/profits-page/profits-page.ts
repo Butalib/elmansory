@@ -5,6 +5,7 @@ import { IKpi } from '../../../core/interface/IKpi';
 import { ProfitsSrvices } from '../../../core/service/profits.service';
 import { Subscription } from 'rxjs';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';
+import { filterByDateRange, filterBySearch } from '../../../core/utils/query';
 
 @Component({
   selector: 'app-profits-page',
@@ -69,25 +70,9 @@ export class ProfitsPage implements OnInit, OnDestroy {
 
 
   private filterLocally(data: IProfits[], query: any): IProfits[] {
-    return data.filter(item => {
+    const searchResult = filterBySearch(data, query.searchTerm, ['productName']);
 
-      const matchSearch = query.searchTerm
-        ? item.productName?.toLowerCase().includes(query.searchTerm.toLowerCase())
-        : true;
-
-
-      let matchDate = true;
-      if (query.startDate && query.endDate && item.date) {
-        const itemDate = new Date(item.date).getTime();
-        const start = new Date(query.startDate).getTime();
-        const end = new Date(query.endDate).getTime();
-
-        matchDate = itemDate >= start && itemDate <= end;
-      }
-
-
-      return matchSearch && matchDate;
-    });
+    return filterByDateRange(searchResult, query, 'date', { includeMissing: true });
   }
 
   private calculateKPIs(data: IProfits[]): void {

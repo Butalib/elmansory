@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LevelsService } from '../../../core/service/levels.service';
 import { ILevels } from '../../../core/interface/ILevels';
 import { HybridQueryEngine } from '../../../core/service/data/hybrid-query-engine.service';
+import { filterByDateRange, filterBySearch } from '../../../core/utils/query';
 
 @Component({
   selector: 'app-levels-page',
@@ -48,29 +49,10 @@ export class LevelsPage implements OnInit {
   }
 
 
-  private filterLocally(data: ILevels[], query: any): ILevels[] {
-    let filteredData = data;
+  private filterLocally(data: ILevels[], query: { searchTerm?: string; startDate?: string; endDate?: string }): ILevels[] {
+    const searchResult = filterBySearch(data, query.searchTerm, ['level', 'subLevel']);
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter(level =>
-        level.level?.toLowerCase().includes(term) ||
-        level.subLevel?.toLowerCase().includes(term)
-      );
-    }
-
-    if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter((level) => {
-        const levelDate =
-          typeof level.createdAt === 'string'
-            ? level.createdAt.split('T')[0]
-            : level.createdAt.toISOString().split('T')[0];
-
-        return levelDate >= query.startDate && levelDate <= query.endDate;
-      });
-    }
-
-    return filteredData;
+    return filterByDateRange(searchResult, query, 'createdAt');
   }
 
   onPageChange(newPage: number): void {

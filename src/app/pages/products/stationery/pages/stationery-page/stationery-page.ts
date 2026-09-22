@@ -6,6 +6,7 @@ import { IQueryEngine } from '../../../../../core/interface/IQueryEngine';
 import { IStationery } from '../../../../../core/interface/IStationery';
 import { HybridQueryEngine } from '../../../../../core/service/data/hybrid-query-engine.service';
 import { StationeryService } from '../../../../../core/service/stationery.service';
+import { filterByDateRange, filterBySearch } from '../../../../../core/utils/query';
 
 @Component({
   selector: 'app-stationery-page',
@@ -133,32 +134,11 @@ export class StationeryPage implements OnInit, OnDestroy {
   }
 
   private filterLocally(data: IStationery[], query: IQueryEngine): IStationery[] {
-    let filteredData = [...data];
+    const searchResult = filterBySearch(data, query.searchTerm, [
+      'name', 'originalPrice', 'consumerPrice', 'quantity',
+    ]);
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter((item) =>
-        [
-          item.name,
-          item.originalPrice?.toString(),
-          item.consumerPrice?.toString(),
-          item.quantity?.toString(),
-        ].some((value) => value?.toLowerCase().includes(term)),
-      );
-    }
-
-    if (query['startDate'] && query['endDate']) {
-      filteredData = filteredData.filter((item) => {
-        const itemDate =
-          typeof item.createdAt === 'string'
-            ? item.createdAt.split('T')[0]
-            : item.createdAt.toISOString().split('T')[0];
-
-        return itemDate >= query['startDate'] && itemDate <= query['endDate'];
-      });
-    }
-
-    return filteredData;
+    return filterByDateRange(searchResult, query, 'createdAt');
   }
 
   ngOnDestroy(): void {

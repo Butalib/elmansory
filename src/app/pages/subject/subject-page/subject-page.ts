@@ -7,6 +7,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from '../../../core/service/lookup.service';
 import { LoadingService } from '../../../core/service/loading.service';
+import { filterByDateRange, filterBySearch } from '../../../core/utils/query';
 @Component({
   selector: 'app-subject-page',
   standalone: false,
@@ -46,25 +47,9 @@ export class SubjectPage implements OnInit, OnDestroy {
         });
 
 
-        if (query['searchTerm']) {
-          const term = query['searchTerm'].toString().toLowerCase();
-          filteredData = filteredData.filter(s =>
-            s.name.toLowerCase().includes(term)
-          );
-        }
+        const searchResult = filterBySearch(filteredData, query.searchTerm, ['name']);
 
-        if (query['startDate'] && query['endDate']) {
-          filteredData = filteredData.filter((subject) => {
-            const subjectDate =
-              typeof subject.createdAt === 'string'
-                ? subject.createdAt.split('T')[0]
-                : subject.createdAt.toISOString().split('T')[0];
-
-            return subjectDate >= query['startDate'] && subjectDate <= query['endDate'];
-          });
-        }
-
-        return filteredData;
+        return filterByDateRange(searchResult, query, 'createdAt');
       },
       this.subjectService.items$,
       'local'

@@ -7,6 +7,7 @@ import { ISelectOption } from '../../../../core/interface/ISelectOption';
 import { LookupService } from '../../../../core/service/lookup.service';
 import { ToastrService } from 'ngx-toastr';
 import { HybridQueryEngine } from '../../../../core/service/data/hybrid-query-engine.service';
+import { filterByDateRange, filterBySearch } from '../../../../core/utils/query';
 
 @Component({
   selector: 'app-teacher-page',
@@ -175,31 +176,13 @@ this.lookupService.getOptions('levels', 'subLevel').subscribe(res => {
   }
 
   private filterLocally(data: ITeacher[], query: any): ITeacher[] {
-    let filteredData = data;
+    const searchResult = filterBySearch(data, query.searchTerm, ['name', 'subjectName', 'levelName']);
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter(teacher =>
-        teacher.name?.toLowerCase().includes(term) ||
-        teacher.subjectName?.toLowerCase().includes(term) ||
-        teacher.levelName?.toLowerCase().includes(term)
-      );
-    }
-
-    if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter((teacher) => {
-        const createdAt = (teacher as ITeacher & { createdAt?: string | Date }).createdAt;
-        if (!createdAt) return true;
-
-        const teacherDate =
-          typeof createdAt === 'string'
-            ? createdAt.split('T')[0]
-            : createdAt.toISOString().split('T')[0];
-
-        return teacherDate >= query.startDate && teacherDate <= query.endDate;
-      });
-    }
-
-    return filteredData;
+    return filterByDateRange(
+      searchResult,
+      query,
+      (teacher) => (teacher as ITeacher & { createdAt?: string | Date }).createdAt,
+      { includeMissing: true },
+    );
   }
 }

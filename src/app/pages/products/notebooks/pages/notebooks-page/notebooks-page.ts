@@ -6,6 +6,7 @@ import { IQueryEngine } from '../../../../../core/interface/IQueryEngine';
 import { INotebook } from '../../../../../core/interface/INotebook';
 import { HybridQueryEngine } from '../../../../../core/service/data/hybrid-query-engine.service';
 import { NotebooksService } from '../../../../../core/service/notebooks.service';
+import { filterBySearch } from '../../../../../core/utils/query';
 
 @Component({
   selector: 'app-notebooks-page',
@@ -125,23 +126,9 @@ export class NotebooksPage implements OnInit, OnDestroy {
   }
 
   private filterLocally(data: INotebook[], query: IQueryEngine): INotebook[] {
-    let filteredData = [...data];
-
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter((item) =>
-        [
-          item.name,
-          item.teacherName,
-          item.subjectName,
-          item.levelName,
-          item.price?.toString(),
-          item.quantity?.toString(),
-        ].some((value) => value?.toLowerCase().includes(term)),
-      );
-    }
-
-    return filteredData;
+    return filterBySearch(data, query.searchTerm, [
+      'name', 'teacherName', 'subjectName', 'levelName', 'price', 'quantity',
+    ]);
   }
 
   ngOnDestroy(): void {

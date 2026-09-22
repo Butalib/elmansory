@@ -4,6 +4,8 @@ export interface IQueryEngine {
     _limit?: number;
     _sort?: string;
     _order?: 'asc' | 'desc';
+    startDate?: string;
+    endDate?: string;
     filters?: Record<string, unknown>;
     [key: string]: any;
     title_like?: string;

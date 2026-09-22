@@ -9,6 +9,7 @@ import { HeaderStateService } from '../../../../../core/service/header-state.ser
 import { GovernorateService } from '../../../../../core/service/Governorate.service';
 import { RegionService } from '../../../../../core/service/region.service';
 import { HybridQueryEngine } from '../../../../../core/service/data/hybrid-query-engine.service';
+import { filterByDateRange, filterBySearch } from '../../../../../core/utils/query';
 
 interface RegionTableRow extends IRegion {
   deliveryPriceLabel: string;
@@ -184,21 +185,9 @@ export class RegionPage implements OnInit, OnDestroy {
   }
 
   private filterLocally(data: IRegion[], query: any): IRegion[] {
-    let filteredData = data;
+    const searchResult = filterBySearch(data, query.searchTerm, ['name']);
 
-    if (query.searchTerm) {
-      const term = query.searchTerm.toLowerCase();
-      filteredData = filteredData.filter((region) => region.name.toLowerCase().includes(term));
-    }
-
-    if (query.startDate && query.endDate) {
-      filteredData = filteredData.filter((region) => {
-        const addedDate = region.addedAt.split('T')[0];
-        return addedDate >= query.startDate && addedDate <= query.endDate;
-      });
-    }
-
-    return filteredData;
+    return filterByDateRange(searchResult, query, 'addedAt');
   }
 
   private toTableRow(region: IRegion): RegionTableRow {
