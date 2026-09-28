@@ -6,23 +6,22 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { loadingInterceptor } from './core/interceptor/loading.interceptor';
+import { authInterceptor } from './core/interceptor/auth.interceptor';
 
 @NgModule({
-  declarations: [
-    App
-  ],
+  declarations: [App],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
-    })
+    }),
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptors([loadingInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor])),
   ],
-  bootstrap: [App]
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}
