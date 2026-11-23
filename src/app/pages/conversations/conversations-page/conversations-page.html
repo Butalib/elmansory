@@ -9,12 +9,8 @@
       <div class="empty-state">جاري تحميل المحادثات...</div>
       } @else {
       @for (conversation of conversations(); track conversation.id) {
-      <button
-        type="button"
-        class="conversation-card"
-        [class.active]="selectedConversation()?.id === conversation.id"
-        (click)="selectConversation(conversation)"
-      >
+      <button type="button" class="conversation-card" [class.active]="selectedConversation()?.id === conversation.id"
+        (click)="selectConversation(conversation)">
         <img [src]="conversation.avatar" [alt]="conversation.customerName" />
         <span class="conversation-info">
           <strong>{{ conversation.customerName }}</strong>
@@ -28,7 +24,7 @@
         </span>
       </button>
       } @empty {
-      <div class="empty-state">لا توجد محادثات</div>
+      <div class="empty-state">هنا لا توجد محادثات</div>
       }
       }
     </div>
@@ -78,9 +74,11 @@
           @if (selectedAttachment.type === 'image') {
           <img [src]="selectedAttachment.url" [alt]="selectedAttachment.name" />
           } @else if (selectedAttachment.type === 'video') {
-          <video [src]="selectedAttachment.url" controls preload="metadata" controlsList="nodownload noplaybackrate"></video>
+          <video [src]="selectedAttachment.url" controls preload="metadata"
+            controlsList="nodownload noplaybackrate"></video>
           } @else {
-          <audio [src]="selectedAttachment.url" controls preload="metadata" controlsList="nodownload noplaybackrate"></audio>
+          <audio [src]="selectedAttachment.url" controls preload="metadata"
+            controlsList="nodownload noplaybackrate"></audio>
           }
           <span>{{ getAttachmentLabel(selectedAttachment.type) }} جاهز للإرسال</span>
         </div>
@@ -89,39 +87,18 @@
       }
 
       <div class="composer-row">
-        <button
-          type="button"
-          class="send-btn"
-          (click)="sendMessage()"
-          [disabled]="isUploading() || (!messageText.trim() && !selectedAttachment)"
-          aria-label="إرسال"
-        >
+        <button type="button" class="send-btn" (click)="sendMessage()"
+          [disabled]="isUploading() || (!messageText.trim() && !selectedAttachment)" aria-label="إرسال">
           ➤
         </button>
 
         <div class="input-wrap">
           <button type="button" (click)="mediaInput.click()" aria-label="إرفاق صورة أو فيديو">⌕</button>
-          <button
-            type="button"
-            [class.recording]="isRecording()"
-            (click)="toggleRecording()"
-            aria-label="تسجيل صوت"
-          >
+          <button type="button" [class.recording]="isRecording()" (click)="toggleRecording()" aria-label="تسجيل صوت">
             ●
           </button>
-          <input
-            #mediaInput
-            type="file"
-            accept="image/*,video/*,audio/*"
-            hidden
-            (change)="onMediaSelected($event)"
-          />
-          <input
-            type="text"
-            placeholder="اكتب رسالتك..."
-            [(ngModel)]="messageText"
-            (keydown.enter)="sendMessage()"
-          />
+          <input #mediaInput type="file" accept="image/*,video/*,audio/*" hidden (change)="onMediaSelected($event)" />
+          <input type="text" placeholder="اكتب رسالتك..." [(ngModel)]="messageText" (keydown.enter)="sendMessage()" />
         </div>
       </div>
     </footer>
