@@ -1,8 +1,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "el-mansory",
+	"name": "zafar-web",
 	"compatibility_date": "2025-02-14",
-
 	// إعداد الملفات الثابتة لـ Cloudflare Workers Assets
 	"assets": {
 		// مسار ملفات البناء لمشروع Angular
