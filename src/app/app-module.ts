@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { loadingInterceptor } from './core/interceptor/loading.interceptor';
 import { authInterceptor } from './core/interceptor/auth.interceptor';
+import { coldStartInterceptor } from './core/interceptors/cold-start.interceptor';
 
 @NgModule({
   declarations: [App],
@@ -20,7 +21,9 @@ import { authInterceptor } from './core/interceptor/auth.interceptor';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor])),
+    provideHttpClient(
+      withInterceptors([coldStartInterceptor, authInterceptor, loadingInterceptor]),
+    ),
   ],
   bootstrap: [App],
 })

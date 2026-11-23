@@ -1,3 +1,8 @@
+@if (serverStatus.isWakingUp()) {
+  <div class="cold-start-banner" role="status" dir="rtl">
+    <span class="spinner" aria-hidden="true"></span>
+    <span class="banner-text">جارٍ تشغيل السيرفر التجريبي للمرة الأولى... قد يستغرق التحميل حوالي 45 ثانية، شكراً لانتظارك.</span>
+  </div>
+}
 
 <router-outlet></router-outlet>
-

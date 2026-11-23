@@ -1,0 +1,13 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "el-mansory",
+	"compatibility_date": "2025-02-14",
+
+	// إعداد الملفات الثابتة لـ Cloudflare Workers Assets
+	"assets": {
+		// مسار ملفات البناء لمشروع Angular
+		"directory": "./dist/el-mansory/browser",
+		// إعادة توجيه كل المسارات (Routing) إلى index.html لدعم Angular Single Page Application
+		"not_found_handling": "single-page-application"
+	}
+}
